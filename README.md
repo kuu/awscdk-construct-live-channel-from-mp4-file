@@ -30,7 +30,7 @@ export class ExampleStack extends cdk.Stack {
 
     // You can access MediaLive channel attributes via `eml.channel`
     new cdk.CfnOutput(this, "MediaLiveChannelId", {
-      value: res.eml.channel.attrId,
+      value: res.eml.channel.ref,
       exportName: cdk.Aws.STACK_NAME + "MediaLiveChannelId",
       description: "MediaLive channel ID",
     });

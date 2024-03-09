@@ -42,7 +42,7 @@ export class MediaLive extends Construct {
       channelClass: 'SINGLE_PIPELINE',
       inputAttachments: [
         {
-          inputId: input.attrId,
+          inputId: input.ref,
           inputSettings: {
             sourceEndBehavior: 'LOOP',
           },
