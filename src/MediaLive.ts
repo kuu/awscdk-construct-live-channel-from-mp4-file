@@ -73,16 +73,30 @@ export class MediaLive extends Construct {
         ],
         videoDescriptions: [
           {
+            name: 'MyVideoDescription',
+            width: 1280,
+            height: 720,
             codecSettings: {
               h264Settings: {
+                framerateNumerator: 30000,
+                framerateDenominator: 1001,
+                framerateControl: 'QVBR',
+                maxBitrate: 3000000,
+                gopSize: 3,
+                gopSizeUnits: 'SECONDS',
+                scanType: 'PROGRESSIVE',
                 timecodeBurninSettings: {
                   position: 'TOP_CENTER',
                   prefix: timecodeBurninPrefix,
+                  fontSize: 'LARGE_48',
                 },
               },
             },
           },
         ],
+        timecodeConfig: {
+          source: 'SYSTEMCLOCK',
+        },
         availBlanking: {
           state: 'ENABLED',
         },
