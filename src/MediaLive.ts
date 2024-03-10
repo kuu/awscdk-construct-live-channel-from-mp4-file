@@ -13,6 +13,7 @@ import { Construct } from 'constructs';
 export interface MediaLiveProps {
   readonly sourceUrl: string; // The URL of the MP4 file used by MediaLive as the source.
   readonly mediaPackageChannelId: string; // The ID of the MediaPackage channel used as the destination.
+  readonly channelClass?: string; // The class of the channel. (STANDARD or SINGLE_PIPELINE)
   readonly gopLengthInSeconds?: number; // The length of the GOP in seconds.
   readonly timecodeBurninPrefix?: string; // The prefix for the timecode burn-in.
 }
@@ -24,6 +25,7 @@ export class MediaLive extends Construct {
   constructor(scope: Construct, id: string, {
     sourceUrl,
     mediaPackageChannelId,
+    channelClass = 'SINGLE_PIPELINE',
     gopLengthInSeconds = 3,
     timecodeBurninPrefix,
   }: MediaLiveProps) {
@@ -31,14 +33,11 @@ export class MediaLive extends Construct {
     super(scope, id);
 
     // Create MediaLive MP4 input
+    const sources = Array.from({ length: channelClass === 'STANDARD' ? 2 : 1 }, () => ({ url: sourceUrl }));
     this.input = new CfnInput(this, 'MediaLive-CfnInput', {
       name: Aws.STACK_NAME + '_EML-Input',
       type: 'MP4_FILE',
-      sources: [
-        {
-          url: sourceUrl,
-        },
-      ],
+      sources,
     });
     // Create IAM Policy for MediaLive to access MediaPackage and S3
     const customPolicyMediaLive = new iam.PolicyDocument({
@@ -65,7 +64,7 @@ export class MediaLive extends Construct {
     // Create MediaLive channel
     this.channel = new CfnChannel(this, 'MediaLive-CfnChannel', {
       name: Aws.STACK_NAME + '_EML-Channel',
-      channelClass: 'SINGLE_PIPELINE',
+      channelClass,
       roleArn: role.roleArn,
       inputAttachments: [
         {

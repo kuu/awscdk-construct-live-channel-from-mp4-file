@@ -424,6 +424,7 @@ const liveChannelFromMp4Props: LiveChannelFromMp4Props = { ... }
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.sourceUrl">sourceUrl</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.channelClass">channelClass</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.gopLengthInSeconds">gopLengthInSeconds</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.hlsAdMarkers">hlsAdMarkers</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.manifestWindowSeconds">manifestWindowSeconds</a></code> | <code>number</code> | *No description.* |
@@ -436,6 +437,16 @@ const liveChannelFromMp4Props: LiveChannelFromMp4Props = { ... }
 
 ```typescript
 public readonly sourceUrl: string;
+```
+
+- *Type:* string
+
+---
+
+##### `channelClass`<sup>Optional</sup> <a name="channelClass" id="awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.channelClass"></a>
+
+```typescript
+public readonly channelClass: string;
 ```
 
 - *Type:* string
@@ -508,6 +519,7 @@ const mediaLiveProps: MediaLiveProps = { ... }
 | --- | --- | --- |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaLiveProps.property.mediaPackageChannelId">mediaPackageChannelId</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaLiveProps.property.sourceUrl">sourceUrl</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaLiveProps.property.channelClass">channelClass</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaLiveProps.property.gopLengthInSeconds">gopLengthInSeconds</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaLiveProps.property.timecodeBurninPrefix">timecodeBurninPrefix</a></code> | <code>string</code> | *No description.* |
 
@@ -527,6 +539,16 @@ public readonly mediaPackageChannelId: string;
 
 ```typescript
 public readonly sourceUrl: string;
+```
+
+- *Type:* string
+
+---
+
+##### `channelClass`<sup>Optional</sup> <a name="channelClass" id="awscdk-construct-live-channel-from-mp4-file.MediaLiveProps.property.channelClass"></a>
+
+```typescript
+public readonly channelClass: string;
 ```
 
 - *Type:* string
@@ -567,7 +589,30 @@ const mediaPackageEndpointsTable: MediaPackageEndpointsTable = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPackageEndpointsTable.property.cmaf">cmaf</a></code> | <code>aws-cdk-lib.aws_mediapackage.CfnOriginEndpoint</code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPackageEndpointsTable.property.dash">dash</a></code> | <code>aws-cdk-lib.aws_mediapackage.CfnOriginEndpoint</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPackageEndpointsTable.property.hls">hls</a></code> | <code>aws-cdk-lib.aws_mediapackage.CfnOriginEndpoint</code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPackageEndpointsTable.property.mss">mss</a></code> | <code>aws-cdk-lib.aws_mediapackage.CfnOriginEndpoint</code> | *No description.* |
+
+---
+
+##### `cmaf`<sup>Required</sup> <a name="cmaf" id="awscdk-construct-live-channel-from-mp4-file.MediaPackageEndpointsTable.property.cmaf"></a>
+
+```typescript
+public readonly cmaf: CfnOriginEndpoint;
+```
+
+- *Type:* aws-cdk-lib.aws_mediapackage.CfnOriginEndpoint
+
+---
+
+##### `dash`<sup>Required</sup> <a name="dash" id="awscdk-construct-live-channel-from-mp4-file.MediaPackageEndpointsTable.property.dash"></a>
+
+```typescript
+public readonly dash: CfnOriginEndpoint;
+```
+
+- *Type:* aws-cdk-lib.aws_mediapackage.CfnOriginEndpoint
 
 ---
 
@@ -575,6 +620,16 @@ const mediaPackageEndpointsTable: MediaPackageEndpointsTable = { ... }
 
 ```typescript
 public readonly hls: CfnOriginEndpoint;
+```
+
+- *Type:* aws-cdk-lib.aws_mediapackage.CfnOriginEndpoint
+
+---
+
+##### `mss`<sup>Required</sup> <a name="mss" id="awscdk-construct-live-channel-from-mp4-file.MediaPackageEndpointsTable.property.mss"></a>
+
+```typescript
+public readonly mss: CfnOriginEndpoint;
 ```
 
 - *Type:* aws-cdk-lib.aws_mediapackage.CfnOriginEndpoint

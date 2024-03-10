@@ -17,9 +17,9 @@ export interface MediaPakcageProps {
 
 export interface MediaPackageEndpointsTable {
   readonly hls: CfnOriginEndpoint; // The HLS endpoint.
-  // readonly dash: CfnOriginEndpoint; // The DASH endpoint.
-  // readonly cmaf: CfnOriginEndpoint; // The CMAF endpoint.
-  // readonly mss: CfnOriginEndpoint; // The MSS endpoint.
+  readonly dash: CfnOriginEndpoint; // The DASH endpoint.
+  readonly cmaf: CfnOriginEndpoint; // The CMAF endpoint.
+  readonly mss: CfnOriginEndpoint; // The MSS endpoint.
 }
 
 export class MediaPackage extends Construct {
@@ -53,7 +53,6 @@ export class MediaPackage extends Construct {
           programDateTimeIntervalSeconds: 1,
         },
       }),
-      /*
       dash: new CfnOriginEndpoint(this, 'MMediaPackage-DASHEndpoint', {
         channelId: this.channel.id,
         id: Aws.STACK_NAME + '_EMP-DASHEndpoint',
@@ -91,7 +90,6 @@ export class MediaPackage extends Construct {
           manifestWindowSeconds,
         },
       }),
-      */
     };
   }
 }
