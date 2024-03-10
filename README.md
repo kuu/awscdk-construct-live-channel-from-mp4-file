@@ -2,11 +2,12 @@
 [![View on Construct Hub](https://constructs.dev/badge?package=awscdk-construct-live-channel-from-mp4-file)](https://constructs.dev/packages/awscdk-construct-live-channel-from-mp4-file)
 
 CDK Construct for setting up a simple live channel for testing
-* The input is MP4 file with loop playback
+* The input is an MP4 file with loop playback
 * The output is a live channel with:
-  * a single-pipeline MediaLive channel
+  * a single-pipeline MediaLive channel with 3x bitrates (720p/540p/360p)
   * a MediaPackage v1 channel with HLS/DASH/MSS/CMAF endpoints
-* You can overlay timecode with a prefix
+* You can add timecode overay with a prefix for visual confirmation
+* You can specify the GOP length and the segment/manifest length
 
 ## Install
 [![NPM](https://nodei.co/npm/awscdk-construct-live-channel-from-mp4-file.png?mini=true)](https://nodei.co/npm/awscdk-construct-live-channel-from-mp4-file/)
@@ -24,6 +25,9 @@ export class ExampleStack extends cdk.Stack {
     // Create a single-pipeline MediaLive channel with MediaPackage endpoints
     const res = new LiveChannelFromMp4(this, 'LiveChannelFromMp4', {
       sourceUrl: 'https://example.com/test.mp4',
+      gopLengthInSeconds: 3,
+      segmentDurationSeconds: 6,
+      manifestWindowSeconds: 60,
       timecodeBurninPrefix: 'Channel-1',
       hlsAdMarkers: 'DATERANGE',
     });
