@@ -36,14 +36,14 @@ export class MediaPackage extends Construct {
 
     // Create MediaPackage channel
     this.channel = new CfnChannel(this, 'CfnChannel', {
-      id: `${Aws.STACK_NAME }-MediaPackage-CfnChannel-${Date.now().toString()}`,
+      id: `${Aws.STACK_NAME }-${Date.now().toString()}`,
       description: 'MediaPackage channel for testing',
     });
     // Create MediaPackage endpoints
     this.endpoints = {
       hls: new CfnOriginEndpoint(this, 'CfnOriginEndpoint-HLS', {
         channelId: this.channel.ref,
-        id: `${Aws.STACK_NAME}-CfnOriginEndpoint-HLS-${Date.now().toString()}`,
+        id: `${Aws.STACK_NAME}-${Date.now().toString()}`,
         description: 'MediaPackage HLS endpoint for testing',
         hlsPackage: {
           segmentDurationSeconds,
@@ -55,7 +55,7 @@ export class MediaPackage extends Construct {
       }),
       dash: new CfnOriginEndpoint(this, 'CfnOriginEndpoint-DASH', {
         channelId: this.channel.ref,
-        id: `${Aws.STACK_NAME}-CfnOriginEndpoint-DASH-${Date.now().toString()}`,
+        id: `${Aws.STACK_NAME}-${Date.now().toString()}`,
         description: 'MediaPackage DASH endpoint for testing',
         dashPackage: {
           segmentDurationSeconds,
@@ -66,7 +66,7 @@ export class MediaPackage extends Construct {
       }),
       cmaf: new CfnOriginEndpoint(this, 'CfnOriginEndpoint-CMAF', {
         channelId: this.channel.ref,
-        id: `${Aws.STACK_NAME}-CfnOriginEndpoint-CMAF-${Date.now().toString()}`,
+        id: `${Aws.STACK_NAME}-${Date.now().toString()}`,
         description: 'MediaPackage CMAF endpoint for testing',
         cmafPackage: {
           segmentDurationSeconds,
@@ -83,7 +83,7 @@ export class MediaPackage extends Construct {
       }),
       mss: new CfnOriginEndpoint(this, 'CfnOriginEndpoint-MSS', {
         channelId: this.channel.ref,
-        id: `${Aws.STACK_NAME}-CfnOriginEndpoint-MSS-${Date.now().toString()}`,
+        id: `${Aws.STACK_NAME}-${Date.now().toString()}`,
         description: 'MediaPackage MSS endpoint for testing',
         mssPackage: {
           segmentDurationSeconds,
