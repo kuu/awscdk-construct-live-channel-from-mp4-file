@@ -42,7 +42,7 @@ export class MediaPackage extends Construct {
     // Create MediaPackage endpoints
     this.endpoints = {
       hls: new CfnOriginEndpoint(this, 'MMediaPackage-HLSEndpoint', {
-        channelId: this.channel.id,
+        channelId: this.channel.ref,
         id: Aws.STACK_NAME + '_EMP-HLSEndpoint',
         description: 'MediaPackage HLS endpoint for testing',
         hlsPackage: {
@@ -54,7 +54,7 @@ export class MediaPackage extends Construct {
         },
       }),
       dash: new CfnOriginEndpoint(this, 'MMediaPackage-DASHEndpoint', {
-        channelId: this.channel.id,
+        channelId: this.channel.ref,
         id: Aws.STACK_NAME + '_EMP-DASHEndpoint',
         description: 'MediaPackage DASH endpoint for testing',
         dashPackage: {
@@ -65,7 +65,7 @@ export class MediaPackage extends Construct {
         },
       }),
       cmaf: new CfnOriginEndpoint(this, 'MMediaPackage-CMAFEndpoint', {
-        channelId: this.channel.id,
+        channelId: this.channel.ref,
         id: Aws.STACK_NAME + '_EMP-CMAFEndpoint',
         description: 'MediaPackage CMAF endpoint for testing',
         cmafPackage: {
@@ -82,7 +82,7 @@ export class MediaPackage extends Construct {
         },
       }),
       mss: new CfnOriginEndpoint(this, 'MMediaPackage-MSSEndpoint', {
-        channelId: this.channel.id,
+        channelId: this.channel.ref,
         id: Aws.STACK_NAME + '_EMP-MSSEndpoint',
         description: 'MediaPackage MSS endpoint for testing',
         mssPackage: {
