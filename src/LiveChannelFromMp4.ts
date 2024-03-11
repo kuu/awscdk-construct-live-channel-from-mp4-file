@@ -28,13 +28,13 @@ export class LiveChannelFromMp4 extends Construct {
 
     super(scope, id);
 
-    this.emp = new MediaPackage(this, `${id}-MediaPackage`, {
+    this.emp = new MediaPackage(this, 'MediaPackage', {
       segmentDurationSeconds,
       manifestWindowSeconds,
       hlsAdMarkers: hlsAdMarkers,
     });
 
-    this.eml = new MediaLive(this, `${id}-MediaLive`, {
+    this.eml = new MediaLive(this, 'MediaLive', {
       sourceUrl,
       mediaPackageChannelId: this.emp.channel.id,
       channelClass,

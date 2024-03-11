@@ -35,15 +35,15 @@ export class MediaPackage extends Construct {
     super(scope, id);
 
     // Create MediaPackage channel
-    this.channel = new CfnChannel(this, `${id}-CfnChannel`, {
-      id: `${Aws.STACK_NAME }-${id}-CfnChannel`,
+    this.channel = new CfnChannel(this, 'CfnChannel', {
+      id: `${Aws.STACK_NAME }-MediaPackage-CfnChannel-${Date.now().toString()}`,
       description: 'MediaPackage channel for testing',
     });
     // Create MediaPackage endpoints
     this.endpoints = {
-      hls: new CfnOriginEndpoint(this, `${id}-CfnOriginEndpoint-HLS`, {
+      hls: new CfnOriginEndpoint(this, 'CfnOriginEndpoint-HLS', {
         channelId: this.channel.ref,
-        id: `${Aws.STACK_NAME}-${id}-CfnOriginEndpoint-HLS`,
+        id: `${Aws.STACK_NAME}-CfnOriginEndpoint-HLS-${Date.now().toString()}`,
         description: 'MediaPackage HLS endpoint for testing',
         hlsPackage: {
           segmentDurationSeconds,
@@ -53,9 +53,9 @@ export class MediaPackage extends Construct {
           programDateTimeIntervalSeconds: 1,
         },
       }),
-      dash: new CfnOriginEndpoint(this, `${id}-CfnOriginEndpoint-DASH`, {
+      dash: new CfnOriginEndpoint(this, 'CfnOriginEndpoint-DASH', {
         channelId: this.channel.ref,
-        id: `${Aws.STACK_NAME}-${id}-CfnOriginEndpoint-DASH`,
+        id: `${Aws.STACK_NAME}-CfnOriginEndpoint-DASH-${Date.now().toString()}`,
         description: 'MediaPackage DASH endpoint for testing',
         dashPackage: {
           segmentDurationSeconds,
@@ -64,9 +64,9 @@ export class MediaPackage extends Construct {
           adTriggers: ['SPLICE_INSERT'],
         },
       }),
-      cmaf: new CfnOriginEndpoint(this, `${id}-CfnOriginEndpoint-CMAF`, {
+      cmaf: new CfnOriginEndpoint(this, 'CfnOriginEndpoint-CMAF', {
         channelId: this.channel.ref,
-        id: `${Aws.STACK_NAME}-${id}-CfnOriginEndpoint-CMAF`,
+        id: `${Aws.STACK_NAME}-CfnOriginEndpoint-CMAF-${Date.now().toString()}`,
         description: 'MediaPackage CMAF endpoint for testing',
         cmafPackage: {
           segmentDurationSeconds,
@@ -81,9 +81,9 @@ export class MediaPackage extends Construct {
           ],
         },
       }),
-      mss: new CfnOriginEndpoint(this, `${id}-CfnOriginEndpoint-MSS`, {
+      mss: new CfnOriginEndpoint(this, 'CfnOriginEndpoint-MSS', {
         channelId: this.channel.ref,
-        id: `${Aws.STACK_NAME}-${id}-CfnOriginEndpoint-MSS`,
+        id: `${Aws.STACK_NAME}-CfnOriginEndpoint-MSS-${Date.now().toString()}`,
         description: 'MediaPackage MSS endpoint for testing',
         mssPackage: {
           segmentDurationSeconds,
