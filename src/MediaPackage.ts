@@ -1,7 +1,4 @@
 import * as crypto from 'crypto';
-import {
-  Aws,
-} from 'aws-cdk-lib';
 
 import {
   CfnChannel,
@@ -37,14 +34,14 @@ export class MediaPackage extends Construct {
 
     // Create MediaPackage channel
     this.channel = new CfnChannel(this, 'CfnChannel', {
-      id: `${Aws.STACK_NAME }-${crypto.randomUUID()}`,
+      id: `${crypto.randomUUID()}`,
       description: 'MediaPackage channel for testing',
     });
     // Create MediaPackage endpoints
     this.endpoints = {
       hls: new CfnOriginEndpoint(this, 'CfnOriginEndpoint-HLS', {
         channelId: this.channel.ref,
-        id: `${Aws.STACK_NAME}-${crypto.randomUUID()}`,
+        id: `${crypto.randomUUID()}`,
         description: 'MediaPackage HLS endpoint for testing',
         hlsPackage: {
           segmentDurationSeconds,
@@ -56,7 +53,7 @@ export class MediaPackage extends Construct {
       }),
       dash: new CfnOriginEndpoint(this, 'CfnOriginEndpoint-DASH', {
         channelId: this.channel.ref,
-        id: `${Aws.STACK_NAME}-${crypto.randomUUID()}`,
+        id: `${crypto.randomUUID()}`,
         description: 'MediaPackage DASH endpoint for testing',
         dashPackage: {
           segmentDurationSeconds,
@@ -67,7 +64,7 @@ export class MediaPackage extends Construct {
       }),
       cmaf: new CfnOriginEndpoint(this, 'CfnOriginEndpoint-CMAF', {
         channelId: this.channel.ref,
-        id: `${Aws.STACK_NAME}-${crypto.randomUUID()}`,
+        id: `${crypto.randomUUID()}`,
         description: 'MediaPackage CMAF endpoint for testing',
         cmafPackage: {
           segmentDurationSeconds,
@@ -84,7 +81,7 @@ export class MediaPackage extends Construct {
       }),
       mss: new CfnOriginEndpoint(this, 'CfnOriginEndpoint-MSS', {
         channelId: this.channel.ref,
-        id: `${Aws.STACK_NAME}-${crypto.randomUUID()}`,
+        id: `${crypto.randomUUID()}`,
         description: 'MediaPackage MSS endpoint for testing',
         mssPackage: {
           segmentDurationSeconds,
