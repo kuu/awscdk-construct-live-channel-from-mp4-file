@@ -1,3 +1,4 @@
+import * as crypto from 'crypto';
 import {
   Aws,
   aws_iam as iam,
@@ -35,7 +36,7 @@ export class MediaLive extends Construct {
     // Create MediaLive MP4 input
     const sources = Array.from({ length: channelClass === 'STANDARD' ? 2 : 1 }, () => ({ url: sourceUrl }));
     this.input = new CfnInput(this, 'CfnInput', {
-      name: `${Aws.STACK_NAME}-${Date.now().toString()}`,
+      name: `${Aws.STACK_NAME}-${crypto.randomUUID()}`,
       type: 'MP4_FILE',
       sources,
     });
@@ -63,7 +64,7 @@ export class MediaLive extends Construct {
     });
     // Create MediaLive channel
     this.channel = new CfnChannel(this, 'CfnChannel', {
-      name: `${Aws.STACK_NAME}-${Date.now().toString()}`,
+      name: `${Aws.STACK_NAME}-${crypto.randomUUID()}`,
       channelClass,
       roleArn: role.roleArn,
       inputAttachments: [
