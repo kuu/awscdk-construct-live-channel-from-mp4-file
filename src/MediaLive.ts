@@ -34,8 +34,8 @@ export class MediaLive extends Construct {
 
     // Create MediaLive MP4 input
     const sources = Array.from({ length: channelClass === 'STANDARD' ? 2 : 1 }, () => ({ url: sourceUrl }));
-    this.input = new CfnInput(this, `${id}-CfnInput`, {
-      name: `${Aws.STACK_NAME}-${id}-CfnInput`,
+    this.input = new CfnInput(this, 'CfnInput', {
+      name: `${Aws.STACK_NAME}-MediaLive-CfnInput-${Date.now().toString()}`,
       type: 'MP4_FILE',
       sources,
     });
@@ -55,15 +55,15 @@ export class MediaLive extends Construct {
       ],
     });
     //Create a Role for MediaLive to access MediaPackage and S3
-    const role = new iam.Role(this, `${id}-IamRole`, {
+    const role = new iam.Role(this, 'IamRole', {
       inlinePolicies: {
         policy: customPolicyMediaLive,
       },
       assumedBy: new iam.ServicePrincipal('medialive.amazonaws.com'),
     });
     // Create MediaLive channel
-    this.channel = new CfnChannel(this, `${id}-CfnChannel`, {
-      name: `${Aws.STACK_NAME}-${id}-CfnChannel`,
+    this.channel = new CfnChannel(this, 'CfnChannel', {
+      name: `${Aws.STACK_NAME}-MediaLive-CfnChannel-${Date.now().toString()}`,
       channelClass,
       roleArn: role.roleArn,
       inputAttachments: [
