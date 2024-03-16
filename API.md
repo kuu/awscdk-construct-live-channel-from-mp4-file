@@ -424,6 +424,7 @@ const liveChannelFromMp4Props: LiveChannelFromMp4Props = { ... }
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.sourceUrl">sourceUrl</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.autoStart">autoStart</a></code> | <code>boolean</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.channelClass">channelClass</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.gopLengthInSeconds">gopLengthInSeconds</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.hlsAdMarkers">hlsAdMarkers</a></code> | <code>string</code> | *No description.* |
@@ -440,6 +441,16 @@ public readonly sourceUrl: string;
 ```
 
 - *Type:* string
+
+---
+
+##### `autoStart`<sup>Optional</sup> <a name="autoStart" id="awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.autoStart"></a>
+
+```typescript
+public readonly autoStart: boolean;
+```
+
+- *Type:* boolean
 
 ---
 

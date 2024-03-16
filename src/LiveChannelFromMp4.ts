@@ -1,3 +1,5 @@
+import * as crypto from 'crypto';
+import { AwsCustomResource, AwsCustomResourcePolicy, PhysicalResourceId } from 'aws-cdk-lib/custom-resources';
 import { Construct } from 'constructs';
 import { MediaLive } from './MediaLive';
 import { MediaPackage } from './MediaPackage';
@@ -10,6 +12,7 @@ export interface LiveChannelFromMp4Props {
   readonly segmentDurationSeconds?: number; // The duration of each segment in seconds.
   readonly manifestWindowSeconds?: number; // The duration of manifest in seconds.
   readonly hlsAdMarkers?: string; // Controls how ad markers are included in the packaged endpoint.
+  readonly autoStart?: boolean; // Whether to start the channel automatically.
 }
 
 export class LiveChannelFromMp4 extends Construct {
@@ -24,6 +27,7 @@ export class LiveChannelFromMp4 extends Construct {
     segmentDurationSeconds,
     manifestWindowSeconds,
     hlsAdMarkers,
+    autoStart = false,
   }: LiveChannelFromMp4Props) {
 
     super(scope, id);
@@ -41,5 +45,39 @@ export class LiveChannelFromMp4 extends Construct {
       gopLengthInSeconds,
       timecodeBurninPrefix,
     });
+
+    if (autoStart) {
+      try {
+        // Start channel
+        new AwsCustomResource(this, 'StartMediaLiveChannel', {
+          onCreate: {
+            service: 'MediaLive',
+            action: 'StartChannel',
+            parameters: {
+              ChannelId: this.eml.channel.ref,
+            },
+            physicalResourceId: PhysicalResourceId.of(`${crypto.randomUUID()}`),
+            ignoreErrorCodesMatching: '*',
+            outputPaths: ['Id', 'Arn'],
+          },
+          onDelete: {
+            service: 'MediaLive',
+            action: 'StopChannel',
+            parameters: {
+              ChannelId: this.eml.channel.ref,
+            },
+            physicalResourceId: PhysicalResourceId.of(`${crypto.randomUUID()}`),
+            ignoreErrorCodesMatching: '*',
+            outputPaths: ['Id', 'Arn'],
+          },
+          //Will ignore any resource and use the assumedRoleArn as resource and 'sts:AssumeRole' for service:action
+          policy: AwsCustomResourcePolicy.fromSdkCalls({
+            resources: AwsCustomResourcePolicy.ANY_RESOURCE,
+          }),
+        });
+      } catch {
+        console.error('Failed to start MediaLive channel');
+      }
+    }
   }
 }
