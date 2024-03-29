@@ -11,6 +11,7 @@ export interface MediaPakcageProps {
   readonly segmentDurationSeconds?: number; // The duration of each segment in seconds.
   readonly manifestWindowSeconds?: number; // The duration of manifest in seconds.
   readonly hlsAdMarkers?: string; // Controls how ad markers are included in the packaged endpoint.
+  readonly startoverWindowSeconds?: number; // The duration of startover window in seconds.
 }
 
 export interface MediaPackageEndpointsTable {
@@ -28,6 +29,7 @@ export class MediaPackage extends Construct {
     segmentDurationSeconds = 6,
     manifestWindowSeconds = 60,
     hlsAdMarkers = 'DATERANGE',
+    startoverWindowSeconds = 0,
   }: MediaPakcageProps) {
 
     super(scope, id);
@@ -50,6 +52,7 @@ export class MediaPackage extends Construct {
           adTriggers: ['SPLICE_INSERT'],
           programDateTimeIntervalSeconds: 1,
         },
+        startoverWindowSeconds,
       }),
       dash: new CfnOriginEndpoint(this, 'CfnOriginEndpoint-DASH', {
         channelId: this.channel.ref,
@@ -61,6 +64,7 @@ export class MediaPackage extends Construct {
           periodTriggers: ['ADS'],
           adTriggers: ['SPLICE_INSERT'],
         },
+        startoverWindowSeconds,
       }),
       cmaf: new CfnOriginEndpoint(this, 'CfnOriginEndpoint-CMAF', {
         channelId: this.channel.ref,
@@ -78,6 +82,7 @@ export class MediaPackage extends Construct {
             },
           ],
         },
+        startoverWindowSeconds,
       }),
       mss: new CfnOriginEndpoint(this, 'CfnOriginEndpoint-MSS', {
         channelId: this.channel.ref,
@@ -87,6 +92,7 @@ export class MediaPackage extends Construct {
           segmentDurationSeconds,
           manifestWindowSeconds,
         },
+        startoverWindowSeconds,
       }),
     };
   }

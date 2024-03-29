@@ -4,6 +4,13 @@ import { Construct } from 'constructs';
 import { MediaLive } from './MediaLive';
 import { MediaPackage } from './MediaPackage';
 
+export enum EndpointType {
+  HLS = 'hls',
+  DASH = 'dash',
+  CMAF = 'cmaf',
+  MSS = 'mss',
+}
+
 export interface LiveChannelFromMp4Props {
   readonly sourceUrl: string; // The URL of the MP4 file used by MediaLive as the source.
   readonly channelClass?: string; // The class of the channel. (STANDARD or SINGLE_PIPELINE)
@@ -13,6 +20,7 @@ export interface LiveChannelFromMp4Props {
   readonly manifestWindowSeconds?: number; // The duration of manifest in seconds.
   readonly hlsAdMarkers?: string; // Controls how ad markers are included in the packaged endpoint.
   readonly autoStart?: boolean; // Whether to start the channel automatically.
+  readonly startoverWindowSeconds?: number; // The duration of startover window in seconds.
 }
 
 export class LiveChannelFromMp4 extends Construct {
@@ -28,6 +36,7 @@ export class LiveChannelFromMp4 extends Construct {
     manifestWindowSeconds,
     hlsAdMarkers,
     autoStart = false,
+    startoverWindowSeconds = 0,
   }: LiveChannelFromMp4Props) {
 
     super(scope, id);
@@ -36,6 +45,7 @@ export class LiveChannelFromMp4 extends Construct {
       segmentDurationSeconds,
       manifestWindowSeconds,
       hlsAdMarkers: hlsAdMarkers,
+      startoverWindowSeconds,
     });
 
     this.eml = new MediaLive(this, 'MediaLive', {

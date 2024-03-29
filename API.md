@@ -430,6 +430,7 @@ const liveChannelFromMp4Props: LiveChannelFromMp4Props = { ... }
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.hlsAdMarkers">hlsAdMarkers</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.manifestWindowSeconds">manifestWindowSeconds</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.segmentDurationSeconds">segmentDurationSeconds</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.startoverWindowSeconds">startoverWindowSeconds</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.timecodeBurninPrefix">timecodeBurninPrefix</a></code> | <code>string</code> | *No description.* |
 
 ---
@@ -498,6 +499,16 @@ public readonly manifestWindowSeconds: number;
 
 ```typescript
 public readonly segmentDurationSeconds: number;
+```
+
+- *Type:* number
+
+---
+
+##### `startoverWindowSeconds`<sup>Optional</sup> <a name="startoverWindowSeconds" id="awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.startoverWindowSeconds"></a>
+
+```typescript
+public readonly startoverWindowSeconds: number;
 ```
 
 - *Type:* number
@@ -664,6 +675,7 @@ const mediaPakcageProps: MediaPakcageProps = { ... }
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageProps.property.hlsAdMarkers">hlsAdMarkers</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageProps.property.manifestWindowSeconds">manifestWindowSeconds</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageProps.property.segmentDurationSeconds">segmentDurationSeconds</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageProps.property.startoverWindowSeconds">startoverWindowSeconds</a></code> | <code>number</code> | *No description.* |
 
 ---
 
@@ -697,5 +709,49 @@ public readonly segmentDurationSeconds: number;
 
 ---
 
+##### `startoverWindowSeconds`<sup>Optional</sup> <a name="startoverWindowSeconds" id="awscdk-construct-live-channel-from-mp4-file.MediaPakcageProps.property.startoverWindowSeconds"></a>
 
+```typescript
+public readonly startoverWindowSeconds: number;
+```
+
+- *Type:* number
+
+---
+
+
+
+## Enums <a name="Enums" id="Enums"></a>
+
+### EndpointType <a name="EndpointType" id="awscdk-construct-live-channel-from-mp4-file.EndpointType"></a>
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.EndpointType.HLS">HLS</a></code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.EndpointType.DASH">DASH</a></code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.EndpointType.CMAF">CMAF</a></code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.EndpointType.MSS">MSS</a></code> | *No description.* |
+
+---
+
+##### `HLS` <a name="HLS" id="awscdk-construct-live-channel-from-mp4-file.EndpointType.HLS"></a>
+
+---
+
+
+##### `DASH` <a name="DASH" id="awscdk-construct-live-channel-from-mp4-file.EndpointType.DASH"></a>
+
+---
+
+
+##### `CMAF` <a name="CMAF" id="awscdk-construct-live-channel-from-mp4-file.EndpointType.CMAF"></a>
+
+---
+
+
+##### `MSS` <a name="MSS" id="awscdk-construct-live-channel-from-mp4-file.EndpointType.MSS"></a>
+
+---
 
