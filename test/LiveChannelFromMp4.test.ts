@@ -1,6 +1,6 @@
 import { App, Stack } from 'aws-cdk-lib';
 import { Template } from 'aws-cdk-lib/assertions';
-import { MediaLive, MediaPackage, LiveChannelFromMp4 } from '../src';
+import { MediaLive, MediaPackageV1, MediaPackageV2, LiveChannelFromMp4 } from '../src';
 
 test('Create MediaLive', () => {
   const app = new App();
@@ -8,7 +8,28 @@ test('Create MediaLive', () => {
 
   new MediaLive(stack, 'MediaLive', {
     sourceUrl: 'https://example.com/test.mp4',
-    mediaPackageChannelId: '12345',
+    destinations: [{
+      id: 'MediaPackageV1',
+      mediaPackageSettings: [
+        {
+          channelId: '12345',
+        },
+      ],
+    }],
+    outputGroupSettingsList: [
+      {
+        mediaPackageGroupSettings: {
+          destination: {
+            destinationRefId: 'MediaPackageV1',
+          },
+        },
+      },
+    ],
+    outputSettingsList: [
+      {
+        mediaPackageOutputSettings: {},
+      },
+    ],
   });
 
   const template = Template.fromStack(stack);
@@ -17,11 +38,11 @@ test('Create MediaLive', () => {
   template.hasResource('AWS::MediaLive::Channel', 1);
 });
 
-test('Create MediaPackage', () => {
+test('Create MediaPackageV1', () => {
   const app = new App();
   const stack = new Stack(app, 'SmokeStack');
 
-  new MediaPackage(stack, 'MediaPackage', {
+  new MediaPackageV1(stack, 'MediaPackage', {
     hlsAdMarkers: 'NONE',
   });
 
@@ -29,6 +50,20 @@ test('Create MediaPackage', () => {
 
   template.hasResource('AWS::MediaPackage::Channel', 1);
   template.hasResource('AWS::MediaPackage::OriginEndpoint', 4);
+});
+
+test('Create MediaPackageV2', () => {
+  const app = new App();
+  const stack = new Stack(app, 'SmokeStack');
+
+  new MediaPackageV2(stack, 'MediaPackage', {
+    hlsAdMarkers: 'NONE',
+  });
+
+  const template = Template.fromStack(stack);
+
+  template.hasResource('AWS::MediaPackageV2::Channel', 1);
+  template.hasResource('AWS::MediaPackageV2::OriginEndpoint', 2);
 });
 
 test('Create LiveChannelFromMp4', () => {
@@ -45,4 +80,6 @@ test('Create LiveChannelFromMp4', () => {
   template.hasResource('AWS::MediaLive::Channel', 1);
   template.hasResource('AWS::MediaPackage::Channel', 1);
   template.hasResource('AWS::MediaPackage::OriginEndpoint', 4);
+  template.hasResource('AWS::MediaPackageV2::Channel', 1);
+  template.hasResource('AWS::MediaPackageV2::OriginEndpoint', 2);
 });

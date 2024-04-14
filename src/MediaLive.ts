@@ -12,10 +12,40 @@ import { Construct } from 'constructs';
 
 export interface MediaLiveProps {
   readonly sourceUrl: string; // The URL of the MP4 file used by MediaLive as the source.
-  readonly mediaPackageChannelId: string; // The ID of the MediaPackage channel used as the destination.
+  readonly destinations: CfnChannel.OutputDestinationProperty[]; // The destinations for the channel.
+  readonly outputGroupSettingsList: CfnChannel.OutputGroupSettingsProperty[]; // The output group settings for the channel.
+  readonly outputSettingsList: CfnChannel.OutputSettingsProperty[]; // The output settings for the channel.
   readonly channelClass?: string; // The class of the channel. (STANDARD or SINGLE_PIPELINE)
   readonly gopLengthInSeconds?: number; // The length of the GOP in seconds.
   readonly timecodeBurninPrefix?: string; // The prefix for the timecode burn-in.
+}
+
+function getOutputGroup (
+  name: string,
+  outputGroupSettings: CfnChannel.OutputGroupSettingsProperty,
+  outputSettings: CfnChannel.OutputSettingsProperty,
+): CfnChannel.OutputGroupProperty {
+  return {
+    name,
+    outputGroupSettings,
+    outputs: [
+      {
+        outputName: `${name}_640x360`,
+        outputSettings,
+        videoDescriptionName: '_640x360',
+      },
+      {
+        outputName: `${name}_960x540`,
+        outputSettings,
+        videoDescriptionName: '_960x540',
+      },
+      {
+        outputName: `${name}_1280x720`,
+        outputSettings,
+        videoDescriptionName: '_1280x720',
+      },
+    ],
+  };
 }
 
 export class MediaLive extends Construct {
@@ -24,7 +54,9 @@ export class MediaLive extends Construct {
 
   constructor(scope: Construct, id: string, {
     sourceUrl,
-    mediaPackageChannelId,
+    destinations,
+    outputGroupSettingsList,
+    outputSettingsList,
     channelClass = 'SINGLE_PIPELINE',
     gopLengthInSeconds = 3,
     timecodeBurninPrefix,
@@ -50,6 +82,7 @@ export class MediaLive extends Construct {
             's3:ListBucket',
             's3:GetObject',
             'mediapackage:DescribeChannel',
+            'mediapackagev2:PutObject',
           ],
         }),
       ],
@@ -61,6 +94,11 @@ export class MediaLive extends Construct {
       },
       assumedBy: new iam.ServicePrincipal('medialive.amazonaws.com'),
     });
+    // Create output groups
+    const outputGroups = [];
+    for (const [i, outputGroupSettings] of outputGroupSettingsList.entries()) {
+      outputGroups.push(getOutputGroup(`outputGroup_${i}`, outputGroupSettings, outputSettingsList[i]));
+    }
     // Create MediaLive channel
     this.channel = new CfnChannel(this, 'CfnChannel', {
       name: `${crypto.randomUUID()}`,
@@ -74,52 +112,9 @@ export class MediaLive extends Construct {
           },
         },
       ],
-      destinations: [
-        {
-          id: 'MyMediaPackageDestination',
-          mediaPackageSettings: [
-            {
-              channelId: mediaPackageChannelId,
-            },
-          ],
-        },
-      ],
+      destinations,
       encoderSettings: {
-        outputGroups: [
-          {
-            name: 'MyOutputGroup',
-            outputGroupSettings: {
-              mediaPackageGroupSettings: {
-                destination: {
-                  destinationRefId: 'MyMediaPackageDestination',
-                },
-              },
-            },
-            outputs: [
-              {
-                outputName: '_640x360',
-                outputSettings: {
-                  mediaPackageOutputSettings: {},
-                },
-                videoDescriptionName: '_640x360',
-              },
-              {
-                outputName: '_960x540',
-                outputSettings: {
-                  mediaPackageOutputSettings: {},
-                },
-                videoDescriptionName: '_960x540',
-              },
-              {
-                outputName: '_1280x720',
-                outputSettings: {
-                  mediaPackageOutputSettings: {},
-                },
-                videoDescriptionName: '_1280x720',
-              },
-            ],
-          },
-        ],
+        outputGroups,
         videoDescriptions: [
           {
             name: '_640x360',
