@@ -20,17 +20,18 @@ export interface MediaPakcageV2Props {
   readonly startoverWindowSeconds?: number; // The duration of startover window in seconds.
   readonly separateAudioRendition?: boolean; // Whether to separate audio rendition.
   readonly channelGroupName?: string; // The name of the channel group to be used.
+  readonly omitLlHls?: boolean; // Whether to skip the creation of a Low Latency HLS endpoint.
 }
 
 export interface MediaPackageV2EndpointsTable {
   readonly hls: CfnOriginEndpoint; // The HLS endpoint.
-  readonly llHls: CfnOriginEndpoint; // The low-latency HLS endpoint.
+  readonly llHls: CfnOriginEndpoint | undefined; // The low-latency HLS endpoint.
   // The DASH endpoint.
 }
 
 export interface MediaPackageV2EndpointUrlsTable {
   readonly hls: string; // The HLS endpoint.
-  readonly llHls: string; // The low-latency HLS endpoint.
+  readonly llHls: string | undefined; // The low-latency HLS endpoint.
 }
 
 export interface IMediaPackageV2IngestEndpoint {
@@ -51,6 +52,7 @@ export class MediaPackageV2 extends Construct {
     startoverWindowSeconds = 60,
     separateAudioRendition = false,
     channelGroupName,
+    omitLlHls,
   }: MediaPakcageV2Props) {
 
     super(scope, id);
@@ -127,7 +129,7 @@ export class MediaPackageV2 extends Construct {
         },
         startoverWindowSeconds,
       }),
-      llHls: new CfnOriginEndpoint(this, 'MediaPackageV2LlHlsEndpoint', {
+      llHls: omitLlHls ? undefined : new CfnOriginEndpoint(this, 'MediaPackageV2LlHlsEndpoint', {
         channelGroupName: CHANNEL_GROUP_NAME,
         channelName: CHANNEL_NAME,
         originEndpointName: ENDPOINT_NAME_LLHLS,
@@ -175,7 +177,7 @@ export class MediaPackageV2 extends Construct {
         }],
       },
     });
-    new CfnOriginEndpointPolicy(this, 'MediaPackageV2OriginEndpointPolicyLLHLS', {
+    omitLlHls ?? new CfnOriginEndpointPolicy(this, 'MediaPackageV2OriginEndpointPolicyLLHLS', {
       channelGroupName: CHANNEL_GROUP_NAME,
       channelName: CHANNEL_NAME,
       originEndpointName: ENDPOINT_NAME_LLHLS,
@@ -187,7 +189,7 @@ export class MediaPackageV2 extends Construct {
           Effect: 'Allow',
           Principal: '*',
           Action: 'mediapackagev2:GetObject',
-          Resource: this.endpoints.llHls.attrArn,
+          Resource: this.endpoints.llHls?.attrArn,
         }],
       },
     });
@@ -209,7 +211,7 @@ export class MediaPackageV2 extends Construct {
         resources: AwsCustomResourcePolicy.ANY_RESOURCE,
       }),
     });
-    const llHlsEndpoint = new AwsCustomResource(this, 'MediaPackageV2LlHlsEndpointUrl', {
+    const llHlsEndpoint = omitLlHls ? undefined : new AwsCustomResource(this, 'MediaPackageV2LlHlsEndpointUrl', {
       onCreate: {
         service: 'MediaPackageV2',
         action: 'GetOriginEndpoint',
@@ -228,7 +230,7 @@ export class MediaPackageV2 extends Construct {
     });
     this.endpointUrls = {
       hls: hlsEndpoint.getResponseField('HlsManifests.0.Url'),
-      llHls: llHlsEndpoint.getResponseField('LowLatencyHlsManifests.0.Url'),
+      llHls: llHlsEndpoint?.getResponseField('LowLatencyHlsManifests.0.Url'),
     };
   }
 }

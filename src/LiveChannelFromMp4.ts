@@ -12,6 +12,11 @@ export enum MediaPackageVersionSpecType {
   V1_AND_V2 = 'V1_AND_V2',
 }
 
+export interface MediaPackageV2Settings {
+  readonly channelGroupName?: string; // The name of the channel group to be used.
+  readonly omitLlHls?: boolean; // Whether to skip the creation of a Low Latency HLS endpoint.
+}
+
 export interface LiveChannelFromMp4Props {
   readonly sourceUrl: string; // The URL of the MP4 file used by MediaLive as the source.
   readonly channelClass?: string; // The class of the channel. (STANDARD or SINGLE_PIPELINE)
@@ -24,7 +29,7 @@ export interface LiveChannelFromMp4Props {
   readonly startoverWindowSeconds?: number; // The duration of startover window in seconds.
   readonly separateAudioRendition?: boolean; // Whether to separate HLS audio rendition.
   readonly mediaPackageVersionSpec?: MediaPackageVersionSpecType; // Whether to use MediaPackageV2.
-  readonly mediaPackageV2ChannelGroupName?: string; // The name of the channel group to be used.
+  readonly mediaPackageV2Settings?: MediaPackageV2Settings; // The settings for MediaPackageV2.
 }
 
 export class LiveChannelFromMp4 extends Construct {
@@ -44,7 +49,7 @@ export class LiveChannelFromMp4 extends Construct {
     startoverWindowSeconds,
     separateAudioRendition,
     mediaPackageVersionSpec = MediaPackageVersionSpecType.V1_AND_V2,
-    mediaPackageV2ChannelGroupName,
+    mediaPackageV2Settings,
   }: LiveChannelFromMp4Props) {
 
     super(scope, id);
@@ -66,7 +71,8 @@ export class LiveChannelFromMp4 extends Construct {
         hlsAdMarkers,
         startoverWindowSeconds,
         separateAudioRendition,
-        channelGroupName: mediaPackageV2ChannelGroupName,
+        channelGroupName: mediaPackageV2Settings?.channelGroupName,
+        omitLlHls: mediaPackageV2Settings?.omitLlHls,
       });
     }
 
@@ -176,42 +182,40 @@ export class LiveChannelFromMp4 extends Construct {
       outputGroupSettingsList,
       outputSettingsList,
       channelClass,
-      gopLengthInSeconds: mediaPackageVersionSpec === MediaPackageVersionSpecType.V1_ONLY ? gopLengthInSeconds : 1,
+      gopLengthInSeconds:
+        mediaPackageVersionSpec === MediaPackageVersionSpecType.V1_ONLY || mediaPackageV2Settings?.omitLlHls
+          ? gopLengthInSeconds : 1,
       timecodeBurninPrefix,
     });
 
     if (autoStart) {
-      try {
-        // Start channel
-        new AwsCustomResource(this, 'StartMediaLiveChannel', {
-          onCreate: {
-            service: 'MediaLive',
-            action: 'StartChannel',
-            parameters: {
-              ChannelId: this.eml.channel.ref,
-            },
-            physicalResourceId: PhysicalResourceId.of(`${crypto.randomUUID()}`),
-            ignoreErrorCodesMatching: '*',
-            outputPaths: ['Id', 'Arn'],
+      // Start channel
+      new AwsCustomResource(this, 'StartMediaLiveChannel', {
+        onCreate: {
+          service: 'MediaLive',
+          action: 'StartChannel',
+          parameters: {
+            ChannelId: this.eml.channel.ref,
           },
-          onDelete: {
-            service: 'MediaLive',
-            action: 'StopChannel',
-            parameters: {
-              ChannelId: this.eml.channel.ref,
-            },
-            physicalResourceId: PhysicalResourceId.of(`${crypto.randomUUID()}`),
-            ignoreErrorCodesMatching: '*',
-            outputPaths: ['Id', 'Arn'],
+          physicalResourceId: PhysicalResourceId.of(`${crypto.randomUUID()}`),
+          ignoreErrorCodesMatching: '*',
+          outputPaths: ['Id', 'Arn'],
+        },
+        onDelete: {
+          service: 'MediaLive',
+          action: 'StopChannel',
+          parameters: {
+            ChannelId: this.eml.channel.ref,
           },
-          //Will ignore any resource and use the assumedRoleArn as resource and 'sts:AssumeRole' for service:action
-          policy: AwsCustomResourcePolicy.fromSdkCalls({
-            resources: AwsCustomResourcePolicy.ANY_RESOURCE,
-          }),
-        });
-      } catch {
-        console.error('Failed to start MediaLive channel');
-      }
+          physicalResourceId: PhysicalResourceId.of(`${crypto.randomUUID()}`),
+          ignoreErrorCodesMatching: '*',
+          outputPaths: ['Id', 'Arn'],
+        },
+        //Will ignore any resource and use the assumedRoleArn as resource and 'sts:AssumeRole' for service:action
+        policy: AwsCustomResourcePolicy.fromSdkCalls({
+          resources: AwsCustomResourcePolicy.ANY_RESOURCE,
+        }),
+      });
     }
   }
 }
