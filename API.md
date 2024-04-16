@@ -608,7 +608,7 @@ const liveChannelFromMp4Props: LiveChannelFromMp4Props = { ... }
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.gopLengthInSeconds">gopLengthInSeconds</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.hlsAdMarkers">hlsAdMarkers</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.manifestWindowSeconds">manifestWindowSeconds</a></code> | <code>number</code> | *No description.* |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.mediaPackageV2ChannelGroupName">mediaPackageV2ChannelGroupName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.mediaPackageV2Settings">mediaPackageV2Settings</a></code> | <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPackageV2Settings">MediaPackageV2Settings</a></code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.mediaPackageVersionSpec">mediaPackageVersionSpec</a></code> | <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPackageVersionSpecType">MediaPackageVersionSpecType</a></code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.segmentDurationSeconds">segmentDurationSeconds</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.separateAudioRendition">separateAudioRendition</a></code> | <code>boolean</code> | *No description.* |
@@ -677,13 +677,13 @@ public readonly manifestWindowSeconds: number;
 
 ---
 
-##### `mediaPackageV2ChannelGroupName`<sup>Optional</sup> <a name="mediaPackageV2ChannelGroupName" id="awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.mediaPackageV2ChannelGroupName"></a>
+##### `mediaPackageV2Settings`<sup>Optional</sup> <a name="mediaPackageV2Settings" id="awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.mediaPackageV2Settings"></a>
 
 ```typescript
-public readonly mediaPackageV2ChannelGroupName: string;
+public readonly mediaPackageV2Settings: MediaPackageV2Settings;
 ```
 
-- *Type:* string
+- *Type:* <a href="#awscdk-construct-live-channel-from-mp4-file.MediaPackageV2Settings">MediaPackageV2Settings</a>
 
 ---
 
@@ -921,7 +921,7 @@ public readonly hls: CfnOriginEndpoint;
 
 ---
 
-##### `llHls`<sup>Required</sup> <a name="llHls" id="awscdk-construct-live-channel-from-mp4-file.MediaPackageV2EndpointsTable.property.llHls"></a>
+##### `llHls`<sup>Optional</sup> <a name="llHls" id="awscdk-construct-live-channel-from-mp4-file.MediaPackageV2EndpointsTable.property.llHls"></a>
 
 ```typescript
 public readonly llHls: CfnOriginEndpoint;
@@ -960,13 +960,52 @@ public readonly hls: string;
 
 ---
 
-##### `llHls`<sup>Required</sup> <a name="llHls" id="awscdk-construct-live-channel-from-mp4-file.MediaPackageV2EndpointUrlsTable.property.llHls"></a>
+##### `llHls`<sup>Optional</sup> <a name="llHls" id="awscdk-construct-live-channel-from-mp4-file.MediaPackageV2EndpointUrlsTable.property.llHls"></a>
 
 ```typescript
 public readonly llHls: string;
 ```
 
 - *Type:* string
+
+---
+
+### MediaPackageV2Settings <a name="MediaPackageV2Settings" id="awscdk-construct-live-channel-from-mp4-file.MediaPackageV2Settings"></a>
+
+#### Initializer <a name="Initializer" id="awscdk-construct-live-channel-from-mp4-file.MediaPackageV2Settings.Initializer"></a>
+
+```typescript
+import { MediaPackageV2Settings } from 'awscdk-construct-live-channel-from-mp4-file'
+
+const mediaPackageV2Settings: MediaPackageV2Settings = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPackageV2Settings.property.channelGroupName">channelGroupName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPackageV2Settings.property.omitLlHls">omitLlHls</a></code> | <code>boolean</code> | *No description.* |
+
+---
+
+##### `channelGroupName`<sup>Optional</sup> <a name="channelGroupName" id="awscdk-construct-live-channel-from-mp4-file.MediaPackageV2Settings.property.channelGroupName"></a>
+
+```typescript
+public readonly channelGroupName: string;
+```
+
+- *Type:* string
+
+---
+
+##### `omitLlHls`<sup>Optional</sup> <a name="omitLlHls" id="awscdk-construct-live-channel-from-mp4-file.MediaPackageV2Settings.property.omitLlHls"></a>
+
+```typescript
+public readonly omitLlHls: boolean;
+```
+
+- *Type:* boolean
 
 ---
 
@@ -1059,6 +1098,7 @@ const mediaPakcageV2Props: MediaPakcageV2Props = { ... }
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageV2Props.property.channelGroupName">channelGroupName</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageV2Props.property.hlsAdMarkers">hlsAdMarkers</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageV2Props.property.manifestWindowSeconds">manifestWindowSeconds</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageV2Props.property.omitLlHls">omitLlHls</a></code> | <code>boolean</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageV2Props.property.segmentDurationSeconds">segmentDurationSeconds</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageV2Props.property.separateAudioRendition">separateAudioRendition</a></code> | <code>boolean</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageV2Props.property.startoverWindowSeconds">startoverWindowSeconds</a></code> | <code>number</code> | *No description.* |
@@ -1092,6 +1132,16 @@ public readonly manifestWindowSeconds: number;
 ```
 
 - *Type:* number
+
+---
+
+##### `omitLlHls`<sup>Optional</sup> <a name="omitLlHls" id="awscdk-construct-live-channel-from-mp4-file.MediaPakcageV2Props.property.omitLlHls"></a>
+
+```typescript
+public readonly omitLlHls: boolean;
+```
+
+- *Type:* boolean
 
 ---
 
