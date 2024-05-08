@@ -34,6 +34,16 @@ export class MediaPackageV1 extends Construct {
 
     super(scope, id);
 
+    const adTriggers = [
+      'DISTRIBUTOR_ADVERTISEMENT',
+      'DISTRIBUTOR_OVERLAY_PLACEMENT_OPPORTUNITY',
+      'DISTRIBUTOR_PLACEMENT_OPPORTUNITY',
+      'PROVIDER_ADVERTISEMENT',
+      'PROVIDER_OVERLAY_PLACEMENT_OPPORTUNITY',
+      'PROVIDER_PLACEMENT_OPPORTUNITY',
+      'SPLICE_INSERT',
+    ];
+
     // Create MediaPackage channel
     this.channel = new CfnChannel(this, 'MediaPackageV1Channel', {
       id: `${crypto.randomUUID()}`,
@@ -49,7 +59,7 @@ export class MediaPackageV1 extends Construct {
           segmentDurationSeconds,
           playlistWindowSeconds: manifestWindowSeconds,
           adMarkers: hlsAdMarkers,
-          adTriggers: ['SPLICE_INSERT'],
+          adTriggers,
           programDateTimeIntervalSeconds: 1,
           useAudioRenditionGroup: separateAudioRendition,
         },
@@ -63,7 +73,7 @@ export class MediaPackageV1 extends Construct {
           segmentDurationSeconds,
           manifestWindowSeconds,
           periodTriggers: ['ADS'],
-          adTriggers: ['SPLICE_INSERT'],
+          adTriggers,
         },
         startoverWindowSeconds,
       }),
@@ -78,7 +88,7 @@ export class MediaPackageV1 extends Construct {
               id: '1',
               playlistWindowSeconds: manifestWindowSeconds,
               adMarkers: hlsAdMarkers,
-              adTriggers: ['SPLICE_INSERT'],
+              adTriggers,
               programDateTimeIntervalSeconds: 1,
             },
           ],

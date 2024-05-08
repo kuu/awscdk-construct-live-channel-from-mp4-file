@@ -62,6 +62,12 @@ export class MediaPackageV2 extends Construct {
     const ENDPOINT_NAME_HLS = `${crypto.randomUUID()}`;
     const ENDPOINT_NAME_LLHLS = `${crypto.randomUUID()}`;
 
+    const scteFilter = [
+      'SPLICE_INSERT',
+      'PROVIDER_ADVERTISEMENT', 'DISTRIBUTOR_ADVERTISEMENT',
+      'PROVIDER_PLACEMENT_OPPORTUNITY', 'DISTRIBUTOR_PLACEMENT_OPPORTUNITY',
+    ];
+
     if (!channelGroupName) {
       // Create MediaPackage channel group
       this.channelGroup = new CfnChannelGroup(this, 'MediaPackageV2ChannelGroup', {
@@ -117,12 +123,7 @@ export class MediaPackageV2 extends Construct {
         segment: {
           includeIframeOnlyStreams: false,
           scte: {
-            scteFilter: [
-              'SPLICE_INSERT',
-              'PROVIDER_ADVERTISEMENT', 'DISTRIBUTOR_ADVERTISEMENT',
-              'PROVIDER_PLACEMENT_OPPORTUNITY', 'DISTRIBUTOR_PLACEMENT_OPPORTUNITY',
-              'PROGRAM',
-            ],
+            scteFilter,
           },
           segmentDurationSeconds,
           tsUseAudioRenditionGroup: separateAudioRendition,
@@ -148,12 +149,7 @@ export class MediaPackageV2 extends Construct {
         segment: {
           includeIframeOnlyStreams: false,
           scte: {
-            scteFilter: [
-              'SPLICE_INSERT',
-              'PROVIDER_ADVERTISEMENT', 'DISTRIBUTOR_ADVERTISEMENT',
-              'PROVIDER_PLACEMENT_OPPORTUNITY', 'DISTRIBUTOR_PLACEMENT_OPPORTUNITY',
-              'PROGRAM',
-            ],
+            scteFilter,
           },
           segmentDurationSeconds: 2,
           tsUseAudioRenditionGroup: separateAudioRendition,
