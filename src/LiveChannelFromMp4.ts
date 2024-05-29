@@ -6,12 +6,6 @@ import { MediaLive } from './MediaLive';
 import { MediaPackageV1 } from './MediaPackageV1';
 import { MediaPackageV2 } from './MediaPackageV2';
 
-export enum MediaPackageVersionSpecType {
-  V1_ONLY = 'V1_ONLY',
-  V2_ONLY = 'V2_ONLY',
-  V1_AND_V2 = 'V1_AND_V2',
-}
-
 export interface MediaPackageV2Settings {
   readonly channelGroupName?: string; // The name of the channel group to be used.
   readonly omitLlHls?: boolean; // Whether to skip the creation of a Low Latency HLS endpoint.
@@ -28,7 +22,7 @@ export interface LiveChannelFromMp4Props {
   readonly autoStart?: boolean; // Whether to start the channel automatically.
   readonly startoverWindowSeconds?: number; // The duration of startover window in seconds.
   readonly separateAudioRendition?: boolean; // Whether to separate HLS audio rendition.
-  readonly mediaPackageVersionSpec?: MediaPackageVersionSpecType; // Whether to use MediaPackageV2.
+  readonly mediaPackageVersionSpec?: 'V1_ONLY' | 'V2_ONLY' | 'V1_AND_V2'; // Whether to use MediaPackageV2.
   readonly mediaPackageV2Settings?: MediaPackageV2Settings; // The settings for MediaPackageV2.
 }
 
@@ -48,13 +42,13 @@ export class LiveChannelFromMp4 extends Construct {
     autoStart,
     startoverWindowSeconds,
     separateAudioRendition,
-    mediaPackageVersionSpec = MediaPackageVersionSpecType.V1_AND_V2,
+    mediaPackageVersionSpec = 'V1_AND_V2',
     mediaPackageV2Settings,
   }: LiveChannelFromMp4Props) {
 
     super(scope, id);
 
-    if (mediaPackageVersionSpec != MediaPackageVersionSpecType.V2_ONLY) {
+    if (mediaPackageVersionSpec != 'V2_ONLY') {
       this.empv1 = new MediaPackageV1(this, 'MediaPackageV1', {
         segmentDurationSeconds,
         manifestWindowSeconds,
@@ -64,7 +58,7 @@ export class LiveChannelFromMp4 extends Construct {
       });
     }
 
-    if (mediaPackageVersionSpec != MediaPackageVersionSpecType.V1_ONLY) {
+    if (mediaPackageVersionSpec != 'V1_ONLY') {
       this.empv2 = new MediaPackageV2(this, 'MediaPackageV2', {
         segmentDurationSeconds,
         manifestWindowSeconds,
@@ -110,7 +104,7 @@ export class LiveChannelFromMp4 extends Construct {
     let outputSettingsList: CfnChannel.OutputSettingsProperty[];
     const ingestEndpoints = channelClass === 'STANDARD' ? this.empv2?.ingestEndpoints : this.empv2?.ingestEndpoints.slice(0, 1);
     switch (mediaPackageVersionSpec) {
-      case MediaPackageVersionSpecType.V1_ONLY:
+      case 'V1_ONLY':
         destinations = [{
           id: 'MediaPackageV1',
           mediaPackageSettings: [{
@@ -128,7 +122,7 @@ export class LiveChannelFromMp4 extends Construct {
           mediaPackageOutputSettings: {},
         }];
         break;
-      case MediaPackageVersionSpecType.V2_ONLY:
+      case 'V2_ONLY':
         destinations = [{
           id: 'MediaPackageV2',
           settings: ingestEndpoints,
@@ -140,7 +134,7 @@ export class LiveChannelFromMp4 extends Construct {
           hlsOutputSettings,
         }];
         break;
-      case MediaPackageVersionSpecType.V1_AND_V2:
+      case 'V1_AND_V2':
         destinations = [
           {
             id: 'MediaPackageV1',
@@ -183,7 +177,7 @@ export class LiveChannelFromMp4 extends Construct {
       outputSettingsList,
       channelClass,
       gopLengthInSeconds:
-        mediaPackageVersionSpec === MediaPackageVersionSpecType.V1_ONLY || mediaPackageV2Settings?.omitLlHls
+        mediaPackageVersionSpec === 'V1_ONLY' || mediaPackageV2Settings?.omitLlHls
           ? gopLengthInSeconds : 1,
       timecodeBurninPrefix,
     });

@@ -609,7 +609,7 @@ const liveChannelFromMp4Props: LiveChannelFromMp4Props = { ... }
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.hlsAdMarkers">hlsAdMarkers</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.manifestWindowSeconds">manifestWindowSeconds</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.mediaPackageV2Settings">mediaPackageV2Settings</a></code> | <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPackageV2Settings">MediaPackageV2Settings</a></code> | *No description.* |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.mediaPackageVersionSpec">mediaPackageVersionSpec</a></code> | <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPackageVersionSpecType">MediaPackageVersionSpecType</a></code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.mediaPackageVersionSpec">mediaPackageVersionSpec</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.segmentDurationSeconds">segmentDurationSeconds</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.separateAudioRendition">separateAudioRendition</a></code> | <code>boolean</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.startoverWindowSeconds">startoverWindowSeconds</a></code> | <code>number</code> | *No description.* |
@@ -690,10 +690,10 @@ public readonly mediaPackageV2Settings: MediaPackageV2Settings;
 ##### `mediaPackageVersionSpec`<sup>Optional</sup> <a name="mediaPackageVersionSpec" id="awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.mediaPackageVersionSpec"></a>
 
 ```typescript
-public readonly mediaPackageVersionSpec: MediaPackageVersionSpecType;
+public readonly mediaPackageVersionSpec: string;
 ```
 
-- *Type:* <a href="#awscdk-construct-live-channel-from-mp4-file.MediaPackageVersionSpecType">MediaPackageVersionSpecType</a>
+- *Type:* string
 
 ---
 
@@ -1198,34 +1198,6 @@ public readonly url: string;
 ```
 
 - *Type:* string
-
----
-
-## Enums <a name="Enums" id="Enums"></a>
-
-### MediaPackageVersionSpecType <a name="MediaPackageVersionSpecType" id="awscdk-construct-live-channel-from-mp4-file.MediaPackageVersionSpecType"></a>
-
-#### Members <a name="Members" id="Members"></a>
-
-| **Name** | **Description** |
-| --- | --- |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPackageVersionSpecType.V1_ONLY">V1_ONLY</a></code> | *No description.* |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPackageVersionSpecType.V2_ONLY">V2_ONLY</a></code> | *No description.* |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPackageVersionSpecType.V1_AND_V2">V1_AND_V2</a></code> | *No description.* |
-
----
-
-##### `V1_ONLY` <a name="V1_ONLY" id="awscdk-construct-live-channel-from-mp4-file.MediaPackageVersionSpecType.V1_ONLY"></a>
-
----
-
-
-##### `V2_ONLY` <a name="V2_ONLY" id="awscdk-construct-live-channel-from-mp4-file.MediaPackageVersionSpecType.V2_ONLY"></a>
-
----
-
-
-##### `V1_AND_V2` <a name="V1_AND_V2" id="awscdk-construct-live-channel-from-mp4-file.MediaPackageVersionSpecType.V1_AND_V2"></a>
 
 ---
 
