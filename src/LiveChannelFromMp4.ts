@@ -12,7 +12,7 @@ export interface MediaPackageV2Settings {
 }
 
 export interface LiveChannelFromMp4Props {
-  readonly sourceUrl: string; // The URL of the MP4 file used by MediaLive as the source.
+  readonly sourceUrl: string | string[]; // The URL(s) of the MP4 file(s) used by MediaLive as the source.
   readonly channelClass?: string; // The class of the channel. (STANDARD or SINGLE_PIPELINE)
   readonly gopLengthInSeconds?: number; // The length of the GOP in seconds.
   readonly timecodeBurninPrefix?: string; // The prefix for the timecode burn-in.
@@ -171,7 +171,7 @@ export class LiveChannelFromMp4 extends Construct {
     }
 
     this.eml = new MediaLive(this, 'MediaLive', {
-      sourceUrl,
+      sourceUrls: Array.isArray(sourceUrl) ? sourceUrl : [sourceUrl],
       destinations,
       outputGroupSettingsList,
       outputSettingsList,

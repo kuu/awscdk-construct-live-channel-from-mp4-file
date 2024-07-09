@@ -7,7 +7,10 @@ test('Create MediaLive', () => {
   const stack = new Stack(app, 'SmokeStack');
 
   new MediaLive(stack, 'MediaLive', {
-    sourceUrl: 'https://example.com/test.mp4',
+    sourceUrls: [
+      'https://example.com/test-1.mp4',
+      'https://example.com/test-2.mp4',
+    ],
     destinations: [{
       id: 'MediaPackageV1',
       mediaPackageSettings: [
@@ -34,7 +37,7 @@ test('Create MediaLive', () => {
 
   const template = Template.fromStack(stack);
 
-  template.hasResource('AWS::MediaLive::Input', 1);
+  template.hasResource('AWS::MediaLive::Input', 2);
   template.hasResource('AWS::MediaLive::Channel', 1);
 });
 

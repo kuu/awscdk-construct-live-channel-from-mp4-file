@@ -2,7 +2,7 @@
 [![View on Construct Hub](https://constructs.dev/badge?package=awscdk-construct-live-channel-from-mp4-file)](https://constructs.dev/packages/awscdk-construct-live-channel-from-mp4-file)
 
 CDK Construct for setting up a simple live channel for testing
-* The input is an MP4 file with loop playback
+* The input is MP4 files with loop playback
 * The output is a live channel with:
   * a MediaLive channel with 29.97fps, 3x bitrates (720p/540p/360p)
   * a MediaPackage v1 channel with HLS/DASH/MSS/CMAF endpoints

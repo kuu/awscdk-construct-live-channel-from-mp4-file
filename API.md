@@ -246,7 +246,7 @@ Any object.
 | --- | --- | --- |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaLive.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaLive.property.channel">channel</a></code> | <code>aws-cdk-lib.aws_medialive.CfnChannel</code> | *No description.* |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaLive.property.input">input</a></code> | <code>aws-cdk-lib.aws_medialive.CfnInput</code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaLive.property.inputs">inputs</a></code> | <code>aws-cdk-lib.aws_medialive.CfnInput[]</code> | *No description.* |
 
 ---
 
@@ -272,13 +272,13 @@ public readonly channel: CfnChannel;
 
 ---
 
-##### `input`<sup>Required</sup> <a name="input" id="awscdk-construct-live-channel-from-mp4-file.MediaLive.property.input"></a>
+##### `inputs`<sup>Required</sup> <a name="inputs" id="awscdk-construct-live-channel-from-mp4-file.MediaLive.property.inputs"></a>
 
 ```typescript
-public readonly input: CfnInput;
+public readonly inputs: CfnInput[];
 ```
 
-- *Type:* aws-cdk-lib.aws_medialive.CfnInput
+- *Type:* aws-cdk-lib.aws_medialive.CfnInput[]
 
 ---
 
@@ -602,7 +602,7 @@ const liveChannelFromMp4Props: LiveChannelFromMp4Props = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.sourceUrl">sourceUrl</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.sourceUrl">sourceUrl</a></code> | <code>string \| string[]</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.autoStart">autoStart</a></code> | <code>boolean</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.channelClass">channelClass</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.gopLengthInSeconds">gopLengthInSeconds</a></code> | <code>number</code> | *No description.* |
@@ -620,10 +620,10 @@ const liveChannelFromMp4Props: LiveChannelFromMp4Props = { ... }
 ##### `sourceUrl`<sup>Required</sup> <a name="sourceUrl" id="awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.sourceUrl"></a>
 
 ```typescript
-public readonly sourceUrl: string;
+public readonly sourceUrl: string | string[];
 ```
 
-- *Type:* string
+- *Type:* string | string[]
 
 ---
 
@@ -754,7 +754,7 @@ const mediaLiveProps: MediaLiveProps = { ... }
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaLiveProps.property.destinations">destinations</a></code> | <code>aws-cdk-lib.aws_medialive.CfnChannel.OutputDestinationProperty[]</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaLiveProps.property.outputGroupSettingsList">outputGroupSettingsList</a></code> | <code>aws-cdk-lib.aws_medialive.CfnChannel.OutputGroupSettingsProperty[]</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaLiveProps.property.outputSettingsList">outputSettingsList</a></code> | <code>aws-cdk-lib.aws_medialive.CfnChannel.OutputSettingsProperty[]</code> | *No description.* |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaLiveProps.property.sourceUrl">sourceUrl</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaLiveProps.property.sourceUrls">sourceUrls</a></code> | <code>string[]</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaLiveProps.property.channelClass">channelClass</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaLiveProps.property.gopLengthInSeconds">gopLengthInSeconds</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaLiveProps.property.timecodeBurninPrefix">timecodeBurninPrefix</a></code> | <code>string</code> | *No description.* |
@@ -791,13 +791,13 @@ public readonly outputSettingsList: OutputSettingsProperty[];
 
 ---
 
-##### `sourceUrl`<sup>Required</sup> <a name="sourceUrl" id="awscdk-construct-live-channel-from-mp4-file.MediaLiveProps.property.sourceUrl"></a>
+##### `sourceUrls`<sup>Required</sup> <a name="sourceUrls" id="awscdk-construct-live-channel-from-mp4-file.MediaLiveProps.property.sourceUrls"></a>
 
 ```typescript
-public readonly sourceUrl: string;
+public readonly sourceUrls: string[];
 ```
 
-- *Type:* string
+- *Type:* string[]
 
 ---
 

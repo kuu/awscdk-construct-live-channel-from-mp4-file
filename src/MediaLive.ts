@@ -11,7 +11,7 @@ import {
 import { Construct } from 'constructs';
 
 export interface MediaLiveProps {
-  readonly sourceUrl: string; // The URL of the MP4 file used by MediaLive as the source.
+  readonly sourceUrls: string[]; // The list of URL of the MP4 files used by MediaLive as the sources.
   readonly destinations: CfnChannel.OutputDestinationProperty[]; // The destinations for the channel.
   readonly outputGroupSettingsList: CfnChannel.OutputGroupSettingsProperty[]; // The output group settings for the channel.
   readonly outputSettingsList: CfnChannel.OutputSettingsProperty[]; // The output settings for the channel.
@@ -49,11 +49,11 @@ function getOutputGroup (
 }
 
 export class MediaLive extends Construct {
-  public readonly input: CfnInput; // The reference to the MediaLive input.
+  public readonly inputs: CfnInput[]; // The reference to the MediaLive inputs.
   public readonly channel: CfnChannel; // The reference to the MediaLive channel.
 
   constructor(scope: Construct, id: string, {
-    sourceUrl,
+    sourceUrls,
     destinations,
     outputGroupSettingsList,
     outputSettingsList,
@@ -64,13 +64,15 @@ export class MediaLive extends Construct {
 
     super(scope, id);
 
-    // Create MediaLive MP4 input
-    const sources = Array.from({ length: channelClass === 'STANDARD' ? 2 : 1 }, () => ({ url: sourceUrl }));
-    this.input = new CfnInput(this, 'CfnInput', {
-      name: `${crypto.randomUUID()}`,
-      type: 'MP4_FILE',
-      sources,
+    // Create MediaLive MP4 inputs
+    this.inputs = sourceUrls.map((sourceUrl, i) => {
+      return new CfnInput(this, `CfnInput-${i}`, {
+        name: `${crypto.randomUUID()}`,
+        type: 'MP4_FILE',
+        sources: Array.from({ length: channelClass === 'STANDARD' ? 2 : 1 }, () => ({ url: sourceUrl })),
+      });
     });
+
     // Create IAM Policy for MediaLive to access MediaPackage and S3
     const customPolicyMediaLive = new iam.PolicyDocument({
       statements: [
@@ -104,14 +106,13 @@ export class MediaLive extends Construct {
       name: `${crypto.randomUUID()}`,
       channelClass,
       roleArn: role.roleArn,
-      inputAttachments: [
-        {
-          inputId: this.input.ref,
-          inputSettings: {
-            sourceEndBehavior: 'LOOP',
-          },
+      inputAttachments: this.inputs.map((input) => ({
+        inputId: input.ref,
+        inputAttachmentName: input.name,
+        inputSettings: {
+          sourceEndBehavior: 'LOOP',
         },
-      ],
+      })),
       destinations,
       encoderSettings: {
         outputGroups,
