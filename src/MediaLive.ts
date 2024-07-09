@@ -44,6 +44,13 @@ function getOutputGroup (
         outputSettings,
         videoDescriptionName: '_1280x720',
       },
+      {
+        outputName: `${name}_96Kbps_AAC`,
+        outputSettings,
+        audioDescriptionNames: [
+          '_96Kbps_AAC',
+        ],
+      },
     ],
   };
 }
@@ -191,6 +198,21 @@ export class MediaLive extends Construct {
                 } : undefined,
               },
             },
+          },
+        ],
+        audioDescriptions: [
+          {
+            name: '_96Kbps_AAC',
+            audioTypeControl: 'FOLLOW_INPUT',
+            codecSettings: {
+              aacSettings: {
+                bitrate: 96000,
+                codingMode: 'CODING_MODE_2_0',
+                sampleRate: 48000,
+              },
+            },
+            languageCodeControl: 'FOLLOW_INPUT',
+            audioSelectorName: 'default',
           },
         ],
         timecodeConfig: {
