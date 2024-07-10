@@ -1,6 +1,6 @@
 import * as crypto from 'crypto';
 import { aws_iam as iam, Fn } from 'aws-cdk-lib';
-import { CfnInput, CfnChannel } from 'aws-cdk-lib/aws-medialive';
+import { CfnInput, CfnChannel, CfnInputSecurityGroup } from 'aws-cdk-lib/aws-medialive';
 import { Construct } from 'constructs';
 import { getUdpOutputSettings, getEncodingSettings } from './MediaLiveUtil';
 
@@ -43,9 +43,13 @@ export class MediaLive extends Construct {
           type: 'MP4_FILE',
           sources: [{ url: sourceUrl }],
         });
+        const inputSecurityGroup = new CfnInputSecurityGroup(this, `InputSecurityGroup-${i}`, {
+          whitelistRules: [{ cidr: '0.0.0.0/0' }],
+        });
         const rtpInput = new CfnInput(this, `CfnInput-${i}`, {
           name: `${crypto.randomUUID()}`,
           type: 'RTP_PUSH',
+          inputSecurityGroups: [inputSecurityGroup.attrId],
         });
         createChannel(this, `${i}`, [fileInput], {
           destinations: [
