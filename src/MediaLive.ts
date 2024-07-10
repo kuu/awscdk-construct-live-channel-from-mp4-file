@@ -49,7 +49,7 @@ export class MediaLive extends Construct {
         const rtpInput = new CfnInput(this, `CfnInput-${i}`, {
           name: `${crypto.randomUUID()}`,
           type: 'RTP_PUSH',
-          inputSecurityGroups: [inputSecurityGroup.attrId],
+          inputSecurityGroups: [inputSecurityGroup.ref],
         });
         createChannel(this, `${i}`, [fileInput], {
           destinations: [
