@@ -99,6 +99,8 @@ test('Create LiveChannelFromMp4 with TC in source', () => {
 
   const template = Template.fromStack(stack);
 
+  template.hasResource('AWS::MediaLive::Input', 4);
+  template.hasResource('AWS::MediaLive::InputSecurityGroup', 2);
   template.hasResource('AWS::MediaLive::Channel', 2);
   template.hasResource('AWS::MediaPackage::Channel', 1);
   template.hasResource('AWS::MediaPackage::OriginEndpoint', 4);
