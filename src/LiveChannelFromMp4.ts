@@ -16,6 +16,7 @@ export interface LiveChannelFromMp4Props {
   readonly channelClass?: string; // The class of the channel. (STANDARD or SINGLE_PIPELINE)
   readonly gopLengthInSeconds?: number; // The length of the GOP in seconds.
   readonly timecodeBurninPrefix?: string; // The prefix for the timecode burn-in.
+  readonly hasTimecodeInSource?: boolean; // Whether the source has timecode.
   readonly segmentDurationSeconds?: number; // The duration of each segment in seconds.
   readonly manifestWindowSeconds?: number; // The duration of manifest in seconds.
   readonly hlsAdMarkers?: string; // Controls how ad markers are included in the packaged endpoint.
@@ -36,6 +37,7 @@ export class LiveChannelFromMp4 extends Construct {
     channelClass,
     gopLengthInSeconds,
     timecodeBurninPrefix,
+    hasTimecodeInSource = false,
     segmentDurationSeconds,
     manifestWindowSeconds,
     hlsAdMarkers,
@@ -179,6 +181,7 @@ export class LiveChannelFromMp4 extends Construct {
       gopLengthInSeconds:
         mediaPackageVersionSpec === 'V1_ONLY' || mediaPackageV2Settings?.omitLlHls
           ? gopLengthInSeconds : 1,
+      hasTimecodeInSource,
       timecodeBurninPrefix,
     });
 

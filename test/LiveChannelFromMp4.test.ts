@@ -86,3 +86,22 @@ test('Create LiveChannelFromMp4', () => {
   template.hasResource('AWS::MediaPackageV2::Channel', 1);
   template.hasResource('AWS::MediaPackageV2::OriginEndpoint', 2);
 });
+
+test('Create LiveChannelFromMp4 with TC in source', () => {
+  const app = new App();
+  const stack = new Stack(app, 'SmokeStack');
+
+  new LiveChannelFromMp4(stack, 'LiveChannelFromMp4withTC', {
+    sourceUrl: 'https://example.com/test.mp4',
+    hlsAdMarkers: 'NONE',
+    hasTimecodeInSource: true,
+  });
+
+  const template = Template.fromStack(stack);
+
+  template.hasResource('AWS::MediaLive::Channel', 2);
+  template.hasResource('AWS::MediaPackage::Channel', 1);
+  template.hasResource('AWS::MediaPackage::OriginEndpoint', 4);
+  template.hasResource('AWS::MediaPackageV2::Channel', 1);
+  template.hasResource('AWS::MediaPackageV2::OriginEndpoint', 2);
+});
