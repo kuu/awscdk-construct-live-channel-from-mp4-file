@@ -10,7 +10,7 @@ export function getEncodingSettings(
   // Create output groups
   const outputGroups = [];
   for (const [i, outputGroupSettings] of outputGroupSettingsList.entries()) {
-    outputGroups.push(getOutputGroup(`outputGroup_${i}`, outputGroupSettings, outputSettingsList[i]));
+    outputGroups.push(getOutputGroup(`outputGroup_${i}`, outputGroupSettings, outputSettingsList[i], isAbr));
   }
   return {
     outputGroups,
@@ -37,11 +37,12 @@ function getOutputGroup (
   name: string,
   outputGroupSettings: CfnChannel.OutputGroupSettingsProperty,
   outputSettings: CfnChannel.OutputSettingsProperty,
+  isAbr: boolean,
 ): CfnChannel.OutputGroupProperty {
   return {
     name,
     outputGroupSettings,
-    outputs: [
+    outputs: isAbr ? [
       {
         outputName: `${name}_640x360`,
         outputSettings,
@@ -60,6 +61,15 @@ function getOutputGroup (
       {
         outputName: `${name}_96Kbps_AAC`,
         outputSettings,
+        audioDescriptionNames: [
+          '_96Kbps_AAC',
+        ],
+      },
+    ] : [
+      {
+        outputName: `${name}_1280x720_96Kbps_AAC`,
+        outputSettings,
+        videoDescriptionName: '_1280x720',
         audioDescriptionNames: [
           '_96Kbps_AAC',
         ],
@@ -97,7 +107,7 @@ function getVideoDescription(
           prefix: `${timecodeBurninPrefix}_${width}x${height}`,
           fontSize: 'SMALL_16',
         } : undefined,
-        timecodeInsertion: 'ENABLED',
+        timecodeInsertion: 'PIC_TIMING_SEI',
       },
     },
   };
@@ -163,7 +173,7 @@ export function getUdpOutputSettings(i: number): CfnChannel.UdpOutputSettingsPro
       },
     },
     destination: {
-      destinationRefId: `destination${i}`,
+      destinationRefId: `udp-output-destination-${i}`,
     },
     fecOutputSettings: {
       rowLength: 20,

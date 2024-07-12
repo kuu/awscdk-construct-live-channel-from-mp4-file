@@ -1,8 +1,6 @@
-import * as crypto from 'crypto';
 import { CfnChannel } from 'aws-cdk-lib/aws-medialive';
-import { AwsCustomResource, AwsCustomResourcePolicy, PhysicalResourceId } from 'aws-cdk-lib/custom-resources';
 import { Construct } from 'constructs';
-import { MediaLive } from './MediaLive';
+import { MediaLive, startChannel } from './MediaLive';
 import { MediaPackageV1 } from './MediaPackageV1';
 import { MediaPackageV2 } from './MediaPackageV2';
 
@@ -187,32 +185,7 @@ export class LiveChannelFromMp4 extends Construct {
 
     if (autoStart) {
       // Start channel
-      new AwsCustomResource(this, 'StartMediaLiveChannel', {
-        onCreate: {
-          service: 'MediaLive',
-          action: 'StartChannel',
-          parameters: {
-            ChannelId: this.eml.channel.ref,
-          },
-          physicalResourceId: PhysicalResourceId.of(`${crypto.randomUUID()}`),
-          ignoreErrorCodesMatching: '*',
-          outputPaths: ['Id', 'Arn'],
-        },
-        onDelete: {
-          service: 'MediaLive',
-          action: 'StopChannel',
-          parameters: {
-            ChannelId: this.eml.channel.ref,
-          },
-          physicalResourceId: PhysicalResourceId.of(`${crypto.randomUUID()}`),
-          ignoreErrorCodesMatching: '*',
-          outputPaths: ['Id', 'Arn'],
-        },
-        //Will ignore any resource and use the assumedRoleArn as resource and 'sts:AssumeRole' for service:action
-        policy: AwsCustomResourcePolicy.fromSdkCalls({
-          resources: AwsCustomResourcePolicy.ANY_RESOURCE,
-        }),
-      });
+      startChannel(this, 'StartMediaLiveChannel', this.eml.channel.ref);
     }
   }
 }
