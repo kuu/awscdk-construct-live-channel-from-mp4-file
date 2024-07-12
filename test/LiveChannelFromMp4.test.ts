@@ -92,7 +92,10 @@ test('Create LiveChannelFromMp4 with TC in source', () => {
   const stack = new Stack(app, 'SmokeStack');
 
   new LiveChannelFromMp4(stack, 'LiveChannelFromMp4withTC', {
-    sourceUrl: 'https://example.com/test.mp4',
+    sourceUrl: [
+      'https://example.com/test-1.mp4',
+      'https://example.com/test-2.mp4',
+    ],
     hlsAdMarkers: 'NONE',
     hasTimecodeInSource: true,
   });
@@ -101,7 +104,7 @@ test('Create LiveChannelFromMp4 with TC in source', () => {
 
   template.hasResource('AWS::MediaLive::Input', 4);
   template.hasResource('AWS::MediaLive::InputSecurityGroup', 2);
-  template.hasResource('AWS::MediaLive::Channel', 2);
+  template.hasResource('AWS::MediaLive::Channel', 3);
   template.hasResource('AWS::MediaPackage::Channel', 1);
   template.hasResource('AWS::MediaPackage::OriginEndpoint', 4);
   template.hasResource('AWS::MediaPackageV2::Channel', 1);

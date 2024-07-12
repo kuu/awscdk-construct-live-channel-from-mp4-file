@@ -1,6 +1,7 @@
 import * as crypto from 'crypto';
 import { aws_iam as iam, Fn } from 'aws-cdk-lib';
 import { CfnInput, CfnChannel, CfnInputSecurityGroup } from 'aws-cdk-lib/aws-medialive';
+import { AwsCustomResource, AwsCustomResourcePolicy, PhysicalResourceId } from 'aws-cdk-lib/custom-resources';
 import { Construct } from 'constructs';
 import { getUdpOutputSettings, getEncodingSettings } from './MediaLiveUtil';
 
@@ -51,28 +52,30 @@ export class MediaLive extends Construct {
           type: 'RTP_PUSH',
           inputSecurityGroups: [inputSecurityGroup.ref],
         });
-        createChannel(this, `${i}`, [fileInput], {
+        const ch = createChannel(this, `${i}`, [fileInput], {
           destinations: [
             {
-              id: `destination${i}`,
+              id: `udp-output-destination-${i}`,
               settings: [{ url: Fn.select(0, rtpInput.attrDestinations) }],
             },
           ],
           outputGroupSettingsList: [
             {
               udpGroupSettings: {
-                inputLossAction: 'PAUSE_OUTPUT',
+                inputLossAction: 'DROP_TS',
               },
             },
-
           ],
-          outputSettingsList: [{
-            udpOutputSettings: getUdpOutputSettings(i),
-          }],
+          outputSettingsList: [
+            {
+              udpOutputSettings: getUdpOutputSettings(i),
+            },
+          ],
           channelClass: 'SINGLE_PIPELINE',
           gopLengthInSeconds,
           isAbr: false,
         });
+        startChannel(this, `StartChannel-${i}`, ch.ref);
         return rtpInput;
       });
     } else {
@@ -144,14 +147,14 @@ export function createChannel(scope: Construct, id: string, inputs: CfnInput[], 
   });
   // Create MediaLive channel
   return new CfnChannel(scope, `CfnChannel${id}`, {
-    name: `${crypto.randomUUID()}`,
+    name: `${crypto.randomUUID()}-${id}`,
     channelClass,
     roleArn: role.roleArn,
     inputAttachments: inputs.map((input) => ({
       inputId: input.ref,
       inputAttachmentName: input.name,
       inputSettings: {
-        sourceEndBehavior: 'LOOP',
+        sourceEndBehavior: input.type === 'MP4_FILE' ? 'LOOP' : 'CONTINUE',
       },
     })),
     destinations,
@@ -162,5 +165,35 @@ export function createChannel(scope: Construct, id: string, inputs: CfnInput[], 
       isAbr,
       timecodeBurninPrefix,
     ),
+  });
+}
+
+export function startChannel(scope: Construct, id: string, channelId: string) {
+  // Start channel
+  new AwsCustomResource(scope, id, {
+    onCreate: {
+      service: 'MediaLive',
+      action: 'StartChannel',
+      parameters: {
+        ChannelId: channelId,
+      },
+      physicalResourceId: PhysicalResourceId.of(`${crypto.randomUUID()}`),
+      ignoreErrorCodesMatching: '*',
+      outputPaths: ['Id', 'Arn'],
+    },
+    onDelete: {
+      service: 'MediaLive',
+      action: 'StopChannel',
+      parameters: {
+        ChannelId: channelId,
+      },
+      physicalResourceId: PhysicalResourceId.of(`${crypto.randomUUID()}`),
+      ignoreErrorCodesMatching: '*',
+      outputPaths: ['Id', 'Arn'],
+    },
+    //Will ignore any resource and use the assumedRoleArn as resource and 'sts:AssumeRole' for service:action
+    policy: AwsCustomResourcePolicy.fromSdkCalls({
+      resources: AwsCustomResourcePolicy.ANY_RESOURCE,
+    }),
   });
 }
