@@ -588,6 +588,106 @@ public readonly channelGroup: CfnChannelGroup;
 
 ## Structs <a name="Structs" id="Structs"></a>
 
+### EncoderMidSettings <a name="EncoderMidSettings" id="awscdk-construct-live-channel-from-mp4-file.EncoderMidSettings"></a>
+
+#### Initializer <a name="Initializer" id="awscdk-construct-live-channel-from-mp4-file.EncoderMidSettings.Initializer"></a>
+
+```typescript
+import { EncoderMidSettings } from 'awscdk-construct-live-channel-from-mp4-file'
+
+const encoderMidSettings: EncoderMidSettings = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.EncoderMidSettings.property.gopLengthInSeconds">gopLengthInSeconds</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.EncoderMidSettings.property.outputGroupSettingsList">outputGroupSettingsList</a></code> | <code>aws-cdk-lib.aws_medialive.CfnChannel.OutputGroupSettingsProperty[]</code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.EncoderMidSettings.property.outputSettingsList">outputSettingsList</a></code> | <code>aws-cdk-lib.aws_medialive.CfnChannel.OutputSettingsProperty[]</code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.EncoderMidSettings.property.timecodeBurninPrefix">timecodeBurninPrefix</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `gopLengthInSeconds`<sup>Required</sup> <a name="gopLengthInSeconds" id="awscdk-construct-live-channel-from-mp4-file.EncoderMidSettings.property.gopLengthInSeconds"></a>
+
+```typescript
+public readonly gopLengthInSeconds: number;
+```
+
+- *Type:* number
+
+---
+
+##### `outputGroupSettingsList`<sup>Required</sup> <a name="outputGroupSettingsList" id="awscdk-construct-live-channel-from-mp4-file.EncoderMidSettings.property.outputGroupSettingsList"></a>
+
+```typescript
+public readonly outputGroupSettingsList: OutputGroupSettingsProperty[];
+```
+
+- *Type:* aws-cdk-lib.aws_medialive.CfnChannel.OutputGroupSettingsProperty[]
+
+---
+
+##### `outputSettingsList`<sup>Required</sup> <a name="outputSettingsList" id="awscdk-construct-live-channel-from-mp4-file.EncoderMidSettings.property.outputSettingsList"></a>
+
+```typescript
+public readonly outputSettingsList: OutputSettingsProperty[];
+```
+
+- *Type:* aws-cdk-lib.aws_medialive.CfnChannel.OutputSettingsProperty[]
+
+---
+
+##### `timecodeBurninPrefix`<sup>Optional</sup> <a name="timecodeBurninPrefix" id="awscdk-construct-live-channel-from-mp4-file.EncoderMidSettings.property.timecodeBurninPrefix"></a>
+
+```typescript
+public readonly timecodeBurninPrefix: string;
+```
+
+- *Type:* string
+
+---
+
+### EncoderSpec <a name="EncoderSpec" id="awscdk-construct-live-channel-from-mp4-file.EncoderSpec"></a>
+
+#### Initializer <a name="Initializer" id="awscdk-construct-live-channel-from-mp4-file.EncoderSpec.Initializer"></a>
+
+```typescript
+import { EncoderSpec } from 'awscdk-construct-live-channel-from-mp4-file'
+
+const encoderSpec: EncoderSpec = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.EncoderSpec.property.gopLengthInSeconds">gopLengthInSeconds</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.EncoderSpec.property.timecodeBurninPrefix">timecodeBurninPrefix</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `gopLengthInSeconds`<sup>Optional</sup> <a name="gopLengthInSeconds" id="awscdk-construct-live-channel-from-mp4-file.EncoderSpec.property.gopLengthInSeconds"></a>
+
+```typescript
+public readonly gopLengthInSeconds: number;
+```
+
+- *Type:* number
+
+---
+
+##### `timecodeBurninPrefix`<sup>Optional</sup> <a name="timecodeBurninPrefix" id="awscdk-construct-live-channel-from-mp4-file.EncoderSpec.property.timecodeBurninPrefix"></a>
+
+```typescript
+public readonly timecodeBurninPrefix: string;
+```
+
+- *Type:* string
+
+---
+
 ### LiveChannelFromMp4Props <a name="LiveChannelFromMp4Props" id="awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props"></a>
 
 #### Initializer <a name="Initializer" id="awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.Initializer"></a>
@@ -602,29 +702,22 @@ const liveChannelFromMp4Props: LiveChannelFromMp4Props = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.sourceUrl">sourceUrl</a></code> | <code>string \| string[]</code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.source">source</a></code> | <code>string \| string[] \| <a href="#awscdk-construct-live-channel-from-mp4-file.SourceSpec">SourceSpec</a>[]</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.autoStart">autoStart</a></code> | <code>boolean</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.channelClass">channelClass</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.gopLengthInSeconds">gopLengthInSeconds</a></code> | <code>number</code> | *No description.* |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.hasTimecodeInSource">hasTimecodeInSource</a></code> | <code>boolean</code> | *No description.* |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.hlsAdMarkers">hlsAdMarkers</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.manifestWindowSeconds">manifestWindowSeconds</a></code> | <code>number</code> | *No description.* |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.mediaPackageV2Settings">mediaPackageV2Settings</a></code> | <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPackageV2Settings">MediaPackageV2Settings</a></code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.encoderSpec">encoderSpec</a></code> | <code>aws-cdk-lib.aws_medialive.CfnChannel.EncoderSettingsProperty \| <a href="#awscdk-construct-live-channel-from-mp4-file.EncoderSpec">EncoderSpec</a></code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.mediaPackageVersionSpec">mediaPackageVersionSpec</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.segmentDurationSeconds">segmentDurationSeconds</a></code> | <code>number</code> | *No description.* |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.separateAudioRendition">separateAudioRendition</a></code> | <code>boolean</code> | *No description.* |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.startoverWindowSeconds">startoverWindowSeconds</a></code> | <code>number</code> | *No description.* |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.timecodeBurninPrefix">timecodeBurninPrefix</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.packagerSpec">packagerSpec</a></code> | <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageV1Props">MediaPakcageV1Props</a> \| <a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageV2Props">MediaPakcageV2Props</a> \| <a href="#awscdk-construct-live-channel-from-mp4-file.PackagerSpec">PackagerSpec</a> \| <a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageV1Props">MediaPakcageV1Props</a> \| <a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageV2Props">MediaPakcageV2Props</a>[]</code> | *No description.* |
 
 ---
 
-##### `sourceUrl`<sup>Required</sup> <a name="sourceUrl" id="awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.sourceUrl"></a>
+##### `source`<sup>Required</sup> <a name="source" id="awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.source"></a>
 
 ```typescript
-public readonly sourceUrl: string | string[];
+public readonly source: string | string[] | SourceSpec[];
 ```
 
-- *Type:* string | string[]
+- *Type:* string | string[] | <a href="#awscdk-construct-live-channel-from-mp4-file.SourceSpec">SourceSpec</a>[]
 
 ---
 
@@ -648,53 +741,13 @@ public readonly channelClass: string;
 
 ---
 
-##### `gopLengthInSeconds`<sup>Optional</sup> <a name="gopLengthInSeconds" id="awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.gopLengthInSeconds"></a>
+##### `encoderSpec`<sup>Optional</sup> <a name="encoderSpec" id="awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.encoderSpec"></a>
 
 ```typescript
-public readonly gopLengthInSeconds: number;
+public readonly encoderSpec: EncoderSettingsProperty | EncoderSpec;
 ```
 
-- *Type:* number
-
----
-
-##### `hasTimecodeInSource`<sup>Optional</sup> <a name="hasTimecodeInSource" id="awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.hasTimecodeInSource"></a>
-
-```typescript
-public readonly hasTimecodeInSource: boolean;
-```
-
-- *Type:* boolean
-
----
-
-##### `hlsAdMarkers`<sup>Optional</sup> <a name="hlsAdMarkers" id="awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.hlsAdMarkers"></a>
-
-```typescript
-public readonly hlsAdMarkers: string;
-```
-
-- *Type:* string
-
----
-
-##### `manifestWindowSeconds`<sup>Optional</sup> <a name="manifestWindowSeconds" id="awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.manifestWindowSeconds"></a>
-
-```typescript
-public readonly manifestWindowSeconds: number;
-```
-
-- *Type:* number
-
----
-
-##### `mediaPackageV2Settings`<sup>Optional</sup> <a name="mediaPackageV2Settings" id="awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.mediaPackageV2Settings"></a>
-
-```typescript
-public readonly mediaPackageV2Settings: MediaPackageV2Settings;
-```
-
-- *Type:* <a href="#awscdk-construct-live-channel-from-mp4-file.MediaPackageV2Settings">MediaPackageV2Settings</a>
+- *Type:* aws-cdk-lib.aws_medialive.CfnChannel.EncoderSettingsProperty | <a href="#awscdk-construct-live-channel-from-mp4-file.EncoderSpec">EncoderSpec</a>
 
 ---
 
@@ -708,137 +761,13 @@ public readonly mediaPackageVersionSpec: string;
 
 ---
 
-##### `segmentDurationSeconds`<sup>Optional</sup> <a name="segmentDurationSeconds" id="awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.segmentDurationSeconds"></a>
+##### `packagerSpec`<sup>Optional</sup> <a name="packagerSpec" id="awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.packagerSpec"></a>
 
 ```typescript
-public readonly segmentDurationSeconds: number;
+public readonly packagerSpec: MediaPakcageV1Props | MediaPakcageV2Props | PackagerSpec | MediaPakcageV1Props | MediaPakcageV2Props[];
 ```
 
-- *Type:* number
-
----
-
-##### `separateAudioRendition`<sup>Optional</sup> <a name="separateAudioRendition" id="awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.separateAudioRendition"></a>
-
-```typescript
-public readonly separateAudioRendition: boolean;
-```
-
-- *Type:* boolean
-
----
-
-##### `startoverWindowSeconds`<sup>Optional</sup> <a name="startoverWindowSeconds" id="awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.startoverWindowSeconds"></a>
-
-```typescript
-public readonly startoverWindowSeconds: number;
-```
-
-- *Type:* number
-
----
-
-##### `timecodeBurninPrefix`<sup>Optional</sup> <a name="timecodeBurninPrefix" id="awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.timecodeBurninPrefix"></a>
-
-```typescript
-public readonly timecodeBurninPrefix: string;
-```
-
-- *Type:* string
-
----
-
-### MediaLiveInternalProps <a name="MediaLiveInternalProps" id="awscdk-construct-live-channel-from-mp4-file.MediaLiveInternalProps"></a>
-
-#### Initializer <a name="Initializer" id="awscdk-construct-live-channel-from-mp4-file.MediaLiveInternalProps.Initializer"></a>
-
-```typescript
-import { MediaLiveInternalProps } from 'awscdk-construct-live-channel-from-mp4-file'
-
-const mediaLiveInternalProps: MediaLiveInternalProps = { ... }
-```
-
-#### Properties <a name="Properties" id="Properties"></a>
-
-| **Name** | **Type** | **Description** |
-| --- | --- | --- |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaLiveInternalProps.property.channelClass">channelClass</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaLiveInternalProps.property.destinations">destinations</a></code> | <code>aws-cdk-lib.aws_medialive.CfnChannel.OutputDestinationProperty[]</code> | *No description.* |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaLiveInternalProps.property.gopLengthInSeconds">gopLengthInSeconds</a></code> | <code>number</code> | *No description.* |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaLiveInternalProps.property.isAbr">isAbr</a></code> | <code>boolean</code> | *No description.* |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaLiveInternalProps.property.outputGroupSettingsList">outputGroupSettingsList</a></code> | <code>aws-cdk-lib.aws_medialive.CfnChannel.OutputGroupSettingsProperty[]</code> | *No description.* |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaLiveInternalProps.property.outputSettingsList">outputSettingsList</a></code> | <code>aws-cdk-lib.aws_medialive.CfnChannel.OutputSettingsProperty[]</code> | *No description.* |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaLiveInternalProps.property.timecodeBurninPrefix">timecodeBurninPrefix</a></code> | <code>string</code> | *No description.* |
-
----
-
-##### `channelClass`<sup>Required</sup> <a name="channelClass" id="awscdk-construct-live-channel-from-mp4-file.MediaLiveInternalProps.property.channelClass"></a>
-
-```typescript
-public readonly channelClass: string;
-```
-
-- *Type:* string
-
----
-
-##### `destinations`<sup>Required</sup> <a name="destinations" id="awscdk-construct-live-channel-from-mp4-file.MediaLiveInternalProps.property.destinations"></a>
-
-```typescript
-public readonly destinations: OutputDestinationProperty[];
-```
-
-- *Type:* aws-cdk-lib.aws_medialive.CfnChannel.OutputDestinationProperty[]
-
----
-
-##### `gopLengthInSeconds`<sup>Required</sup> <a name="gopLengthInSeconds" id="awscdk-construct-live-channel-from-mp4-file.MediaLiveInternalProps.property.gopLengthInSeconds"></a>
-
-```typescript
-public readonly gopLengthInSeconds: number;
-```
-
-- *Type:* number
-
----
-
-##### `isAbr`<sup>Required</sup> <a name="isAbr" id="awscdk-construct-live-channel-from-mp4-file.MediaLiveInternalProps.property.isAbr"></a>
-
-```typescript
-public readonly isAbr: boolean;
-```
-
-- *Type:* boolean
-
----
-
-##### `outputGroupSettingsList`<sup>Required</sup> <a name="outputGroupSettingsList" id="awscdk-construct-live-channel-from-mp4-file.MediaLiveInternalProps.property.outputGroupSettingsList"></a>
-
-```typescript
-public readonly outputGroupSettingsList: OutputGroupSettingsProperty[];
-```
-
-- *Type:* aws-cdk-lib.aws_medialive.CfnChannel.OutputGroupSettingsProperty[]
-
----
-
-##### `outputSettingsList`<sup>Required</sup> <a name="outputSettingsList" id="awscdk-construct-live-channel-from-mp4-file.MediaLiveInternalProps.property.outputSettingsList"></a>
-
-```typescript
-public readonly outputSettingsList: OutputSettingsProperty[];
-```
-
-- *Type:* aws-cdk-lib.aws_medialive.CfnChannel.OutputSettingsProperty[]
-
----
-
-##### `timecodeBurninPrefix`<sup>Optional</sup> <a name="timecodeBurninPrefix" id="awscdk-construct-live-channel-from-mp4-file.MediaLiveInternalProps.property.timecodeBurninPrefix"></a>
-
-```typescript
-public readonly timecodeBurninPrefix: string;
-```
-
-- *Type:* string
+- *Type:* <a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageV1Props">MediaPakcageV1Props</a> | <a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageV2Props">MediaPakcageV2Props</a> | <a href="#awscdk-construct-live-channel-from-mp4-file.PackagerSpec">PackagerSpec</a> | <a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageV1Props">MediaPakcageV1Props</a> | <a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageV2Props">MediaPakcageV2Props</a>[]
 
 ---
 
@@ -857,13 +786,9 @@ const mediaLiveProps: MediaLiveProps = { ... }
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaLiveProps.property.destinations">destinations</a></code> | <code>aws-cdk-lib.aws_medialive.CfnChannel.OutputDestinationProperty[]</code> | *No description.* |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaLiveProps.property.outputGroupSettingsList">outputGroupSettingsList</a></code> | <code>aws-cdk-lib.aws_medialive.CfnChannel.OutputGroupSettingsProperty[]</code> | *No description.* |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaLiveProps.property.outputSettingsList">outputSettingsList</a></code> | <code>aws-cdk-lib.aws_medialive.CfnChannel.OutputSettingsProperty[]</code> | *No description.* |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaLiveProps.property.sourceUrls">sourceUrls</a></code> | <code>string[]</code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaLiveProps.property.encoderSpec">encoderSpec</a></code> | <code>aws-cdk-lib.aws_medialive.CfnChannel.EncoderSettingsProperty \| <a href="#awscdk-construct-live-channel-from-mp4-file.EncoderMidSettings">EncoderMidSettings</a></code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaLiveProps.property.sources">sources</a></code> | <code><a href="#awscdk-construct-live-channel-from-mp4-file.SourceSpec">SourceSpec</a>[]</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaLiveProps.property.channelClass">channelClass</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaLiveProps.property.gopLengthInSeconds">gopLengthInSeconds</a></code> | <code>number</code> | *No description.* |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaLiveProps.property.hasTimecodeInSource">hasTimecodeInSource</a></code> | <code>boolean</code> | *No description.* |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaLiveProps.property.timecodeBurninPrefix">timecodeBurninPrefix</a></code> | <code>string</code> | *No description.* |
 
 ---
 
@@ -877,33 +802,23 @@ public readonly destinations: OutputDestinationProperty[];
 
 ---
 
-##### `outputGroupSettingsList`<sup>Required</sup> <a name="outputGroupSettingsList" id="awscdk-construct-live-channel-from-mp4-file.MediaLiveProps.property.outputGroupSettingsList"></a>
+##### `encoderSpec`<sup>Required</sup> <a name="encoderSpec" id="awscdk-construct-live-channel-from-mp4-file.MediaLiveProps.property.encoderSpec"></a>
 
 ```typescript
-public readonly outputGroupSettingsList: OutputGroupSettingsProperty[];
+public readonly encoderSpec: EncoderSettingsProperty | EncoderMidSettings;
 ```
 
-- *Type:* aws-cdk-lib.aws_medialive.CfnChannel.OutputGroupSettingsProperty[]
+- *Type:* aws-cdk-lib.aws_medialive.CfnChannel.EncoderSettingsProperty | <a href="#awscdk-construct-live-channel-from-mp4-file.EncoderMidSettings">EncoderMidSettings</a>
 
 ---
 
-##### `outputSettingsList`<sup>Required</sup> <a name="outputSettingsList" id="awscdk-construct-live-channel-from-mp4-file.MediaLiveProps.property.outputSettingsList"></a>
+##### `sources`<sup>Required</sup> <a name="sources" id="awscdk-construct-live-channel-from-mp4-file.MediaLiveProps.property.sources"></a>
 
 ```typescript
-public readonly outputSettingsList: OutputSettingsProperty[];
+public readonly sources: SourceSpec[];
 ```
 
-- *Type:* aws-cdk-lib.aws_medialive.CfnChannel.OutputSettingsProperty[]
-
----
-
-##### `sourceUrls`<sup>Required</sup> <a name="sourceUrls" id="awscdk-construct-live-channel-from-mp4-file.MediaLiveProps.property.sourceUrls"></a>
-
-```typescript
-public readonly sourceUrls: string[];
-```
-
-- *Type:* string[]
+- *Type:* <a href="#awscdk-construct-live-channel-from-mp4-file.SourceSpec">SourceSpec</a>[]
 
 ---
 
@@ -911,36 +826,6 @@ public readonly sourceUrls: string[];
 
 ```typescript
 public readonly channelClass: string;
-```
-
-- *Type:* string
-
----
-
-##### `gopLengthInSeconds`<sup>Optional</sup> <a name="gopLengthInSeconds" id="awscdk-construct-live-channel-from-mp4-file.MediaLiveProps.property.gopLengthInSeconds"></a>
-
-```typescript
-public readonly gopLengthInSeconds: number;
-```
-
-- *Type:* number
-
----
-
-##### `hasTimecodeInSource`<sup>Optional</sup> <a name="hasTimecodeInSource" id="awscdk-construct-live-channel-from-mp4-file.MediaLiveProps.property.hasTimecodeInSource"></a>
-
-```typescript
-public readonly hasTimecodeInSource: boolean;
-```
-
-- *Type:* boolean
-
----
-
-##### `timecodeBurninPrefix`<sup>Optional</sup> <a name="timecodeBurninPrefix" id="awscdk-construct-live-channel-from-mp4-file.MediaLiveProps.property.timecodeBurninPrefix"></a>
-
-```typescript
-public readonly timecodeBurninPrefix: string;
 ```
 
 - *Type:* string
@@ -968,7 +853,7 @@ const mediaPackageV1EndpointsTable: MediaPackageV1EndpointsTable = { ... }
 
 ---
 
-##### `cmaf`<sup>Required</sup> <a name="cmaf" id="awscdk-construct-live-channel-from-mp4-file.MediaPackageV1EndpointsTable.property.cmaf"></a>
+##### `cmaf`<sup>Optional</sup> <a name="cmaf" id="awscdk-construct-live-channel-from-mp4-file.MediaPackageV1EndpointsTable.property.cmaf"></a>
 
 ```typescript
 public readonly cmaf: CfnOriginEndpoint;
@@ -978,7 +863,7 @@ public readonly cmaf: CfnOriginEndpoint;
 
 ---
 
-##### `dash`<sup>Required</sup> <a name="dash" id="awscdk-construct-live-channel-from-mp4-file.MediaPackageV1EndpointsTable.property.dash"></a>
+##### `dash`<sup>Optional</sup> <a name="dash" id="awscdk-construct-live-channel-from-mp4-file.MediaPackageV1EndpointsTable.property.dash"></a>
 
 ```typescript
 public readonly dash: CfnOriginEndpoint;
@@ -988,7 +873,7 @@ public readonly dash: CfnOriginEndpoint;
 
 ---
 
-##### `hls`<sup>Required</sup> <a name="hls" id="awscdk-construct-live-channel-from-mp4-file.MediaPackageV1EndpointsTable.property.hls"></a>
+##### `hls`<sup>Optional</sup> <a name="hls" id="awscdk-construct-live-channel-from-mp4-file.MediaPackageV1EndpointsTable.property.hls"></a>
 
 ```typescript
 public readonly hls: CfnOriginEndpoint;
@@ -998,7 +883,7 @@ public readonly hls: CfnOriginEndpoint;
 
 ---
 
-##### `mss`<sup>Required</sup> <a name="mss" id="awscdk-construct-live-channel-from-mp4-file.MediaPackageV1EndpointsTable.property.mss"></a>
+##### `mss`<sup>Optional</sup> <a name="mss" id="awscdk-construct-live-channel-from-mp4-file.MediaPackageV1EndpointsTable.property.mss"></a>
 
 ```typescript
 public readonly mss: CfnOriginEndpoint;
@@ -1022,12 +907,23 @@ const mediaPackageV2EndpointsTable: MediaPackageV2EndpointsTable = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPackageV2EndpointsTable.property.dash">dash</a></code> | <code>aws-cdk-lib.aws_mediapackagev2.CfnOriginEndpoint</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPackageV2EndpointsTable.property.hls">hls</a></code> | <code>aws-cdk-lib.aws_mediapackagev2.CfnOriginEndpoint</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPackageV2EndpointsTable.property.llHls">llHls</a></code> | <code>aws-cdk-lib.aws_mediapackagev2.CfnOriginEndpoint</code> | *No description.* |
 
 ---
 
-##### `hls`<sup>Required</sup> <a name="hls" id="awscdk-construct-live-channel-from-mp4-file.MediaPackageV2EndpointsTable.property.hls"></a>
+##### `dash`<sup>Optional</sup> <a name="dash" id="awscdk-construct-live-channel-from-mp4-file.MediaPackageV2EndpointsTable.property.dash"></a>
+
+```typescript
+public readonly dash: CfnOriginEndpoint;
+```
+
+- *Type:* aws-cdk-lib.aws_mediapackagev2.CfnOriginEndpoint
+
+---
+
+##### `hls`<sup>Optional</sup> <a name="hls" id="awscdk-construct-live-channel-from-mp4-file.MediaPackageV2EndpointsTable.property.hls"></a>
 
 ```typescript
 public readonly hls: CfnOriginEndpoint;
@@ -1061,12 +957,23 @@ const mediaPackageV2EndpointUrlsTable: MediaPackageV2EndpointUrlsTable = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPackageV2EndpointUrlsTable.property.dash">dash</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPackageV2EndpointUrlsTable.property.hls">hls</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPackageV2EndpointUrlsTable.property.llHls">llHls</a></code> | <code>string</code> | *No description.* |
 
 ---
 
-##### `hls`<sup>Required</sup> <a name="hls" id="awscdk-construct-live-channel-from-mp4-file.MediaPackageV2EndpointUrlsTable.property.hls"></a>
+##### `dash`<sup>Optional</sup> <a name="dash" id="awscdk-construct-live-channel-from-mp4-file.MediaPackageV2EndpointUrlsTable.property.dash"></a>
+
+```typescript
+public readonly dash: string;
+```
+
+- *Type:* string
+
+---
+
+##### `hls`<sup>Optional</sup> <a name="hls" id="awscdk-construct-live-channel-from-mp4-file.MediaPackageV2EndpointUrlsTable.property.hls"></a>
 
 ```typescript
 public readonly hls: string;
@@ -1083,6 +990,56 @@ public readonly llHls: string;
 ```
 
 - *Type:* string
+
+---
+
+### MediaPackageV2FullSpec <a name="MediaPackageV2FullSpec" id="awscdk-construct-live-channel-from-mp4-file.MediaPackageV2FullSpec"></a>
+
+#### Initializer <a name="Initializer" id="awscdk-construct-live-channel-from-mp4-file.MediaPackageV2FullSpec.Initializer"></a>
+
+```typescript
+import { MediaPackageV2FullSpec } from 'awscdk-construct-live-channel-from-mp4-file'
+
+const mediaPackageV2FullSpec: MediaPackageV2FullSpec = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPackageV2FullSpec.property.containerType">containerType</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPackageV2FullSpec.property.manifests">manifests</a></code> | <code>aws-cdk-lib.aws_mediapackagev2.CfnOriginEndpoint.HlsManifestConfigurationProperty \| aws-cdk-lib.aws_mediapackagev2.CfnOriginEndpoint.LowLatencyHlsManifestConfigurationProperty \| aws-cdk-lib.aws_mediapackagev2.CfnOriginEndpoint.DashManifestConfigurationProperty[]</code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPackageV2FullSpec.property.segment">segment</a></code> | <code>aws-cdk-lib.aws_mediapackagev2.CfnOriginEndpoint.SegmentProperty</code> | *No description.* |
+
+---
+
+##### `containerType`<sup>Required</sup> <a name="containerType" id="awscdk-construct-live-channel-from-mp4-file.MediaPackageV2FullSpec.property.containerType"></a>
+
+```typescript
+public readonly containerType: string;
+```
+
+- *Type:* string
+
+---
+
+##### `manifests`<sup>Required</sup> <a name="manifests" id="awscdk-construct-live-channel-from-mp4-file.MediaPackageV2FullSpec.property.manifests"></a>
+
+```typescript
+public readonly manifests: HlsManifestConfigurationProperty | LowLatencyHlsManifestConfigurationProperty | DashManifestConfigurationProperty[];
+```
+
+- *Type:* aws-cdk-lib.aws_mediapackagev2.CfnOriginEndpoint.HlsManifestConfigurationProperty | aws-cdk-lib.aws_mediapackagev2.CfnOriginEndpoint.LowLatencyHlsManifestConfigurationProperty | aws-cdk-lib.aws_mediapackagev2.CfnOriginEndpoint.DashManifestConfigurationProperty[]
+
+---
+
+##### `segment`<sup>Required</sup> <a name="segment" id="awscdk-construct-live-channel-from-mp4-file.MediaPackageV2FullSpec.property.segment"></a>
+
+```typescript
+public readonly segment: SegmentProperty;
+```
+
+- *Type:* aws-cdk-lib.aws_mediapackagev2.CfnOriginEndpoint.SegmentProperty
 
 ---
 
@@ -1125,6 +1082,67 @@ public readonly omitLlHls: boolean;
 
 ---
 
+### MediaPakcageV1MidEndpointSpec <a name="MediaPakcageV1MidEndpointSpec" id="awscdk-construct-live-channel-from-mp4-file.MediaPakcageV1MidEndpointSpec"></a>
+
+#### Initializer <a name="Initializer" id="awscdk-construct-live-channel-from-mp4-file.MediaPakcageV1MidEndpointSpec.Initializer"></a>
+
+```typescript
+import { MediaPakcageV1MidEndpointSpec } from 'awscdk-construct-live-channel-from-mp4-file'
+
+const mediaPakcageV1MidEndpointSpec: MediaPakcageV1MidEndpointSpec = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageV1MidEndpointSpec.property.hlsAdMarkers">hlsAdMarkers</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageV1MidEndpointSpec.property.manifestWindowSeconds">manifestWindowSeconds</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageV1MidEndpointSpec.property.segmentDurationSeconds">segmentDurationSeconds</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageV1MidEndpointSpec.property.separateAudioRendition">separateAudioRendition</a></code> | <code>boolean</code> | *No description.* |
+
+---
+
+##### `hlsAdMarkers`<sup>Optional</sup> <a name="hlsAdMarkers" id="awscdk-construct-live-channel-from-mp4-file.MediaPakcageV1MidEndpointSpec.property.hlsAdMarkers"></a>
+
+```typescript
+public readonly hlsAdMarkers: string;
+```
+
+- *Type:* string
+
+---
+
+##### `manifestWindowSeconds`<sup>Optional</sup> <a name="manifestWindowSeconds" id="awscdk-construct-live-channel-from-mp4-file.MediaPakcageV1MidEndpointSpec.property.manifestWindowSeconds"></a>
+
+```typescript
+public readonly manifestWindowSeconds: number;
+```
+
+- *Type:* number
+
+---
+
+##### `segmentDurationSeconds`<sup>Optional</sup> <a name="segmentDurationSeconds" id="awscdk-construct-live-channel-from-mp4-file.MediaPakcageV1MidEndpointSpec.property.segmentDurationSeconds"></a>
+
+```typescript
+public readonly segmentDurationSeconds: number;
+```
+
+- *Type:* number
+
+---
+
+##### `separateAudioRendition`<sup>Optional</sup> <a name="separateAudioRendition" id="awscdk-construct-live-channel-from-mp4-file.MediaPakcageV1MidEndpointSpec.property.separateAudioRendition"></a>
+
+```typescript
+public readonly separateAudioRendition: boolean;
+```
+
+- *Type:* boolean
+
+---
+
 ### MediaPakcageV1Props <a name="MediaPakcageV1Props" id="awscdk-construct-live-channel-from-mp4-file.MediaPakcageV1Props"></a>
 
 #### Initializer <a name="Initializer" id="awscdk-construct-live-channel-from-mp4-file.MediaPakcageV1Props.Initializer"></a>
@@ -1139,51 +1157,18 @@ const mediaPakcageV1Props: MediaPakcageV1Props = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageV1Props.property.hlsAdMarkers">hlsAdMarkers</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageV1Props.property.manifestWindowSeconds">manifestWindowSeconds</a></code> | <code>number</code> | *No description.* |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageV1Props.property.segmentDurationSeconds">segmentDurationSeconds</a></code> | <code>number</code> | *No description.* |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageV1Props.property.separateAudioRendition">separateAudioRendition</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageV1Props.property.endpointSpec">endpointSpec</a></code> | <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageV1MidEndpointSpec">MediaPakcageV1MidEndpointSpec</a> \| aws-cdk-lib.aws_mediapackage.CfnOriginEndpoint.HlsPackageProperty \| aws-cdk-lib.aws_mediapackage.CfnOriginEndpoint.DashPackageProperty \| aws-cdk-lib.aws_mediapackage.CfnOriginEndpoint.CmafPackageProperty \| aws-cdk-lib.aws_mediapackage.CfnOriginEndpoint.MssPackageProperty[]</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageV1Props.property.startoverWindowSeconds">startoverWindowSeconds</a></code> | <code>number</code> | *No description.* |
 
 ---
 
-##### `hlsAdMarkers`<sup>Optional</sup> <a name="hlsAdMarkers" id="awscdk-construct-live-channel-from-mp4-file.MediaPakcageV1Props.property.hlsAdMarkers"></a>
+##### `endpointSpec`<sup>Optional</sup> <a name="endpointSpec" id="awscdk-construct-live-channel-from-mp4-file.MediaPakcageV1Props.property.endpointSpec"></a>
 
 ```typescript
-public readonly hlsAdMarkers: string;
+public readonly endpointSpec: MediaPakcageV1MidEndpointSpec | HlsPackageProperty | DashPackageProperty | CmafPackageProperty | MssPackageProperty[];
 ```
 
-- *Type:* string
-
----
-
-##### `manifestWindowSeconds`<sup>Optional</sup> <a name="manifestWindowSeconds" id="awscdk-construct-live-channel-from-mp4-file.MediaPakcageV1Props.property.manifestWindowSeconds"></a>
-
-```typescript
-public readonly manifestWindowSeconds: number;
-```
-
-- *Type:* number
-
----
-
-##### `segmentDurationSeconds`<sup>Optional</sup> <a name="segmentDurationSeconds" id="awscdk-construct-live-channel-from-mp4-file.MediaPakcageV1Props.property.segmentDurationSeconds"></a>
-
-```typescript
-public readonly segmentDurationSeconds: number;
-```
-
-- *Type:* number
-
----
-
-##### `separateAudioRendition`<sup>Optional</sup> <a name="separateAudioRendition" id="awscdk-construct-live-channel-from-mp4-file.MediaPakcageV1Props.property.separateAudioRendition"></a>
-
-```typescript
-public readonly separateAudioRendition: boolean;
-```
-
-- *Type:* boolean
+- *Type:* <a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageV1MidEndpointSpec">MediaPakcageV1MidEndpointSpec</a> | aws-cdk-lib.aws_mediapackage.CfnOriginEndpoint.HlsPackageProperty | aws-cdk-lib.aws_mediapackage.CfnOriginEndpoint.DashPackageProperty | aws-cdk-lib.aws_mediapackage.CfnOriginEndpoint.CmafPackageProperty | aws-cdk-lib.aws_mediapackage.CfnOriginEndpoint.MssPackageProperty[]
 
 ---
 
@@ -1194,6 +1179,78 @@ public readonly startoverWindowSeconds: number;
 ```
 
 - *Type:* number
+
+---
+
+### MediaPakcageV2EndpointSpec <a name="MediaPakcageV2EndpointSpec" id="awscdk-construct-live-channel-from-mp4-file.MediaPakcageV2EndpointSpec"></a>
+
+#### Initializer <a name="Initializer" id="awscdk-construct-live-channel-from-mp4-file.MediaPakcageV2EndpointSpec.Initializer"></a>
+
+```typescript
+import { MediaPakcageV2EndpointSpec } from 'awscdk-construct-live-channel-from-mp4-file'
+
+const mediaPakcageV2EndpointSpec: MediaPakcageV2EndpointSpec = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageV2EndpointSpec.property.hlsAdMarkers">hlsAdMarkers</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageV2EndpointSpec.property.manifestWindowSeconds">manifestWindowSeconds</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageV2EndpointSpec.property.omitLlHls">omitLlHls</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageV2EndpointSpec.property.segmentDurationSeconds">segmentDurationSeconds</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageV2EndpointSpec.property.separateAudioRendition">separateAudioRendition</a></code> | <code>boolean</code> | *No description.* |
+
+---
+
+##### `hlsAdMarkers`<sup>Optional</sup> <a name="hlsAdMarkers" id="awscdk-construct-live-channel-from-mp4-file.MediaPakcageV2EndpointSpec.property.hlsAdMarkers"></a>
+
+```typescript
+public readonly hlsAdMarkers: string;
+```
+
+- *Type:* string
+
+---
+
+##### `manifestWindowSeconds`<sup>Optional</sup> <a name="manifestWindowSeconds" id="awscdk-construct-live-channel-from-mp4-file.MediaPakcageV2EndpointSpec.property.manifestWindowSeconds"></a>
+
+```typescript
+public readonly manifestWindowSeconds: number;
+```
+
+- *Type:* number
+
+---
+
+##### `omitLlHls`<sup>Optional</sup> <a name="omitLlHls" id="awscdk-construct-live-channel-from-mp4-file.MediaPakcageV2EndpointSpec.property.omitLlHls"></a>
+
+```typescript
+public readonly omitLlHls: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+##### `segmentDurationSeconds`<sup>Optional</sup> <a name="segmentDurationSeconds" id="awscdk-construct-live-channel-from-mp4-file.MediaPakcageV2EndpointSpec.property.segmentDurationSeconds"></a>
+
+```typescript
+public readonly segmentDurationSeconds: number;
+```
+
+- *Type:* number
+
+---
+
+##### `separateAudioRendition`<sup>Optional</sup> <a name="separateAudioRendition" id="awscdk-construct-live-channel-from-mp4-file.MediaPakcageV2EndpointSpec.property.separateAudioRendition"></a>
+
+```typescript
+public readonly separateAudioRendition: boolean;
+```
+
+- *Type:* boolean
 
 ---
 
@@ -1212,11 +1269,7 @@ const mediaPakcageV2Props: MediaPakcageV2Props = { ... }
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageV2Props.property.channelGroupName">channelGroupName</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageV2Props.property.hlsAdMarkers">hlsAdMarkers</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageV2Props.property.manifestWindowSeconds">manifestWindowSeconds</a></code> | <code>number</code> | *No description.* |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageV2Props.property.omitLlHls">omitLlHls</a></code> | <code>boolean</code> | *No description.* |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageV2Props.property.segmentDurationSeconds">segmentDurationSeconds</a></code> | <code>number</code> | *No description.* |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageV2Props.property.separateAudioRendition">separateAudioRendition</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageV2Props.property.endpointSpec">endpointSpec</a></code> | <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageV2EndpointSpec">MediaPakcageV2EndpointSpec</a> \| <a href="#awscdk-construct-live-channel-from-mp4-file.MediaPackageV2FullSpec">MediaPackageV2FullSpec</a>[]</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageV2Props.property.startoverWindowSeconds">startoverWindowSeconds</a></code> | <code>number</code> | *No description.* |
 
 ---
@@ -1231,53 +1284,13 @@ public readonly channelGroupName: string;
 
 ---
 
-##### `hlsAdMarkers`<sup>Optional</sup> <a name="hlsAdMarkers" id="awscdk-construct-live-channel-from-mp4-file.MediaPakcageV2Props.property.hlsAdMarkers"></a>
+##### `endpointSpec`<sup>Optional</sup> <a name="endpointSpec" id="awscdk-construct-live-channel-from-mp4-file.MediaPakcageV2Props.property.endpointSpec"></a>
 
 ```typescript
-public readonly hlsAdMarkers: string;
+public readonly endpointSpec: MediaPakcageV2EndpointSpec | MediaPackageV2FullSpec[];
 ```
 
-- *Type:* string
-
----
-
-##### `manifestWindowSeconds`<sup>Optional</sup> <a name="manifestWindowSeconds" id="awscdk-construct-live-channel-from-mp4-file.MediaPakcageV2Props.property.manifestWindowSeconds"></a>
-
-```typescript
-public readonly manifestWindowSeconds: number;
-```
-
-- *Type:* number
-
----
-
-##### `omitLlHls`<sup>Optional</sup> <a name="omitLlHls" id="awscdk-construct-live-channel-from-mp4-file.MediaPakcageV2Props.property.omitLlHls"></a>
-
-```typescript
-public readonly omitLlHls: boolean;
-```
-
-- *Type:* boolean
-
----
-
-##### `segmentDurationSeconds`<sup>Optional</sup> <a name="segmentDurationSeconds" id="awscdk-construct-live-channel-from-mp4-file.MediaPakcageV2Props.property.segmentDurationSeconds"></a>
-
-```typescript
-public readonly segmentDurationSeconds: number;
-```
-
-- *Type:* number
-
----
-
-##### `separateAudioRendition`<sup>Optional</sup> <a name="separateAudioRendition" id="awscdk-construct-live-channel-from-mp4-file.MediaPakcageV2Props.property.separateAudioRendition"></a>
-
-```typescript
-public readonly separateAudioRendition: boolean;
-```
-
-- *Type:* boolean
+- *Type:* <a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageV2EndpointSpec">MediaPakcageV2EndpointSpec</a> | <a href="#awscdk-construct-live-channel-from-mp4-file.MediaPackageV2FullSpec">MediaPackageV2FullSpec</a>[]
 
 ---
 
@@ -1288,6 +1301,139 @@ public readonly startoverWindowSeconds: number;
 ```
 
 - *Type:* number
+
+---
+
+### PackagerSpec <a name="PackagerSpec" id="awscdk-construct-live-channel-from-mp4-file.PackagerSpec"></a>
+
+#### Initializer <a name="Initializer" id="awscdk-construct-live-channel-from-mp4-file.PackagerSpec.Initializer"></a>
+
+```typescript
+import { PackagerSpec } from 'awscdk-construct-live-channel-from-mp4-file'
+
+const packagerSpec: PackagerSpec = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.PackagerSpec.property.hlsAdMarkers">hlsAdMarkers</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.PackagerSpec.property.manifestWindowSeconds">manifestWindowSeconds</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.PackagerSpec.property.mediaPackageV2Settings">mediaPackageV2Settings</a></code> | <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPackageV2Settings">MediaPackageV2Settings</a></code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.PackagerSpec.property.segmentDurationSeconds">segmentDurationSeconds</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.PackagerSpec.property.separateAudioRendition">separateAudioRendition</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.PackagerSpec.property.startoverWindowSeconds">startoverWindowSeconds</a></code> | <code>number</code> | *No description.* |
+
+---
+
+##### `hlsAdMarkers`<sup>Optional</sup> <a name="hlsAdMarkers" id="awscdk-construct-live-channel-from-mp4-file.PackagerSpec.property.hlsAdMarkers"></a>
+
+```typescript
+public readonly hlsAdMarkers: string;
+```
+
+- *Type:* string
+
+---
+
+##### `manifestWindowSeconds`<sup>Optional</sup> <a name="manifestWindowSeconds" id="awscdk-construct-live-channel-from-mp4-file.PackagerSpec.property.manifestWindowSeconds"></a>
+
+```typescript
+public readonly manifestWindowSeconds: number;
+```
+
+- *Type:* number
+
+---
+
+##### `mediaPackageV2Settings`<sup>Optional</sup> <a name="mediaPackageV2Settings" id="awscdk-construct-live-channel-from-mp4-file.PackagerSpec.property.mediaPackageV2Settings"></a>
+
+```typescript
+public readonly mediaPackageV2Settings: MediaPackageV2Settings;
+```
+
+- *Type:* <a href="#awscdk-construct-live-channel-from-mp4-file.MediaPackageV2Settings">MediaPackageV2Settings</a>
+
+---
+
+##### `segmentDurationSeconds`<sup>Optional</sup> <a name="segmentDurationSeconds" id="awscdk-construct-live-channel-from-mp4-file.PackagerSpec.property.segmentDurationSeconds"></a>
+
+```typescript
+public readonly segmentDurationSeconds: number;
+```
+
+- *Type:* number
+
+---
+
+##### `separateAudioRendition`<sup>Optional</sup> <a name="separateAudioRendition" id="awscdk-construct-live-channel-from-mp4-file.PackagerSpec.property.separateAudioRendition"></a>
+
+```typescript
+public readonly separateAudioRendition: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+##### `startoverWindowSeconds`<sup>Optional</sup> <a name="startoverWindowSeconds" id="awscdk-construct-live-channel-from-mp4-file.PackagerSpec.property.startoverWindowSeconds"></a>
+
+```typescript
+public readonly startoverWindowSeconds: number;
+```
+
+- *Type:* number
+
+---
+
+### SourceSpec <a name="SourceSpec" id="awscdk-construct-live-channel-from-mp4-file.SourceSpec"></a>
+
+#### Initializer <a name="Initializer" id="awscdk-construct-live-channel-from-mp4-file.SourceSpec.Initializer"></a>
+
+```typescript
+import { SourceSpec } from 'awscdk-construct-live-channel-from-mp4-file'
+
+const sourceSpec: SourceSpec = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.SourceSpec.property.url">url</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.SourceSpec.property.conversionSpec">conversionSpec</a></code> | <code>aws-cdk-lib.aws_medialive.CfnChannel.EncoderSettingsProperty</code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.SourceSpec.property.conversionType">conversionType</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `url`<sup>Required</sup> <a name="url" id="awscdk-construct-live-channel-from-mp4-file.SourceSpec.property.url"></a>
+
+```typescript
+public readonly url: string;
+```
+
+- *Type:* string
+
+---
+
+##### `conversionSpec`<sup>Optional</sup> <a name="conversionSpec" id="awscdk-construct-live-channel-from-mp4-file.SourceSpec.property.conversionSpec"></a>
+
+```typescript
+public readonly conversionSpec: EncoderSettingsProperty;
+```
+
+- *Type:* aws-cdk-lib.aws_medialive.CfnChannel.EncoderSettingsProperty
+
+---
+
+##### `conversionType`<sup>Optional</sup> <a name="conversionType" id="awscdk-construct-live-channel-from-mp4-file.SourceSpec.property.conversionType"></a>
+
+```typescript
+public readonly conversionType: string;
+```
+
+- *Type:* string
 
 ---
 

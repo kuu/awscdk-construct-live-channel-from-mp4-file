@@ -7,9 +7,13 @@ test('Create MediaLive', () => {
   const stack = new Stack(app, 'SmokeStack');
 
   new MediaLive(stack, 'MediaLive', {
-    sourceUrls: [
-      'https://example.com/test-1.mp4',
-      'https://example.com/test-2.mp4',
+    sources: [
+      {
+        url: 'https://example.com/test-1.mp4',
+      },
+      {
+        url: 'https://example.com/test-2.mp4',
+      },
     ],
     destinations: [{
       id: 'MediaPackageV1',
@@ -19,20 +23,23 @@ test('Create MediaLive', () => {
         },
       ],
     }],
-    outputGroupSettingsList: [
-      {
-        mediaPackageGroupSettings: {
-          destination: {
-            destinationRefId: 'MediaPackageV1',
+    encoderSpec: {
+      gopLengthInSeconds: 2,
+      outputGroupSettingsList: [
+        {
+          mediaPackageGroupSettings: {
+            destination: {
+              destinationRefId: 'MediaPackageV1',
+            },
           },
         },
-      },
-    ],
-    outputSettingsList: [
-      {
-        mediaPackageOutputSettings: {},
-      },
-    ],
+      ],
+      outputSettingsList: [
+        {
+          mediaPackageOutputSettings: {},
+        },
+      ],
+    },
   });
 
   const template = Template.fromStack(stack);
@@ -46,7 +53,7 @@ test('Create MediaPackageV1', () => {
   const stack = new Stack(app, 'SmokeStack');
 
   new MediaPackageV1(stack, 'MediaPackage', {
-    hlsAdMarkers: 'NONE',
+    startoverWindowSeconds: 3600,
   });
 
   const template = Template.fromStack(stack);
@@ -60,13 +67,13 @@ test('Create MediaPackageV2', () => {
   const stack = new Stack(app, 'SmokeStack');
 
   new MediaPackageV2(stack, 'MediaPackage', {
-    hlsAdMarkers: 'NONE',
+    startoverWindowSeconds: 3600,
   });
 
   const template = Template.fromStack(stack);
 
   template.hasResource('AWS::MediaPackageV2::Channel', 1);
-  template.hasResource('AWS::MediaPackageV2::OriginEndpoint', 2);
+  template.hasResource('AWS::MediaPackageV2::OriginEndpoint', 3);
 });
 
 test('Create LiveChannelFromMp4', () => {
@@ -74,8 +81,7 @@ test('Create LiveChannelFromMp4', () => {
   const stack = new Stack(app, 'SmokeStack');
 
   new LiveChannelFromMp4(stack, 'LiveChannelFromMp4', {
-    sourceUrl: 'https://example.com/test.mp4',
-    hlsAdMarkers: 'NONE',
+    source: 'https://example.com/test.mp4',
   });
 
   const template = Template.fromStack(stack);
@@ -84,7 +90,7 @@ test('Create LiveChannelFromMp4', () => {
   template.hasResource('AWS::MediaPackage::Channel', 1);
   template.hasResource('AWS::MediaPackage::OriginEndpoint', 4);
   template.hasResource('AWS::MediaPackageV2::Channel', 1);
-  template.hasResource('AWS::MediaPackageV2::OriginEndpoint', 2);
+  template.hasResource('AWS::MediaPackageV2::OriginEndpoint', 3);
 });
 
 test('Create LiveChannelFromMp4 with TC in source', () => {
@@ -92,21 +98,29 @@ test('Create LiveChannelFromMp4 with TC in source', () => {
   const stack = new Stack(app, 'SmokeStack');
 
   new LiveChannelFromMp4(stack, 'LiveChannelFromMp4withTC', {
-    sourceUrl: [
-      'https://example.com/test-1.mp4',
-      'https://example.com/test-2.mp4',
+    source: [
+      {
+        url: 'https://example.com/test-1.mp4',
+        conversionType: 'NONE',
+      }, {
+        url: 'https://example.com/test-2.mp4',
+        conversionType: 'RTP_PUSH',
+      },
     ],
-    hlsAdMarkers: 'NONE',
-    hasTimecodeInSource: true,
+    encoderSpec: {
+      gopLengthInSeconds: 2,
+    },
+    packagerSpec: {
+      segmentDurationSeconds: 4,
+    },
+    mediaPackageVersionSpec: 'V2_ONLY',
   });
 
   const template = Template.fromStack(stack);
 
-  template.hasResource('AWS::MediaLive::Input', 4);
-  template.hasResource('AWS::MediaLive::InputSecurityGroup', 2);
-  template.hasResource('AWS::MediaLive::Channel', 3);
-  template.hasResource('AWS::MediaPackage::Channel', 1);
-  template.hasResource('AWS::MediaPackage::OriginEndpoint', 4);
+  template.hasResource('AWS::MediaLive::Input', 3);
+  template.hasResource('AWS::MediaLive::InputSecurityGroup', 3);
+  template.hasResource('AWS::MediaLive::Channel', 2);
   template.hasResource('AWS::MediaPackageV2::Channel', 1);
-  template.hasResource('AWS::MediaPackageV2::OriginEndpoint', 2);
+  template.hasResource('AWS::MediaPackageV2::OriginEndpoint', 3);
 });
