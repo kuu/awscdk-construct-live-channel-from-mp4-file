@@ -5,15 +5,26 @@ import { AwsCustomResource, AwsCustomResourcePolicy, PhysicalResourceId } from '
 import { Construct } from 'constructs';
 import { getUdpOutputSettings, getEncodingSettings } from './MediaLiveUtil';
 
-export interface MediaLiveProps {
-  readonly sourceUrls: string[]; // The list of URL of the MP4 files used by MediaLive as the sources.
-  readonly destinations: CfnChannel.OutputDestinationProperty[]; // The destinations for the channel.
-  readonly outputGroupSettingsList: CfnChannel.OutputGroupSettingsProperty[]; // The output group settings for the channel.
-  readonly outputSettingsList: CfnChannel.OutputSettingsProperty[]; // The output settings for the channel.
-  readonly channelClass?: string; // The class of the channel. (STANDARD or SINGLE_PIPELINE)
-  readonly gopLengthInSeconds?: number; // The length of the GOP in seconds.
+export interface SourceSpec {
+  readonly url: string; // The URL of the MP4 file.
+  readonly conversionType?: 'NONE' | 'RTP_PUSH' | 'RTMP_PUSH' | 'MEDIACONNECT' | 'AWS_CDI'; // Which type of conversion to perform.
+  readonly conversionSpec?: CfnChannel.EncoderSettingsProperty; // The encoding settings used for the conversion.
+}
+
+export interface EncoderMidSettings {
+  readonly outputGroupSettingsList: CfnChannel.OutputGroupSettingsProperty[]; // The settings for the output groups.
+  readonly outputSettingsList: CfnChannel.OutputSettingsProperty[]; // The settings for the outputs.
+  readonly gopLengthInSeconds: number; // The length of the GOP in seconds.
   readonly timecodeBurninPrefix?: string; // The prefix for the timecode burn-in.
-  readonly hasTimecodeInSource?: boolean; // Whether the source has timecode.
+}
+
+export type EncoderSettings = EncoderMidSettings | CfnChannel.EncoderSettingsProperty;
+
+export interface MediaLiveProps {
+  readonly sources: SourceSpec[]; // The list of URL of the MP4 files used by MediaLive as the sources.
+  readonly destinations: CfnChannel.OutputDestinationProperty[]; // The destinations for the channel.
+  readonly channelClass?: 'STANDARD' | 'SINGLE_PIPELINE'; // The class of the channel.
+  readonly encoderSpec: EncoderSettings; // The encoding settings for the channel.
 }
 
 export class MediaLive extends Construct {
@@ -25,102 +36,106 @@ export class MediaLive extends Construct {
     super(scope, id);
 
     const {
-      sourceUrls,
+      sources,
       destinations,
-      outputGroupSettingsList,
-      outputSettingsList,
       channelClass = 'SINGLE_PIPELINE',
-      gopLengthInSeconds = 3,
-      timecodeBurninPrefix,
-      hasTimecodeInSource = false,
+      encoderSpec,
     } = props;
 
     // Create MediaLive inputs
-    if (hasTimecodeInSource) {
-      this.inputs = sourceUrls.map((sourceUrl, i) => {
+    let timecodeInSource = false;
+    this.inputs = sources.map((source, i) => {
+      const {
+        url,
+        conversionType = 'NONE',
+        conversionSpec,
+      } = source;
+
+      if (conversionType === 'NONE') {
+        // Create an MP4 file input
+        return new CfnInput(this, `CfnInput-${i}`, {
+          name: `${crypto.randomUUID()}`,
+          type: 'MP4_FILE',
+          sources: Array.from({ length: channelClass === 'STANDARD' ? 2 : 1 }, () => ({ url: url })),
+        });
+      } else {
         // Create a dummy channel for embedding timecode in the source
         const fileInput = new CfnInput(this, `FileInput-${i}`, {
           name: `${crypto.randomUUID()}`,
           type: 'MP4_FILE',
-          sources: [{ url: sourceUrl }],
+          sources: Array.from({ length: channelClass === 'STANDARD' ? 2 : 1 }, () => ({ url: url })),
         });
         const inputSecurityGroup = new CfnInputSecurityGroup(this, `InputSecurityGroup-${i}`, {
           whitelistRules: [{ cidr: '0.0.0.0/0' }],
         });
-        const rtpInput = new CfnInput(this, `CfnInput-${i}`, {
+        const pushInput = new CfnInput(this, `CfnInput-${i}`, {
           name: `${crypto.randomUUID()}`,
-          type: 'RTP_PUSH',
+          type: conversionType,
           inputSecurityGroups: [inputSecurityGroup.ref],
         });
         const ch = createChannel(this, `${i}`, [fileInput], {
           destinations: [
             {
               id: `udp-output-destination-${i}`,
-              settings: [{ url: Fn.select(0, rtpInput.attrDestinations) }],
+              settings: Array.from({ length: channelClass === 'STANDARD' ? 2 : 1 }, (_, j) => ({ url: Fn.select(j, pushInput.attrDestinations) })),
             },
           ],
-          outputGroupSettingsList: [
-            {
-              udpGroupSettings: {
-                inputLossAction: 'DROP_TS',
+          channelClass,
+          encoderSpec: conversionSpec ? conversionSpec : {
+            outputGroupSettingsList: [
+              {
+                udpGroupSettings: {
+                  inputLossAction: 'DROP_TS',
+                },
               },
-            },
-          ],
-          outputSettingsList: [
-            {
-              udpOutputSettings: getUdpOutputSettings(i),
-            },
-          ],
-          channelClass: 'SINGLE_PIPELINE',
-          gopLengthInSeconds,
+            ],
+            outputSettingsList: [
+              {
+                udpOutputSettings: getUdpOutputSettings(i),
+              },
+            ],
+            gopLengthInSeconds: 3,
+          },
           isAbr: false,
+          timecodeInSource: false,
         });
+        timecodeInSource = true;
         startChannel(this, `StartChannel-${i}`, ch.ref);
-        return rtpInput;
-      });
-    } else {
-      this.inputs = sourceUrls.map((sourceUrl, i) => {
-        return new CfnInput(this, `CfnInput-${i}`, {
-          name: `${crypto.randomUUID()}`,
-          type: 'MP4_FILE',
-          sources: Array.from({ length: channelClass === 'STANDARD' ? 2 : 1 }, () => ({ url: sourceUrl })),
-        });
-      });
-    }
+        return pushInput;
+      }
+    });
 
     // Create MediaLive channel
     this.channel = createChannel(this, 'Channel', this.inputs, {
       destinations,
-      outputGroupSettingsList,
-      outputSettingsList,
       channelClass,
-      gopLengthInSeconds,
-      timecodeBurninPrefix,
+      encoderSpec,
       isAbr: true,
+      timecodeInSource,
     });
 
   }
 }
 
-export interface MediaLiveInternalProps {
-  readonly channelClass: string; // The class of the channel. (STANDARD or SINGLE_PIPELINE)
+interface MediaLiveInternalProps {
   readonly destinations: CfnChannel.OutputDestinationProperty[]; // The destinations for the channel.
-  readonly outputGroupSettingsList: CfnChannel.OutputGroupSettingsProperty[]; // The output group settings for the channel.
-  readonly outputSettingsList: CfnChannel.OutputSettingsProperty[]; // The output settings for the channel.
-  readonly gopLengthInSeconds: number; // The length of the GOP in seconds.
-  readonly timecodeBurninPrefix?: string; // The prefix for the timecode burn-in.
+  readonly channelClass: 'STANDARD' | 'SINGLE_PIPELINE'; // The class of the channel.
+  readonly encoderSpec: EncoderSettings; // The encoding settings for the channel.
   readonly isAbr: boolean; // Whether the channel is ABR.
+  readonly timecodeInSource: boolean; // Whether the source has timecode.
 }
 
-export function createChannel(scope: Construct, id: string, inputs: CfnInput[], props: MediaLiveInternalProps): CfnChannel {
+function isEncoderMidSettings(props: EncoderSettings): props is EncoderMidSettings {
+  return (props as EncoderMidSettings).gopLengthInSeconds !== undefined;
+}
+
+function createChannel(scope: Construct, id: string, inputs: CfnInput[], props: MediaLiveInternalProps): CfnChannel {
   const {
     channelClass,
     destinations,
-    outputGroupSettingsList,
-    outputSettingsList,
-    gopLengthInSeconds,
-    timecodeBurninPrefix,
+    encoderSpec,
     isAbr,
+    timecodeInSource,
   } = props;
   // Create IAM Policy for MediaLive to access MediaPackage and S3
   const customPolicyMediaLive = new iam.PolicyDocument({
@@ -158,13 +173,14 @@ export function createChannel(scope: Construct, id: string, inputs: CfnInput[], 
       },
     })),
     destinations,
-    encoderSettings: getEncodingSettings(
-      outputGroupSettingsList,
-      outputSettingsList,
-      gopLengthInSeconds,
+    encoderSettings: isEncoderMidSettings(encoderSpec) ? getEncodingSettings(
+      encoderSpec.outputGroupSettingsList,
+      encoderSpec.outputSettingsList,
+      encoderSpec.gopLengthInSeconds,
       isAbr,
-      timecodeBurninPrefix,
-    ),
+      timecodeInSource,
+      encoderSpec.timecodeBurninPrefix,
+    ) : encoderSpec,
   });
 }
 

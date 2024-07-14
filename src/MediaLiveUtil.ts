@@ -5,7 +5,9 @@ export function getEncodingSettings(
   outputSettingsList: CfnChannel.OutputSettingsProperty[],
   gopLengthInSeconds: number,
   isAbr: boolean,
+  timecodeInSource: boolean,
   timecodeBurninPrefix?: string,
+
 ): CfnChannel.EncoderSettingsProperty {
   // Create output groups
   const outputGroups = [];
@@ -25,7 +27,7 @@ export function getEncodingSettings(
       getAudioDescription(96000, 48000),
     ],
     timecodeConfig: {
-      source: 'SYSTEMCLOCK',
+      source: timecodeInSource ? 'EMBEDDED' : 'SYSTEMCLOCK',
     },
     availBlanking: {
       state: 'ENABLED',

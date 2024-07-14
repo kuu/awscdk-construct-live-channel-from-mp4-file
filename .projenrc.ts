@@ -16,6 +16,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   ],
   license: 'MIT',
   licensed: true,
+  majorVersion: 1,
 
   deps: ['aws-cdk-lib', 'constructs'],
   description: 'CDK Construct for setting up a simple live channel for testing',

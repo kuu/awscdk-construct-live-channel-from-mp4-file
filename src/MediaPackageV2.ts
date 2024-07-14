@@ -13,29 +13,53 @@ import {
 } from 'aws-cdk-lib/custom-resources';
 import { Construct } from 'constructs';
 
-export interface MediaPakcageV2Props {
+export interface MediaPakcageV2EndpointSpec {
   readonly segmentDurationSeconds?: number; // The duration of each segment in seconds.
   readonly manifestWindowSeconds?: number; // The duration of manifest in seconds.
   readonly hlsAdMarkers?: string; // Controls how ad markers are included in the packaged endpoint.
-  readonly startoverWindowSeconds?: number; // The duration of startover window in seconds.
   readonly separateAudioRendition?: boolean; // Whether to separate audio rendition.
-  readonly channelGroupName?: string; // The name of the channel group to be used.
   readonly omitLlHls?: boolean; // Whether to skip the creation of a Low Latency HLS endpoint.
 }
 
+export interface MediaPackageV2FullSpec {
+  readonly containerType: 'TS' | 'CMAF'; // The container type.
+  readonly manifests: (
+    CfnOriginEndpoint.HlsManifestConfigurationProperty
+    | CfnOriginEndpoint.LowLatencyHlsManifestConfigurationProperty
+    | CfnOriginEndpoint.DashManifestConfigurationProperty
+  )[]; // The manifest settings.
+  readonly segment: CfnOriginEndpoint.SegmentProperty; // The segment settings.
+}
+
+export interface MediaPakcageV2Props {
+  readonly channelGroupName?: string; // The name of the channel group to be used.
+  readonly startoverWindowSeconds?: number; // The duration of startover window in seconds.
+  readonly endpointSpec?: MediaPakcageV2EndpointSpec | MediaPackageV2FullSpec[];
+}
+
 export interface MediaPackageV2EndpointsTable {
-  readonly hls: CfnOriginEndpoint; // The HLS endpoint.
-  readonly llHls: CfnOriginEndpoint | undefined; // The low-latency HLS endpoint.
-  // The DASH endpoint.
+  readonly hls?: CfnOriginEndpoint; // The HLS endpoint.
+  readonly llHls?: CfnOriginEndpoint; // The low-latency HLS endpoint.
+  readonly dash?: CfnOriginEndpoint; // The DASH endpoint.
 }
 
 export interface MediaPackageV2EndpointUrlsTable {
-  readonly hls: string; // The HLS endpoint.
-  readonly llHls: string | undefined; // The low-latency HLS endpoint.
+  readonly hls?: string; // The HLS endpoint.
+  readonly llHls?: string; // The low-latency HLS endpoint.
+  readonly dash?: string; // The DASH endpoint.
 }
 
 export interface IMediaPackageV2IngestEndpoint {
   readonly url: string;
+}
+
+function isMediaPakcageV2EndpointSpec(spec: MediaPakcageV2EndpointSpec | MediaPackageV2FullSpec[],
+): spec is MediaPakcageV2EndpointSpec {
+  return (spec as MediaPakcageV2EndpointSpec).segmentDurationSeconds !== undefined
+  || (spec as MediaPakcageV2EndpointSpec).manifestWindowSeconds !== undefined
+  || (spec as MediaPakcageV2EndpointSpec).hlsAdMarkers !== undefined
+  || (spec as MediaPakcageV2EndpointSpec).separateAudioRendition !== undefined
+  || (spec as MediaPakcageV2EndpointSpec).omitLlHls !== undefined;
 }
 
 export class MediaPackageV2 extends Construct {
@@ -46,13 +70,15 @@ export class MediaPackageV2 extends Construct {
   public readonly endpointUrls: MediaPackageV2EndpointUrlsTable; // MediaPackageV2 endpoint URLs.
 
   constructor(scope: Construct, id: string, {
-    segmentDurationSeconds = 6,
-    manifestWindowSeconds = 60,
-    hlsAdMarkers = 'DATERANGE',
-    startoverWindowSeconds = 60,
-    separateAudioRendition = false,
     channelGroupName,
-    omitLlHls,
+    startoverWindowSeconds = 60,
+    endpointSpec = {
+      segmentDurationSeconds: 6,
+      manifestWindowSeconds: 60,
+      hlsAdMarkers: 'DATERANGE',
+      separateAudioRendition: false,
+      omitLlHls: false,
+    },
   }: MediaPakcageV2Props) {
 
     super(scope, id);
@@ -61,6 +87,7 @@ export class MediaPackageV2 extends Construct {
     const CHANNEL_NAME = `${crypto.randomUUID()}`;
     const ENDPOINT_NAME_HLS = `${crypto.randomUUID()}`;
     const ENDPOINT_NAME_LLHLS = `${crypto.randomUUID()}`;
+    const ENDPOINT_NAME_DASH = `${crypto.randomUUID()}`;
 
     const scteFilter = [
       'SPLICE_INSERT',
@@ -103,130 +130,258 @@ export class MediaPackageV2 extends Construct {
       { url: res.getResponseField('IngestEndpoints.1.Url') },
     ];
     // Create MediaPackage endpoints
-    this.endpoints = {
-      hls: new CfnOriginEndpoint(this, 'MediaPackageV2HlsEndpoint', {
+    if (isMediaPakcageV2EndpointSpec(endpointSpec)) {
+
+      const {
+        segmentDurationSeconds = 6,
+        manifestWindowSeconds = 60,
+        hlsAdMarkers = 'DATERANGE',
+        separateAudioRendition = false,
+        omitLlHls = false,
+      } = endpointSpec;
+
+      this.endpoints = {
+        hls: new CfnOriginEndpoint(this, 'MediaPackageV2HlsEndpoint', {
+          channelGroupName: CHANNEL_GROUP_NAME,
+          channelName: CHANNEL_NAME,
+          originEndpointName: ENDPOINT_NAME_HLS,
+          description: `HLS endpoint created by ${Aws.STACK_NAME}`,
+
+          // the properties below are optional
+          containerType: 'TS',
+          hlsManifests: [{
+            manifestName: 'index',
+            manifestWindowSeconds,
+            programDateTimeIntervalSeconds: 1,
+            scteHls: {
+              adMarkerHls: hlsAdMarkers,
+            },
+          }],
+          segment: {
+            includeIframeOnlyStreams: false,
+            scte: {
+              scteFilter,
+            },
+            segmentDurationSeconds,
+            tsUseAudioRenditionGroup: separateAudioRendition,
+          },
+          startoverWindowSeconds,
+        }),
+        llHls: omitLlHls ? undefined : new CfnOriginEndpoint(this, 'MediaPackageV2LlHlsEndpoint', {
+          channelGroupName: CHANNEL_GROUP_NAME,
+          channelName: CHANNEL_NAME,
+          originEndpointName: ENDPOINT_NAME_LLHLS,
+          description: `LL-HLS endpoint created by ${Aws.STACK_NAME}`,
+
+          // the properties below are optional
+          containerType: 'CMAF',
+          lowLatencyHlsManifests: [{
+            manifestName: 'index-ll',
+            manifestWindowSeconds: 30,
+            programDateTimeIntervalSeconds: 1,
+            scteHls: {
+              adMarkerHls: hlsAdMarkers,
+            },
+          }],
+          segment: {
+            includeIframeOnlyStreams: false,
+            scte: {
+              scteFilter,
+            },
+            segmentDurationSeconds: 2,
+            tsUseAudioRenditionGroup: separateAudioRendition,
+          },
+          startoverWindowSeconds,
+        }),
+        dash: new CfnOriginEndpoint(this, 'MediaPackageV2DashEndpoint', {
+          channelGroupName: CHANNEL_GROUP_NAME,
+          channelName: CHANNEL_NAME,
+          originEndpointName: ENDPOINT_NAME_DASH,
+          description: `DASH endpoint created by ${Aws.STACK_NAME}`,
+
+          // the properties below are optional
+          containerType: 'CMAF',
+          dashManifests: [{
+            manifestName: 'index',
+            manifestWindowSeconds,
+            periodTriggers: [
+              'AVAILS',
+              'DRM_KEY_ROTATION',
+              'SOURCE_CHANGES',
+              'SOURCE_DISRUPTIONS',
+            ],
+            scteDash: {
+              adMarkerDash: 'BINARY',
+            },
+          }],
+          segment: {
+            includeIframeOnlyStreams: false,
+            scte: {
+              scteFilter,
+            },
+            segmentDurationSeconds,
+          },
+          startoverWindowSeconds,
+        }),
+      };
+    } else {
+      // endpointSpec is MediaPackageV2FullSpec[]
+      let hls: CfnOriginEndpoint | undefined;
+      let llHls: CfnOriginEndpoint | undefined;
+      let dash: CfnOriginEndpoint | undefined;
+      for (const prop of endpointSpec) {
+        if ('hlsManifests' in prop && hls === undefined) {
+          hls = new CfnOriginEndpoint(this, 'MediaPackageV2HlsEndpoint', {
+            channelGroupName: CHANNEL_GROUP_NAME,
+            channelName: CHANNEL_NAME,
+            originEndpointName: ENDPOINT_NAME_HLS,
+            description: `HLS endpoint created by ${Aws.STACK_NAME}`,
+            containerType: prop.containerType,
+            hlsManifests: prop.manifests as CfnOriginEndpoint.HlsManifestConfigurationProperty[],
+            segment: prop.segment,
+            startoverWindowSeconds,
+          });
+        } else if ('lowLatencyHlsManifests' in prop && llHls === undefined) {
+          llHls = new CfnOriginEndpoint(this, 'MediaPackageV2LlHlsEndpoint', {
+            channelGroupName: CHANNEL_GROUP_NAME,
+            channelName: CHANNEL_NAME,
+            originEndpointName: ENDPOINT_NAME_LLHLS,
+            description: `LL-HLS endpoint created by ${Aws.STACK_NAME}`,
+            containerType: prop.containerType,
+            lowLatencyHlsManifests: prop.manifests as CfnOriginEndpoint.LowLatencyHlsManifestConfigurationProperty[],
+            segment: prop.segment,
+            startoverWindowSeconds,
+          });
+        } else if ('dashManifests' in prop && dash === undefined) {
+          dash = new CfnOriginEndpoint(this, 'MediaPackageV2DashEndpoint', {
+            channelGroupName: CHANNEL_GROUP_NAME,
+            channelName: CHANNEL_NAME,
+            originEndpointName: ENDPOINT_NAME_DASH,
+            description: `DASH endpoint created by ${Aws.STACK_NAME}`,
+            containerType: prop.containerType,
+            dashManifests: prop.manifests as CfnOriginEndpoint.DashManifestConfigurationProperty[],
+            segment: prop.segment,
+            startoverWindowSeconds,
+          });
+        }
+      }
+      this.endpoints = { hls, llHls, dash };
+    }
+
+    // Create endpoint policies and retrieve endpoint URLs
+    let hls: string | undefined;
+    let llHls: string | undefined;
+    let dash: string | undefined;
+    if (this.endpoints.hls) {
+      // Create endpoint policy
+      new CfnOriginEndpointPolicy(this, 'MediaPackageV2OriginEndpointPolicyHLS', {
         channelGroupName: CHANNEL_GROUP_NAME,
         channelName: CHANNEL_NAME,
         originEndpointName: ENDPOINT_NAME_HLS,
-        description: `HLS endpoint created by ${Aws.STACK_NAME}`,
-
-        // the properties below are optional
-        containerType: 'TS',
-        hlsManifests: [{
-          manifestName: 'index',
-          manifestWindowSeconds,
-          programDateTimeIntervalSeconds: 1,
-          scteHls: {
-            adMarkerHls: hlsAdMarkers,
-          },
-        }],
-        segment: {
-          includeIframeOnlyStreams: false,
-          scte: {
-            scteFilter,
-          },
-          segmentDurationSeconds,
-          tsUseAudioRenditionGroup: separateAudioRendition,
+        policy: {
+          Version: '2012-10-17',
+          Id: 'AnonymousAccessPolicy',
+          Statement: [{
+            Sid: 'AllowAnonymousAccess',
+            Effect: 'Allow',
+            Principal: '*',
+            Action: 'mediapackagev2:GetObject',
+            Resource: this.endpoints.hls.attrArn,
+          }],
         },
-        startoverWindowSeconds,
-      }),
-      llHls: omitLlHls ? undefined : new CfnOriginEndpoint(this, 'MediaPackageV2LlHlsEndpoint', {
+      });
+      // Create AWS Custom Resource to retrieve endpoint URLs (as unable to retrieve from CfnOriginEndpoint)
+      const hlsEndpoint = new AwsCustomResource(this, 'MediaPackageV2HlsEndpointUrl', {
+        onCreate: {
+          service: 'MediaPackageV2',
+          action: 'GetOriginEndpoint',
+          parameters: {
+            ChannelGroupName: CHANNEL_GROUP_NAME,
+            ChannelName: CHANNEL_NAME,
+            OriginEndpointName: ENDPOINT_NAME_HLS,
+          },
+          physicalResourceId: PhysicalResourceId.of(`${crypto.randomUUID()}`),
+          outputPaths: ['HlsManifests'],
+        },
+        //Will ignore any resource and use the assumedRoleArn as resource and 'sts:AssumeRole' for service:action
+        policy: AwsCustomResourcePolicy.fromSdkCalls({
+          resources: AwsCustomResourcePolicy.ANY_RESOURCE,
+        }),
+      });
+      hls = hlsEndpoint.getResponseField('HlsManifests.0.Url');
+    }
+    if (this.endpoints.llHls) {
+      new CfnOriginEndpointPolicy(this, 'MediaPackageV2OriginEndpointPolicyLLHLS', {
         channelGroupName: CHANNEL_GROUP_NAME,
         channelName: CHANNEL_NAME,
         originEndpointName: ENDPOINT_NAME_LLHLS,
-        description: `LL-HLS endpoint created by ${Aws.STACK_NAME}`,
-
-        // the properties below are optional
-        containerType: 'CMAF',
-        lowLatencyHlsManifests: [{
-          manifestName: 'index-ll',
-          manifestWindowSeconds: 30,
-          programDateTimeIntervalSeconds: 1,
-          scteHls: {
-            adMarkerHls: hlsAdMarkers,
+        policy: {
+          Version: '2012-10-17',
+          Id: 'AnonymousAccessPolicy',
+          Statement: [{
+            Sid: 'AllowAnonymousAccess',
+            Effect: 'Allow',
+            Principal: '*',
+            Action: 'mediapackagev2:GetObject',
+            Resource: this.endpoints.llHls.attrArn,
+          }],
+        },
+      });
+      const llHlsEndpoint = new AwsCustomResource(this, 'MediaPackageV2LlHlsEndpointUrl', {
+        onCreate: {
+          service: 'MediaPackageV2',
+          action: 'GetOriginEndpoint',
+          parameters: {
+            ChannelGroupName: CHANNEL_GROUP_NAME,
+            ChannelName: CHANNEL_NAME,
+            OriginEndpointName: ENDPOINT_NAME_LLHLS,
           },
-        }],
-        segment: {
-          includeIframeOnlyStreams: false,
-          scte: {
-            scteFilter,
+          physicalResourceId: PhysicalResourceId.of(`${crypto.randomUUID()}`),
+          outputPaths: ['LowLatencyHlsManifests'],
+        },
+        //Will ignore any resource and use the assumedRoleArn as resource and 'sts:AssumeRole' for service:action
+        policy: AwsCustomResourcePolicy.fromSdkCalls({
+          resources: AwsCustomResourcePolicy.ANY_RESOURCE,
+        }),
+      });
+      llHls = llHlsEndpoint?.getResponseField('LowLatencyHlsManifests.0.Url');
+    }
+    if (this.endpoints.dash) {
+      new CfnOriginEndpointPolicy(this, 'MediaPackageV2OriginEndpointPolicyDASH', {
+        channelGroupName: CHANNEL_GROUP_NAME,
+        channelName: CHANNEL_NAME,
+        originEndpointName: ENDPOINT_NAME_DASH,
+        policy: {
+          Version: '2012-10-17',
+          Id: 'AnonymousAccessPolicy',
+          Statement: [{
+            Sid: 'AllowAnonymousAccess',
+            Effect: 'Allow',
+            Principal: '*',
+            Action: 'mediapackagev2:GetObject',
+            Resource: this.endpoints.dash.attrArn,
+          }],
+        },
+      });
+      const dashEndpoint = new AwsCustomResource(this, 'MediaPackageV2DashEndpointUrl', {
+        onCreate: {
+          service: 'MediaPackageV2',
+          action: 'GetOriginEndpoint',
+          parameters: {
+            ChannelGroupName: CHANNEL_GROUP_NAME,
+            ChannelName: CHANNEL_NAME,
+            OriginEndpointName: ENDPOINT_NAME_DASH,
           },
-          segmentDurationSeconds: 2,
-          tsUseAudioRenditionGroup: separateAudioRendition,
+          physicalResourceId: PhysicalResourceId.of(`${crypto.randomUUID()}`),
+          outputPaths: ['DashManifests'],
         },
-        startoverWindowSeconds,
-      }),
-    };
-    new CfnOriginEndpointPolicy(this, 'MediaPackageV2OriginEndpointPolicyHLS', {
-      channelGroupName: CHANNEL_GROUP_NAME,
-      channelName: CHANNEL_NAME,
-      originEndpointName: ENDPOINT_NAME_HLS,
-      policy: {
-        Version: '2012-10-17',
-        Id: 'AnonymousAccessPolicy',
-        Statement: [{
-          Sid: 'AllowAnonymousAccess',
-          Effect: 'Allow',
-          Principal: '*',
-          Action: 'mediapackagev2:GetObject',
-          Resource: this.endpoints.hls.attrArn,
-        }],
-      },
-    });
-    omitLlHls ?? new CfnOriginEndpointPolicy(this, 'MediaPackageV2OriginEndpointPolicyLLHLS', {
-      channelGroupName: CHANNEL_GROUP_NAME,
-      channelName: CHANNEL_NAME,
-      originEndpointName: ENDPOINT_NAME_LLHLS,
-      policy: {
-        Version: '2012-10-17',
-        Id: 'AnonymousAccessPolicy',
-        Statement: [{
-          Sid: 'AllowAnonymousAccess',
-          Effect: 'Allow',
-          Principal: '*',
-          Action: 'mediapackagev2:GetObject',
-          Resource: this.endpoints.llHls?.attrArn,
-        }],
-      },
-    });
-    // Create AWS Custom Resource to retrieve endpoint URLs (as unable to retrieve from CfnOriginEndpoint)
-    const hlsEndpoint = new AwsCustomResource(this, 'MediaPackageV2HlsEndpointUrl', {
-      onCreate: {
-        service: 'MediaPackageV2',
-        action: 'GetOriginEndpoint',
-        parameters: {
-          ChannelGroupName: CHANNEL_GROUP_NAME,
-          ChannelName: CHANNEL_NAME,
-          OriginEndpointName: ENDPOINT_NAME_HLS,
-        },
-        physicalResourceId: PhysicalResourceId.of(`${crypto.randomUUID()}`),
-        outputPaths: ['HlsManifests'],
-      },
-      //Will ignore any resource and use the assumedRoleArn as resource and 'sts:AssumeRole' for service:action
-      policy: AwsCustomResourcePolicy.fromSdkCalls({
-        resources: AwsCustomResourcePolicy.ANY_RESOURCE,
-      }),
-    });
-    const llHlsEndpoint = omitLlHls ? undefined : new AwsCustomResource(this, 'MediaPackageV2LlHlsEndpointUrl', {
-      onCreate: {
-        service: 'MediaPackageV2',
-        action: 'GetOriginEndpoint',
-        parameters: {
-          ChannelGroupName: CHANNEL_GROUP_NAME,
-          ChannelName: CHANNEL_NAME,
-          OriginEndpointName: ENDPOINT_NAME_LLHLS,
-        },
-        physicalResourceId: PhysicalResourceId.of(`${crypto.randomUUID()}`),
-        outputPaths: ['LowLatencyHlsManifests'],
-      },
-      //Will ignore any resource and use the assumedRoleArn as resource and 'sts:AssumeRole' for service:action
-      policy: AwsCustomResourcePolicy.fromSdkCalls({
-        resources: AwsCustomResourcePolicy.ANY_RESOURCE,
-      }),
-    });
-    this.endpointUrls = {
-      hls: hlsEndpoint.getResponseField('HlsManifests.0.Url'),
-      llHls: llHlsEndpoint?.getResponseField('LowLatencyHlsManifests.0.Url'),
-    };
+        //Will ignore any resource and use the assumedRoleArn as resource and 'sts:AssumeRole' for service:action
+        policy: AwsCustomResourcePolicy.fromSdkCalls({
+          resources: AwsCustomResourcePolicy.ANY_RESOURCE,
+        }),
+      });
+      dash = dashEndpoint.getResponseField('DashManifests.0.Url');
+    }
+    this.endpointUrls = { hls, llHls, dash };
   }
 }
