@@ -3,19 +3,12 @@ import { aws_iam as iam, Fn } from 'aws-cdk-lib';
 import { CfnInput, CfnChannel, CfnInputSecurityGroup } from 'aws-cdk-lib/aws-medialive';
 import { AwsCustomResource, AwsCustomResourcePolicy, PhysicalResourceId } from 'aws-cdk-lib/custom-resources';
 import { Construct } from 'constructs';
-import { getUdpOutputSettings, getEncodingSettings } from './MediaLiveUtil';
+import { EncoderMidSettings, getEncoderMidSettings, getEncodingSettings } from './MediaLiveUtil';
 
 export interface SourceSpec {
   readonly url: string; // The URL of the MP4 file.
   readonly conversionType?: 'NONE' | 'RTP_PUSH' | 'RTMP_PUSH' | 'MEDIACONNECT' | 'AWS_CDI'; // Which type of conversion to perform.
   readonly conversionSpec?: CfnChannel.EncoderSettingsProperty; // The encoding settings used for the conversion.
-}
-
-export interface EncoderMidSettings {
-  readonly outputGroupSettingsList: CfnChannel.OutputGroupSettingsProperty[]; // The settings for the output groups.
-  readonly outputSettingsList: CfnChannel.OutputSettingsProperty[]; // The settings for the outputs.
-  readonly gopLengthInSeconds: number; // The length of the GOP in seconds.
-  readonly timecodeBurninPrefix?: string; // The prefix for the timecode burn-in.
 }
 
 export type EncoderSettings = EncoderMidSettings | CfnChannel.EncoderSettingsProperty;
@@ -68,34 +61,25 @@ export class MediaLive extends Construct {
         const inputSecurityGroup = new CfnInputSecurityGroup(this, `InputSecurityGroup-${i}`, {
           whitelistRules: [{ cidr: '0.0.0.0/0' }],
         });
-        const pushInput = new CfnInput(this, `CfnInput-${i}`, {
+        const pushInput = new CfnInput(this, `PushInput-${i}`, {
           name: `${crypto.randomUUID()}`,
           type: conversionType,
           inputSecurityGroups: [inputSecurityGroup.ref],
+          destinations: conversionType === 'RTMP_PUSH' ? Array.from({ length: channelClass === 'STANDARD' ? 2 : 1 }, (_, j) => ({ streamName: `stream-${i}-${j}` })) : undefined,
         });
         const ch = createChannel(this, `${i}`, [fileInput], {
           destinations: [
             {
-              id: `udp-output-destination-${i}`,
-              settings: Array.from({ length: channelClass === 'STANDARD' ? 2 : 1 }, (_, j) => ({ url: Fn.select(j, pushInput.attrDestinations) })),
+              id: `push-output-destination-${i}`,
+              // settings: Array.from({ length: channelClass === 'STANDARD' ? 2 : 1 }, (_, j) => ({ url: Fn.select(j, pushInput.attrDestinations) })),
+              settings: Array.from({ length: channelClass === 'STANDARD' ? 2 : 1 }, (_, j) => ({
+                url: Fn.select(j, pushInput.attrDestinations),
+                streamName: conversionType === 'RTMP_PUSH' ? `rtmp-stream-name-${i}` : undefined,
+              })),
             },
           ],
           channelClass,
-          encoderSpec: conversionSpec ? conversionSpec : {
-            outputGroupSettingsList: [
-              {
-                udpGroupSettings: {
-                  inputLossAction: 'DROP_TS',
-                },
-              },
-            ],
-            outputSettingsList: [
-              {
-                udpOutputSettings: getUdpOutputSettings(i),
-              },
-            ],
-            gopLengthInSeconds: 3,
-          },
+          encoderSpec: conversionSpec ? conversionSpec : getEncoderMidSettings(conversionType, i),
           isAbr: false,
           timecodeInSource: false,
         });
@@ -126,7 +110,10 @@ interface MediaLiveInternalProps {
 }
 
 function isEncoderMidSettings(props: EncoderSettings): props is EncoderMidSettings {
-  return (props as EncoderMidSettings).gopLengthInSeconds !== undefined;
+  return (props as EncoderMidSettings).gopLengthInSeconds !== undefined
+  || (props as EncoderMidSettings).outputGroupSettingsList !== undefined
+  || (props as EncoderMidSettings).outputSettingsList !== undefined
+  || (props as EncoderMidSettings).timecodeBurninPrefix !== undefined;
 }
 
 function createChannel(scope: Construct, id: string, inputs: CfnInput[], props: MediaLiveInternalProps): CfnChannel {

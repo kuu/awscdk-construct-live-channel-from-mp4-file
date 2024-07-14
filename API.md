@@ -786,7 +786,7 @@ const mediaLiveProps: MediaLiveProps = { ... }
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaLiveProps.property.destinations">destinations</a></code> | <code>aws-cdk-lib.aws_medialive.CfnChannel.OutputDestinationProperty[]</code> | *No description.* |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaLiveProps.property.encoderSpec">encoderSpec</a></code> | <code>aws-cdk-lib.aws_medialive.CfnChannel.EncoderSettingsProperty \| <a href="#awscdk-construct-live-channel-from-mp4-file.EncoderMidSettings">EncoderMidSettings</a></code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaLiveProps.property.encoderSpec">encoderSpec</a></code> | <code><a href="#awscdk-construct-live-channel-from-mp4-file.EncoderMidSettings">EncoderMidSettings</a> \| aws-cdk-lib.aws_medialive.CfnChannel.EncoderSettingsProperty</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaLiveProps.property.sources">sources</a></code> | <code><a href="#awscdk-construct-live-channel-from-mp4-file.SourceSpec">SourceSpec</a>[]</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaLiveProps.property.channelClass">channelClass</a></code> | <code>string</code> | *No description.* |
 
@@ -805,10 +805,10 @@ public readonly destinations: OutputDestinationProperty[];
 ##### `encoderSpec`<sup>Required</sup> <a name="encoderSpec" id="awscdk-construct-live-channel-from-mp4-file.MediaLiveProps.property.encoderSpec"></a>
 
 ```typescript
-public readonly encoderSpec: EncoderSettingsProperty | EncoderMidSettings;
+public readonly encoderSpec: EncoderMidSettings | EncoderSettingsProperty;
 ```
 
-- *Type:* aws-cdk-lib.aws_medialive.CfnChannel.EncoderSettingsProperty | <a href="#awscdk-construct-live-channel-from-mp4-file.EncoderMidSettings">EncoderMidSettings</a>
+- *Type:* <a href="#awscdk-construct-live-channel-from-mp4-file.EncoderMidSettings">EncoderMidSettings</a> | aws-cdk-lib.aws_medialive.CfnChannel.EncoderSettingsProperty
 
 ---
 

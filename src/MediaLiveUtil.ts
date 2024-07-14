@@ -1,5 +1,12 @@
 import { CfnChannel } from 'aws-cdk-lib/aws-medialive';
 
+export interface EncoderMidSettings {
+  readonly outputGroupSettingsList: CfnChannel.OutputGroupSettingsProperty[]; // The settings for the output groups.
+  readonly outputSettingsList: CfnChannel.OutputSettingsProperty[]; // The settings for the outputs.
+  readonly gopLengthInSeconds: number; // The length of the GOP in seconds.
+  readonly timecodeBurninPrefix?: string; // The prefix for the timecode burn-in.
+}
+
 export function getEncodingSettings(
   outputGroupSettingsList: CfnChannel.OutputGroupSettingsProperty[],
   outputSettingsList: CfnChannel.OutputSettingsProperty[],
@@ -131,56 +138,84 @@ function getAudioDescription(bitrate: number, sampleRate: number): CfnChannel.Au
   };
 }
 
-export function getUdpOutputSettings(i: number): CfnChannel.UdpOutputSettingsProperty {
+export function getEncoderMidSettings(type: string, id: number): EncoderMidSettings {
   return {
-    bufferMsec: 1000,
-    containerSettings: {
-      m2TsSettings: {
-        absentInputAudioBehavior: 'ENCODE_SILENCE',
-        arib: 'DISABLED',
-        aribCaptionsPid: '507',
-        aribCaptionsPidControl: 'AUTO',
-        audioBufferModel: 'ATSC',
-        audioFramesPerPes: 2,
-        audioPids: '482-498',
-        audioStreamType: 'DVB',
-        bufferModel: 'MULTIPLEX',
-        ccDescriptor: 'DISABLED',
-        dvbSubPids: '460-479',
-        dvbTeletextPid: '499',
-        ebif: 'NONE',
-        ebpAudioInterval: 'VIDEO_INTERVAL',
-        ebpPlacement: 'VIDEO_AND_AUDIO_PIDS',
-        esRateInPes: 'EXCLUDE',
-        etvPlatformPid: '504',
-        etvSignalPid: '505',
-        klv: 'NONE',
-        klvDataPids: '501',
-        nielsenId3Behavior: 'NO_PASSTHROUGH',
-        patInterval: 100,
-        pcrControl: 'PCR_EVERY_PES_PACKET',
-        pcrPeriod: 40,
-        pmtInterval: 100,
-        pmtPid: '480',
-        programNum: 1,
-        rateMode: 'CBR',
-        scte27Pids: '450-459',
-        scte35Control: 'NONE',
-        scte35Pid: '500',
-        segmentationMarkers: 'NONE',
-        segmentationStyle: 'MAINTAIN_CADENCE',
-        timedMetadataBehavior: 'NO_PASSTHROUGH',
-        timedMetadataPid: '502',
-        videoPid: '481',
+    outputGroupSettingsList: [
+      type === 'RTP_PUSH' ? {
+        udpGroupSettings: {
+          inputLossAction: 'DROP_TS',
+        },
+      } : {
+        rtmpGroupSettings: {
+          authenticationScheme: 'COMMON',
+          cacheFullBehavior: 'DISCONNECT_IMMEDIATELY',
+          cacheLength: 30,
+          captionData: 'ALL',
+          restartDelay: 15,
+        },
       },
-    },
-    destination: {
-      destinationRefId: `udp-output-destination-${i}`,
-    },
-    fecOutputSettings: {
-      rowLength: 20,
-      columnDepth: 5,
-      includeFec: 'COLUMN_AND_ROW',
-    },
+    ],
+    outputSettingsList: [
+      type === 'RTP_PUSH' ? {
+        udpOutputSettings: {
+          bufferMsec: 1000,
+          containerSettings: {
+            m2TsSettings: {
+              absentInputAudioBehavior: 'ENCODE_SILENCE',
+              arib: 'DISABLED',
+              aribCaptionsPid: '507',
+              aribCaptionsPidControl: 'AUTO',
+              audioBufferModel: 'ATSC',
+              audioFramesPerPes: 2,
+              audioPids: '482-498',
+              audioStreamType: 'DVB',
+              bufferModel: 'MULTIPLEX',
+              ccDescriptor: 'DISABLED',
+              dvbSubPids: '460-479',
+              dvbTeletextPid: '499',
+              ebif: 'NONE',
+              ebpAudioInterval: 'VIDEO_INTERVAL',
+              ebpPlacement: 'VIDEO_AND_AUDIO_PIDS',
+              esRateInPes: 'EXCLUDE',
+              etvPlatformPid: '504',
+              etvSignalPid: '505',
+              klv: 'NONE',
+              klvDataPids: '501',
+              nielsenId3Behavior: 'NO_PASSTHROUGH',
+              patInterval: 100,
+              pcrControl: 'PCR_EVERY_PES_PACKET',
+              pcrPeriod: 40,
+              pmtInterval: 100,
+              pmtPid: '480',
+              programNum: 1,
+              rateMode: 'CBR',
+              scte27Pids: '450-459',
+              scte35Control: 'NONE',
+              scte35Pid: '500',
+              segmentationMarkers: 'NONE',
+              segmentationStyle: 'MAINTAIN_CADENCE',
+              timedMetadataBehavior: 'NO_PASSTHROUGH',
+              timedMetadataPid: '502',
+              videoPid: '481',
+            },
+          },
+          destination: {
+            destinationRefId: `push-output-destination-${id}`,
+          },
+          fecOutputSettings: {
+            rowLength: 20,
+            columnDepth: 5,
+            includeFec: 'COLUMN_AND_ROW',
+          },
+        },
+      } : {
+        rtmpOutputSettings: {
+          destination: {
+            destinationRefId: `push-output-destination-${id}`,
+          },
+        },
+      },
+    ],
+    gopLengthInSeconds: 1,
   };
 }
