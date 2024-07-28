@@ -120,8 +120,10 @@ export class ExampleStack extends cdk.Stack {
       // Get a Lambda function that schedules a harvest job
       const harvestJob = ch.createHarvestJob({
         endpoint: emp.endpoints.hls,
+        publish: true,
+        retain: true,
       });
-      // Invoke the function after inserting a 30-sec ad break 50 times
+      // Invoke the function after inserting a 30-sec ad break x50 times
       new ScteScheduler(this, 'ScteScheduler', {
         channelId: eml.channel.ref,
         scteDurationInSeconds: 30,
@@ -129,10 +131,9 @@ export class ExampleStack extends cdk.Stack {
         repeatCount: 50,
         callback: harvestJob.func,
       });
-
-      // Print the S3 URL of the harvested VOD content
+      // Print the URL of the harvested VOD content
       new cdk.CfnOutput(this, "HarvestedVODURL", {
-        value: harvestJob.s3Url,
+        value: harvestJob.publishedUrl,
         exportName: cdk.Aws.STACK_NAME + "HarvestedVODURL",
         description: "Harvested VOD URL",
       });

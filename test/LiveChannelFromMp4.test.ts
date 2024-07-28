@@ -138,8 +138,9 @@ test('Create LiveChannelFromMp4 with a harvest job', () => {
   if (emp?.endpoints.hls) {
     const job = ch.createHarvestJob({
       endpoint: emp.endpoints.hls,
+      publish: true,
     });
-    console.log(job.s3Url);
+    console.log(job.publishedUrl);
   }
 
   const template = Template.fromStack(stack);
@@ -149,4 +150,5 @@ test('Create LiveChannelFromMp4 with a harvest job', () => {
   template.hasResource('AWS::MediaPackage::OriginEndpoint', 4);
   template.hasResource('AWS::S3::Bucket', 1);
   template.hasResource('AWS::Lambda::Function', 1);
+  template.hasResource('AWS::CloudFront::Distribution', 1);
 });
