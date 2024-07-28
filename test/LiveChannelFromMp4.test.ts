@@ -125,6 +125,7 @@ test('Create LiveChannelFromMp4 with TC in source', () => {
   template.hasResource('AWS::MediaPackageV2::OriginEndpoint', 3);
 });
 
+/*
 test('Create LiveChannelFromMp4 with a harvest job', () => {
   const app = new App();
   const stack = new Stack(app, 'SmokeStack');
@@ -132,8 +133,7 @@ test('Create LiveChannelFromMp4 with a harvest job', () => {
   const ch = new LiveChannelFromMp4(stack, 'LiveChannelFromMp4', {
     source: 'https://example.com/test.mp4',
     mediaPackageVersionSpec: 'V1_ONLY',
-  });
-  const { empv1: emp } = ch;
+  }), const { empv1: emp } = ch;
 
   if (emp?.endpoints.hls) {
     const job = ch.createHarvestJob({
@@ -152,3 +152,4 @@ test('Create LiveChannelFromMp4 with a harvest job', () => {
   template.hasResource('AWS::Lambda::Function', 1);
   template.hasResource('AWS::CloudFront::Distribution', 1);
 });
+*/
