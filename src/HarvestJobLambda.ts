@@ -139,8 +139,8 @@ export class HarvestJobLambda extends Construct {
       // Grant the OAI access to the private S3 bucket
       bucket.addToResourcePolicy(
         new iam.PolicyStatement({
-          actions: ['s3:GetObject'],
-          resources: [`${bucket.bucketArn}/*`],
+          actions: ['s3:*'],
+          resources: [bucket.bucketArn, `${bucket.bucketArn}/*`],
           principals: [new iam.CanonicalUserPrincipal(oai.cloudFrontOriginAccessIdentityS3CanonicalUserId)],
         }),
       );
@@ -152,6 +152,7 @@ export class HarvestJobLambda extends Construct {
           viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.ALLOW_ALL,
           allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD_OPTIONS,
           cachedMethods: cloudfront.CachedMethods.CACHE_GET_HEAD_OPTIONS,
+          cachePolicy: cloudfront.CachePolicy.ELEMENTAL_MEDIA_PACKAGE,
         },
         enabled: true,
       });
