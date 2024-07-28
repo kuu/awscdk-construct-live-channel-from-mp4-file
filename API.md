@@ -99,8 +99,9 @@ Any object.
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.HarvestJobLambda.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.HarvestJobLambda.property.destination">destination</a></code> | <code><a href="#awscdk-construct-live-channel-from-mp4-file.HarvestJobDestinationProps">HarvestJobDestinationProps</a></code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.HarvestJobLambda.property.func">func</a></code> | <code>aws-cdk-lib.aws_lambda_nodejs.NodejsFunction</code> | *No description.* |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.HarvestJobLambda.property.s3Url">s3Url</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.HarvestJobLambda.property.publishedUrl">publishedUrl</a></code> | <code>string</code> | *No description.* |
 
 ---
 
@@ -116,6 +117,16 @@ The tree node.
 
 ---
 
+##### `destination`<sup>Required</sup> <a name="destination" id="awscdk-construct-live-channel-from-mp4-file.HarvestJobLambda.property.destination"></a>
+
+```typescript
+public readonly destination: HarvestJobDestinationProps;
+```
+
+- *Type:* <a href="#awscdk-construct-live-channel-from-mp4-file.HarvestJobDestinationProps">HarvestJobDestinationProps</a>
+
+---
+
 ##### `func`<sup>Required</sup> <a name="func" id="awscdk-construct-live-channel-from-mp4-file.HarvestJobLambda.property.func"></a>
 
 ```typescript
@@ -126,10 +137,10 @@ public readonly func: NodejsFunction;
 
 ---
 
-##### `s3Url`<sup>Required</sup> <a name="s3Url" id="awscdk-construct-live-channel-from-mp4-file.HarvestJobLambda.property.s3Url"></a>
+##### `publishedUrl`<sup>Optional</sup> <a name="publishedUrl" id="awscdk-construct-live-channel-from-mp4-file.HarvestJobLambda.property.publishedUrl"></a>
 
 ```typescript
-public readonly s3Url: string;
+public readonly publishedUrl: string;
 ```
 
 - *Type:* string
@@ -863,7 +874,6 @@ const harvestJobDestinationProps: HarvestJobDestinationProps = { ... }
 | --- | --- | --- |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.HarvestJobDestinationProps.property.bucketName">bucketName</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.HarvestJobDestinationProps.property.manifestKey">manifestKey</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.HarvestJobDestinationProps.property.roleArn">roleArn</a></code> | <code>string</code> | *No description.* |
 
 ---
 
@@ -881,16 +891,6 @@ public readonly bucketName: string;
 
 ```typescript
 public readonly manifestKey: string;
-```
-
-- *Type:* string
-
----
-
-##### `roleArn`<sup>Required</sup> <a name="roleArn" id="awscdk-construct-live-channel-from-mp4-file.HarvestJobDestinationProps.property.roleArn"></a>
-
-```typescript
-public readonly roleArn: string;
 ```
 
 - *Type:* string
@@ -916,6 +916,8 @@ const harvestJobLambdaProps: HarvestJobLambdaProps = { ... }
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.HarvestJobLambdaProps.property.startTime">startTime</a></code> | <code>Date</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.HarvestJobLambdaProps.property.destination">destination</a></code> | <code><a href="#awscdk-construct-live-channel-from-mp4-file.HarvestJobDestinationProps">HarvestJobDestinationProps</a></code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.HarvestJobLambdaProps.property.endTime">endTime</a></code> | <code>Date</code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.HarvestJobLambdaProps.property.publish">publish</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.HarvestJobLambdaProps.property.retain">retain</a></code> | <code>boolean</code> | *No description.* |
 
 ---
 
@@ -969,6 +971,26 @@ public readonly endTime: Date;
 
 ---
 
+##### `publish`<sup>Optional</sup> <a name="publish" id="awscdk-construct-live-channel-from-mp4-file.HarvestJobLambdaProps.property.publish"></a>
+
+```typescript
+public readonly publish: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+##### `retain`<sup>Optional</sup> <a name="retain" id="awscdk-construct-live-channel-from-mp4-file.HarvestJobLambdaProps.property.retain"></a>
+
+```typescript
+public readonly retain: boolean;
+```
+
+- *Type:* boolean
+
+---
+
 ### HarvestJobProps <a name="HarvestJobProps" id="awscdk-construct-live-channel-from-mp4-file.HarvestJobProps"></a>
 
 #### Initializer <a name="Initializer" id="awscdk-construct-live-channel-from-mp4-file.HarvestJobProps.Initializer"></a>
@@ -986,6 +1008,8 @@ const harvestJobProps: HarvestJobProps = { ... }
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.HarvestJobProps.property.endpoint">endpoint</a></code> | <code>aws-cdk-lib.aws_mediapackage.CfnOriginEndpoint</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.HarvestJobProps.property.destination">destination</a></code> | <code><a href="#awscdk-construct-live-channel-from-mp4-file.HarvestJobDestinationProps">HarvestJobDestinationProps</a></code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.HarvestJobProps.property.endTime">endTime</a></code> | <code>Date</code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.HarvestJobProps.property.publish">publish</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.HarvestJobProps.property.retain">retain</a></code> | <code>boolean</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.HarvestJobProps.property.startTime">startTime</a></code> | <code>Date</code> | *No description.* |
 
 ---
@@ -1017,6 +1041,26 @@ public readonly endTime: Date;
 ```
 
 - *Type:* Date
+
+---
+
+##### `publish`<sup>Optional</sup> <a name="publish" id="awscdk-construct-live-channel-from-mp4-file.HarvestJobProps.property.publish"></a>
+
+```typescript
+public readonly publish: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+##### `retain`<sup>Optional</sup> <a name="retain" id="awscdk-construct-live-channel-from-mp4-file.HarvestJobProps.property.retain"></a>
+
+```typescript
+public readonly retain: boolean;
+```
+
+- *Type:* boolean
 
 ---
 

@@ -277,6 +277,8 @@ export class LiveChannelFromMp4 extends Construct {
       startTime: props.startTime ?? this.getStartTime(),
       endTime: props.endTime,
       destination: props.destination,
+      publish: props.publish,
+      retain: props.retain,
     });
   }
 
@@ -291,6 +293,8 @@ export interface HarvestJobProps {
   readonly destination?: HarvestJobDestinationProps; // The destination of the harvest job. If not specified, a new S3 bucket will be created.
   readonly startTime?: Date; // The start time of the harvest job. Default is 30 seconds after the channel start time.
   readonly endTime?: Date; // The end time of the harvest job. Default is the function invocation time.
+  readonly publish?: boolean; // Whether to publish the harvested VOD content.
+  readonly retain?: boolean; // Whether to retain the harvested VOD content after the stack is removed.
 }
 
 export { HarvestJobLambda, HarvestJobLambdaProps, HarvestJobDestinationProps } from './HarvestJobLambda';
