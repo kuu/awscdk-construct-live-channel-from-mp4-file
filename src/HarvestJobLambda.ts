@@ -43,12 +43,14 @@ export class HarvestJobLambda extends Construct {
       retain = false,
     } = props;
 
+    let bucket: s3.IBucket;
     if (destination) {
+      bucket = s3.Bucket.fromBucketName(this, 'Bucket', destination.bucketName);
       this.destination = destination;
     } else {
       // Create S3 bucket
       const bucketName = `${crypto.randomUUID()}`;
-      const bucket = new s3.Bucket(this, bucketName, {
+      bucket = new s3.Bucket(this, bucketName, {
         bucketName,
         removalPolicy: retain ? RemovalPolicy.RETAIN : RemovalPolicy.DESTROY,
         autoDeleteObjects: retain ? false : true,
@@ -65,7 +67,6 @@ export class HarvestJobLambda extends Construct {
       };
     }
     //Create an IAM Role for MediaPackage to access S3
-    const bucket = s3.Bucket.fromBucketName(this, 'Bucket', this.destination.bucketName);
     const role = new iam.Role(this, `IamRole-${bucket.bucketName}`, {
       inlinePolicies: {
         policy: new iam.PolicyDocument({
@@ -136,15 +137,6 @@ export class HarvestJobLambda extends Construct {
         comment: 'OAI for CloudFront to access private S3 bucket',
       });
 
-      // Grant the OAI access to the private S3 bucket
-      bucket.addToResourcePolicy(
-        new iam.PolicyStatement({
-          actions: ['s3:*'],
-          resources: [bucket.bucketArn, `${bucket.bucketArn}/*`],
-          principals: [new iam.CanonicalUserPrincipal(oai.cloudFrontOriginAccessIdentityS3CanonicalUserId)],
-        }),
-      );
-
       // Create a CloudFront distribution
       const distribution = new cloudfront.Distribution(this, 'Distribution', {
         defaultBehavior: {
@@ -156,6 +148,16 @@ export class HarvestJobLambda extends Construct {
         },
         enabled: true,
       });
+
+      // Grant the OAI access to the private S3 bucket
+      bucket.addToResourcePolicy(
+        new iam.PolicyStatement({
+          effect: iam.Effect.ALLOW,
+          actions: ['s3:GetObject'],
+          resources: [`${bucket.bucketArn}/*`],
+          principals: [new iam.CanonicalUserPrincipal(oai.cloudFrontOriginAccessIdentityS3CanonicalUserId)],
+        }),
+      );
 
       if (retain) {
         distribution.applyRemovalPolicy(RemovalPolicy.RETAIN);
