@@ -85,11 +85,11 @@ export class HarvestJobLambda extends Construct {
     const TS_ENTRY = path.resolve(__dirname, 'code', 'index.ts');
     const JS_ENTRY = path.resolve(__dirname, 'code', 'index.js');
 
-    this.func = new NodejsFunction(scope, 'ScheduleSCTE', {
+    this.func = new NodejsFunction(scope, 'HarvestJobFunction', {
       runtime: Runtime.NODEJS_18_X,
       entry: fs.existsSync(TS_ENTRY) ? TS_ENTRY : JS_ENTRY,
       // projectRoot: path.resolve(__dirname, '..'),
-      depsLockFilePath: path.resolve(__dirname, '..', 'yarn.lock'),
+      // depsLockFilePath: path.resolve(__dirname, '..', 'yarn.lock'),
       handler: 'handler',
       timeout: Duration.seconds(30),
       environment: {
