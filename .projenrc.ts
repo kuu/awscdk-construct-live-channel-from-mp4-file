@@ -18,7 +18,14 @@ const project = new awscdk.AwsCdkConstructLibrary({
   licensed: true,
   majorVersion: 1,
 
-  deps: ['aws-cdk-lib', 'constructs'],
+  deps: [
+    'aws-cdk-lib',
+    'constructs',
+  ],
+  bundledDeps: [
+    '@aws-sdk/client-medialive',
+    '@aws-sdk/client-mediapackage',
+  ],
   description: 'CDK Construct for setting up a simple live channel for testing',
   // devDeps: [],             /* Build dependencies for this module. */
   // packageName: undefined,  /* The "name" in package.json. */

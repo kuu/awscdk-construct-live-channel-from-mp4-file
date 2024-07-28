@@ -99,6 +99,48 @@ export class ExampleStack extends cdk.Stack {
 }
 ```
 
+### Sample code (Harvest Job)
+
+```ts
+import * as cdk from 'aws-cdk-lib';
+import { Construct } from 'constructs';
+import { LiveChannelFromMp4 } from 'awscdk-construct-live-channel-from-mp4-file';
+import { ScteScheduler } from 'awscdk-construct-scte-scheduler';
+
+export class ExampleStack extends cdk.Stack {
+  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
+    super(scope, id, props);
+    // Create a MediaLive channel with MediaPackage V1 endpoints
+    const ch = new LiveChannelFromMp4(this, 'LiveChannelFromMp4', {
+      source: `s3://my-bucket/test.mp4`,
+    }), {eml, empv1: emp} = ch;
+
+    // Harvest the HLS endpoint
+    if (emp?.endpoints.hls) {
+      // Get a Lambda function that schedules a harvest job
+      const harvestJob = ch.createHarvestJob({
+        endpoint: emp.endpoints.hls,
+      });
+      // Invoke the function after inserting a 30-sec ad break 50 times
+      new ScteScheduler(this, 'ScteScheduler', {
+        channelId: eml.channel.ref,
+        scteDurationInSeconds: 30,
+        intervalInMinutes: 1,
+        repeatCount: 50,
+        callback: harvestJob.func,
+      });
+
+      // Print the S3 URL of the harvested VOD content
+      new cdk.CfnOutput(this, "HarvestedVODURL", {
+        value: harvestJob.s3Url,
+        exportName: cdk.Aws.STACK_NAME + "HarvestedVODURL",
+        description: "Harvested VOD URL",
+      });
+    }
+  }
+}
+```
+
 ### Possible configurations
 
 #### Input

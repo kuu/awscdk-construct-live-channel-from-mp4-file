@@ -60,9 +60,15 @@
     "constructs": "^10.0.5"
   },
   "dependencies": {
-    "aws-cdk-lib": "^2.150.0",
-    "constructs": "^10.3.0"
+    "@aws-sdk/client-medialive": "^3.620.0",
+    "@aws-sdk/client-mediapackage": "^3.620.0",
+    "aws-cdk-lib": "^2.148.0",
+    "constructs": "^10.0.5"
   },
+  "bundledDependencies": [
+    "@aws-sdk/client-medialive",
+    "@aws-sdk/client-mediapackage"
+  ],
   "keywords": [
     "MediaLive",
     "MediaPackage",
