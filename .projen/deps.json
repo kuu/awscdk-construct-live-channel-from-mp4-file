@@ -85,6 +85,14 @@
       "type": "build"
     },
     {
+      "name": "@aws-sdk/client-medialive",
+      "type": "bundled"
+    },
+    {
+      "name": "@aws-sdk/client-mediapackage",
+      "type": "bundled"
+    },
+    {
       "name": "aws-cdk-lib",
       "version": "^2.148.0",
       "type": "peer"

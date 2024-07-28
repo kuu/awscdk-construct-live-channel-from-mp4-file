@@ -1,5 +1,7 @@
 import { CfnChannel } from 'aws-cdk-lib/aws-medialive';
+import { CfnOriginEndpoint } from 'aws-cdk-lib/aws-mediapackage';
 import { Construct } from 'constructs';
+import { HarvestJobLambda, HarvestJobDestinationProps } from './HarvestJobLambda';
 import { MediaLive, SourceSpec, EncoderSettings, startChannel } from './MediaLive';
 import { MediaPackageV1, MediaPakcageV1Props } from './MediaPackageV1';
 import { MediaPackageV2, MediaPakcageV2Props } from './MediaPackageV2';
@@ -52,6 +54,7 @@ export class LiveChannelFromMp4 extends Construct {
   public readonly eml: MediaLive; // The reference to the MediaLive input/channel.
   public readonly empv1?: MediaPackageV1; // The reference to the MediaPackageV1 channel/endpoints.
   public readonly empv2?: MediaPackageV2; // The reference to the MediaPackageV2 channelGroup/channel/endpoints.
+  public readonly channelStartTime?: Date; // The start time of the channel.
 
   constructor(scope: Construct, id: string, {
     source,
@@ -261,10 +264,36 @@ export class LiveChannelFromMp4 extends Construct {
 
     if (autoStart) {
       // Start channel
-      startChannel(this, 'StartMediaLiveChannel', this.eml.channel.ref);
+      this.channelStartTime = startChannel(this, 'StartMediaLiveChannel', this.eml.channel.ref);
     }
   }
+
+  // Create a Lambda function that stops the channel and schedule a harvest job from the live endpoint.
+  public createHarvestJob(props: HarvestJobProps): HarvestJobLambda {
+    // Create a Lambda function to schedule a harvest job
+    return new HarvestJobLambda(this, 'HarvestJob', {
+      channelId: this.eml.channel.ref,
+      endpointId: props.endpoint.id,
+      startTime: props.startTime ?? this.getStartTime(),
+      endTime: props.endTime,
+      destination: props.destination,
+    });
+  }
+
+  private getStartTime(): Date {
+    const epocTime = this.channelStartTime ? this.channelStartTime.getTime() : new Date().getTime();
+    return new Date(epocTime + 30 * 1000);
+  }
 }
+
+export interface HarvestJobProps {
+  readonly endpoint: CfnOriginEndpoint; // The live endpoint to be harvested.
+  readonly destination?: HarvestJobDestinationProps; // The destination of the harvest job. If not specified, a new S3 bucket will be created.
+  readonly startTime?: Date; // The start time of the harvest job. Default is 30 seconds after the channel start time.
+  readonly endTime?: Date; // The end time of the harvest job. Default is the function invocation time.
+}
+
+export { HarvestJobLambda, HarvestJobLambdaProps, HarvestJobDestinationProps } from './HarvestJobLambda';
 
 function createSourceSpecs(source: string | string[] | SourceSpec[]): SourceSpec[] {
   if (typeof source === 'string') {

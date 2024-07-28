@@ -171,7 +171,7 @@ function createChannel(scope: Construct, id: string, inputs: CfnInput[], props: 
   });
 }
 
-export function startChannel(scope: Construct, id: string, channelId: string) {
+export function startChannel(scope: Construct, id: string, channelId: string): Date {
   // Start channel
   new AwsCustomResource(scope, id, {
     onCreate: {
@@ -199,4 +199,5 @@ export function startChannel(scope: Construct, id: string, channelId: string) {
       resources: AwsCustomResourcePolicy.ANY_RESOURCE,
     }),
   });
+  return new Date();
 }

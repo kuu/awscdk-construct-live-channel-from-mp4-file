@@ -2,6 +2,141 @@
 
 ## Constructs <a name="Constructs" id="Constructs"></a>
 
+### HarvestJobLambda <a name="HarvestJobLambda" id="awscdk-construct-live-channel-from-mp4-file.HarvestJobLambda"></a>
+
+#### Initializers <a name="Initializers" id="awscdk-construct-live-channel-from-mp4-file.HarvestJobLambda.Initializer"></a>
+
+```typescript
+import { HarvestJobLambda } from 'awscdk-construct-live-channel-from-mp4-file'
+
+new HarvestJobLambda(scope: Construct, id: string, props: HarvestJobLambdaProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.HarvestJobLambda.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.HarvestJobLambda.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.HarvestJobLambda.Initializer.parameter.props">props</a></code> | <code><a href="#awscdk-construct-live-channel-from-mp4-file.HarvestJobLambdaProps">HarvestJobLambdaProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="awscdk-construct-live-channel-from-mp4-file.HarvestJobLambda.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="awscdk-construct-live-channel-from-mp4-file.HarvestJobLambda.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="awscdk-construct-live-channel-from-mp4-file.HarvestJobLambda.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#awscdk-construct-live-channel-from-mp4-file.HarvestJobLambdaProps">HarvestJobLambdaProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.HarvestJobLambda.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="awscdk-construct-live-channel-from-mp4-file.HarvestJobLambda.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.HarvestJobLambda.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="awscdk-construct-live-channel-from-mp4-file.HarvestJobLambda.isConstruct"></a>
+
+```typescript
+import { HarvestJobLambda } from 'awscdk-construct-live-channel-from-mp4-file'
+
+HarvestJobLambda.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="awscdk-construct-live-channel-from-mp4-file.HarvestJobLambda.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.HarvestJobLambda.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.HarvestJobLambda.property.func">func</a></code> | <code>aws-cdk-lib.aws_lambda_nodejs.NodejsFunction</code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.HarvestJobLambda.property.s3Url">s3Url</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="awscdk-construct-live-channel-from-mp4-file.HarvestJobLambda.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `func`<sup>Required</sup> <a name="func" id="awscdk-construct-live-channel-from-mp4-file.HarvestJobLambda.property.func"></a>
+
+```typescript
+public readonly func: NodejsFunction;
+```
+
+- *Type:* aws-cdk-lib.aws_lambda_nodejs.NodejsFunction
+
+---
+
+##### `s3Url`<sup>Required</sup> <a name="s3Url" id="awscdk-construct-live-channel-from-mp4-file.HarvestJobLambda.property.s3Url"></a>
+
+```typescript
+public readonly s3Url: string;
+```
+
+- *Type:* string
+
+---
+
+
 ### LiveChannelFromMp4 <a name="LiveChannelFromMp4" id="awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4"></a>
 
 #### Initializers <a name="Initializers" id="awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4.Initializer"></a>
@@ -43,6 +178,7 @@ new LiveChannelFromMp4(scope: Construct, id: string, __2: LiveChannelFromMp4Prop
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4.createHarvestJob">createHarvestJob</a></code> | *No description.* |
 
 ---
 
@@ -53,6 +189,18 @@ public toString(): string
 ```
 
 Returns a string representation of this construct.
+
+##### `createHarvestJob` <a name="createHarvestJob" id="awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4.createHarvestJob"></a>
+
+```typescript
+public createHarvestJob(props: HarvestJobProps): HarvestJobLambda
+```
+
+###### `props`<sup>Required</sup> <a name="props" id="awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4.createHarvestJob.parameter.props"></a>
+
+- *Type:* <a href="#awscdk-construct-live-channel-from-mp4-file.HarvestJobProps">HarvestJobProps</a>
+
+---
 
 #### Static Functions <a name="Static Functions" id="Static Functions"></a>
 
@@ -100,6 +248,7 @@ Any object.
 | --- | --- | --- |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4.property.eml">eml</a></code> | <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaLive">MediaLive</a></code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4.property.channelStartTime">channelStartTime</a></code> | <code>Date</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4.property.empv1">empv1</a></code> | <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPackageV1">MediaPackageV1</a></code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4.property.empv2">empv2</a></code> | <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPackageV2">MediaPackageV2</a></code> | *No description.* |
 
@@ -124,6 +273,16 @@ public readonly eml: MediaLive;
 ```
 
 - *Type:* <a href="#awscdk-construct-live-channel-from-mp4-file.MediaLive">MediaLive</a>
+
+---
+
+##### `channelStartTime`<sup>Optional</sup> <a name="channelStartTime" id="awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4.property.channelStartTime"></a>
+
+```typescript
+public readonly channelStartTime: Date;
+```
+
+- *Type:* Date
 
 ---
 
@@ -685,6 +844,189 @@ public readonly timecodeBurninPrefix: string;
 ```
 
 - *Type:* string
+
+---
+
+### HarvestJobDestinationProps <a name="HarvestJobDestinationProps" id="awscdk-construct-live-channel-from-mp4-file.HarvestJobDestinationProps"></a>
+
+#### Initializer <a name="Initializer" id="awscdk-construct-live-channel-from-mp4-file.HarvestJobDestinationProps.Initializer"></a>
+
+```typescript
+import { HarvestJobDestinationProps } from 'awscdk-construct-live-channel-from-mp4-file'
+
+const harvestJobDestinationProps: HarvestJobDestinationProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.HarvestJobDestinationProps.property.bucketName">bucketName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.HarvestJobDestinationProps.property.manifestKey">manifestKey</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.HarvestJobDestinationProps.property.roleArn">roleArn</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `bucketName`<sup>Required</sup> <a name="bucketName" id="awscdk-construct-live-channel-from-mp4-file.HarvestJobDestinationProps.property.bucketName"></a>
+
+```typescript
+public readonly bucketName: string;
+```
+
+- *Type:* string
+
+---
+
+##### `manifestKey`<sup>Required</sup> <a name="manifestKey" id="awscdk-construct-live-channel-from-mp4-file.HarvestJobDestinationProps.property.manifestKey"></a>
+
+```typescript
+public readonly manifestKey: string;
+```
+
+- *Type:* string
+
+---
+
+##### `roleArn`<sup>Required</sup> <a name="roleArn" id="awscdk-construct-live-channel-from-mp4-file.HarvestJobDestinationProps.property.roleArn"></a>
+
+```typescript
+public readonly roleArn: string;
+```
+
+- *Type:* string
+
+---
+
+### HarvestJobLambdaProps <a name="HarvestJobLambdaProps" id="awscdk-construct-live-channel-from-mp4-file.HarvestJobLambdaProps"></a>
+
+#### Initializer <a name="Initializer" id="awscdk-construct-live-channel-from-mp4-file.HarvestJobLambdaProps.Initializer"></a>
+
+```typescript
+import { HarvestJobLambdaProps } from 'awscdk-construct-live-channel-from-mp4-file'
+
+const harvestJobLambdaProps: HarvestJobLambdaProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.HarvestJobLambdaProps.property.channelId">channelId</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.HarvestJobLambdaProps.property.endpointId">endpointId</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.HarvestJobLambdaProps.property.startTime">startTime</a></code> | <code>Date</code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.HarvestJobLambdaProps.property.destination">destination</a></code> | <code><a href="#awscdk-construct-live-channel-from-mp4-file.HarvestJobDestinationProps">HarvestJobDestinationProps</a></code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.HarvestJobLambdaProps.property.endTime">endTime</a></code> | <code>Date</code> | *No description.* |
+
+---
+
+##### `channelId`<sup>Required</sup> <a name="channelId" id="awscdk-construct-live-channel-from-mp4-file.HarvestJobLambdaProps.property.channelId"></a>
+
+```typescript
+public readonly channelId: string;
+```
+
+- *Type:* string
+
+---
+
+##### `endpointId`<sup>Required</sup> <a name="endpointId" id="awscdk-construct-live-channel-from-mp4-file.HarvestJobLambdaProps.property.endpointId"></a>
+
+```typescript
+public readonly endpointId: string;
+```
+
+- *Type:* string
+
+---
+
+##### `startTime`<sup>Required</sup> <a name="startTime" id="awscdk-construct-live-channel-from-mp4-file.HarvestJobLambdaProps.property.startTime"></a>
+
+```typescript
+public readonly startTime: Date;
+```
+
+- *Type:* Date
+
+---
+
+##### `destination`<sup>Optional</sup> <a name="destination" id="awscdk-construct-live-channel-from-mp4-file.HarvestJobLambdaProps.property.destination"></a>
+
+```typescript
+public readonly destination: HarvestJobDestinationProps;
+```
+
+- *Type:* <a href="#awscdk-construct-live-channel-from-mp4-file.HarvestJobDestinationProps">HarvestJobDestinationProps</a>
+
+---
+
+##### `endTime`<sup>Optional</sup> <a name="endTime" id="awscdk-construct-live-channel-from-mp4-file.HarvestJobLambdaProps.property.endTime"></a>
+
+```typescript
+public readonly endTime: Date;
+```
+
+- *Type:* Date
+
+---
+
+### HarvestJobProps <a name="HarvestJobProps" id="awscdk-construct-live-channel-from-mp4-file.HarvestJobProps"></a>
+
+#### Initializer <a name="Initializer" id="awscdk-construct-live-channel-from-mp4-file.HarvestJobProps.Initializer"></a>
+
+```typescript
+import { HarvestJobProps } from 'awscdk-construct-live-channel-from-mp4-file'
+
+const harvestJobProps: HarvestJobProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.HarvestJobProps.property.endpoint">endpoint</a></code> | <code>aws-cdk-lib.aws_mediapackage.CfnOriginEndpoint</code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.HarvestJobProps.property.destination">destination</a></code> | <code><a href="#awscdk-construct-live-channel-from-mp4-file.HarvestJobDestinationProps">HarvestJobDestinationProps</a></code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.HarvestJobProps.property.endTime">endTime</a></code> | <code>Date</code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.HarvestJobProps.property.startTime">startTime</a></code> | <code>Date</code> | *No description.* |
+
+---
+
+##### `endpoint`<sup>Required</sup> <a name="endpoint" id="awscdk-construct-live-channel-from-mp4-file.HarvestJobProps.property.endpoint"></a>
+
+```typescript
+public readonly endpoint: CfnOriginEndpoint;
+```
+
+- *Type:* aws-cdk-lib.aws_mediapackage.CfnOriginEndpoint
+
+---
+
+##### `destination`<sup>Optional</sup> <a name="destination" id="awscdk-construct-live-channel-from-mp4-file.HarvestJobProps.property.destination"></a>
+
+```typescript
+public readonly destination: HarvestJobDestinationProps;
+```
+
+- *Type:* <a href="#awscdk-construct-live-channel-from-mp4-file.HarvestJobDestinationProps">HarvestJobDestinationProps</a>
+
+---
+
+##### `endTime`<sup>Optional</sup> <a name="endTime" id="awscdk-construct-live-channel-from-mp4-file.HarvestJobProps.property.endTime"></a>
+
+```typescript
+public readonly endTime: Date;
+```
+
+- *Type:* Date
+
+---
+
+##### `startTime`<sup>Optional</sup> <a name="startTime" id="awscdk-construct-live-channel-from-mp4-file.HarvestJobProps.property.startTime"></a>
+
+```typescript
+public readonly startTime: Date;
+```
+
+- *Type:* Date
 
 ---
 
