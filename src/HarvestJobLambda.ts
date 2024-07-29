@@ -171,7 +171,7 @@ export class HarvestJobLambda extends Construct {
         const jsonStr = JSON.stringify(document);
         new CfnOutput(this, 'BucketPolicyJson', {
           value: jsonStr,
-          exportName: `${Aws.STACK_ID}/BucketPolicyJson`,
+          exportName: `${Aws.STACK_ID}-BucketPolicyJson`,
           description: 'The bucket policy JSON.',
         });
         new AwsCustomResource(this, 'PutBucketPolicy', {
