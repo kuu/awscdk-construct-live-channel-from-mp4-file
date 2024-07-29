@@ -160,14 +160,21 @@ export class HarvestJobLambda extends Construct {
       bucket.addToResourcePolicy(statement);
 
       if (retain) {
+        oai.applyRemovalPolicy(RemovalPolicy.RETAIN);
         distribution.applyRemovalPolicy(RemovalPolicy.RETAIN);
         // Need to manually retain the resource policy due to the known issue:
         // https://github.com/aws/aws-cdk/issues/27125
-        new AwsCustomResource(scope, 'StartStateMachine', {
+        const document = new iam.PolicyDocument({
+          statements: [statement],
+        });
+        new AwsCustomResource(scope, 'PutBucketPolicy', {
           onDelete: {
             service: 'S3',
             action: 'PutBucketPolicy',
-            parameters: JSON.stringify(statement),
+            parameters: `{
+              "Bucket": "${this.destination.bucketName}",
+              "PolicyDocument": "${JSON.stringify(document)}"
+            }`,
             physicalResourceId: PhysicalResourceId.of(`${crypto.randomUUID()}`),
           },
           //Will ignore any resource and use the assumedRoleArn as resource and 'sts:AssumeRole' for service:action
