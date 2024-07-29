@@ -165,6 +165,7 @@ export class HarvestJobLambda extends Construct {
         // Need to manually retain the resource policy due to the known issue:
         // https://github.com/aws/aws-cdk/issues/27125
         const document = new iam.PolicyDocument({
+          assignSids: true,
           statements: [statement],
         });
         new AwsCustomResource(scope, 'PutBucketPolicy', {
@@ -173,7 +174,7 @@ export class HarvestJobLambda extends Construct {
             action: 'PutBucketPolicy',
             parameters: {
               Bucket: this.destination.bucketName,
-              PolicyDocument: JSON.stringify(document),
+              PolicyDocument: document,
             },
             physicalResourceId: PhysicalResourceId.of(`${crypto.randomUUID()}`),
           },
