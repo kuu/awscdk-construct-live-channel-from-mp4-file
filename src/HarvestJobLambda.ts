@@ -174,7 +174,7 @@ export class HarvestJobLambda extends Construct {
             action: 'PutBucketPolicy',
             parameters: {
               Bucket: this.destination.bucketName,
-              PolicyDocument: document,
+              PolicyDocument: document.toJSON(),
             },
             physicalResourceId: PhysicalResourceId.of(`${crypto.randomUUID()}`),
           },
