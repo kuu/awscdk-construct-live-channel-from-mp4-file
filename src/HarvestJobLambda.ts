@@ -171,10 +171,10 @@ export class HarvestJobLambda extends Construct {
           onDelete: {
             service: 'S3',
             action: 'PutBucketPolicy',
-            parameters: `{
-              "Bucket": "${this.destination.bucketName}",
-              "PolicyDocument": "${JSON.stringify(document)}"
-            }`,
+            parameters: {
+              Bucket: this.destination.bucketName,
+              PolicyDocument: JSON.stringify(document),
+            },
             physicalResourceId: PhysicalResourceId.of(`${crypto.randomUUID()}`),
           },
           //Will ignore any resource and use the assumedRoleArn as resource and 'sts:AssumeRole' for service:action
