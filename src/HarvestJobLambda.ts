@@ -1,7 +1,7 @@
 import * as crypto from 'crypto';
 import * as fs from 'fs';
 import * as path from 'path';
-import { Aws, Duration, RemovalPolicy, aws_logs as logs } from 'aws-cdk-lib';
+import { Duration, RemovalPolicy, aws_logs as logs } from 'aws-cdk-lib';
 import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
 import * as cloudfront_origins from 'aws-cdk-lib/aws-cloudfront-origins';
 import * as iam from 'aws-cdk-lib/aws-iam';
@@ -67,7 +67,7 @@ export class HarvestJobLambda extends Construct {
       };
     }
     //Create an IAM Role for MediaPackage to access S3
-    const role = new iam.Role(this, `${Aws.STACK_ID}-IamRole`, {
+    const role = new iam.Role(this, 'IamRoleForMediaPackage', {
       inlinePolicies: {
         policy: new iam.PolicyDocument({
           statements: [
