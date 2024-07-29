@@ -8,6 +8,7 @@ import * as iam from 'aws-cdk-lib/aws-iam';
 import { Runtime } from 'aws-cdk-lib/aws-lambda';
 import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs';
 import * as s3 from 'aws-cdk-lib/aws-s3';
+import { AwsCustomResource, AwsCustomResourcePolicy, PhysicalResourceId } from 'aws-cdk-lib/custom-resources';
 import { Construct } from 'constructs';
 
 export interface HarvestJobLambdaProps {
@@ -150,17 +151,30 @@ export class HarvestJobLambda extends Construct {
       });
 
       // Grant the OAI access to the private S3 bucket
-      bucket.addToResourcePolicy(
-        new iam.PolicyStatement({
-          effect: iam.Effect.ALLOW,
-          actions: ['s3:GetObject'],
-          resources: [`${bucket.bucketArn}/*`],
-          principals: [new iam.CanonicalUserPrincipal(oai.cloudFrontOriginAccessIdentityS3CanonicalUserId)],
-        }),
-      );
+      const statement = new iam.PolicyStatement({
+        effect: iam.Effect.ALLOW,
+        actions: ['s3:GetObject'],
+        resources: [`${bucket.bucketArn}/*`],
+        principals: [new iam.CanonicalUserPrincipal(oai.cloudFrontOriginAccessIdentityS3CanonicalUserId)],
+      });
+      bucket.addToResourcePolicy(statement);
 
       if (retain) {
         distribution.applyRemovalPolicy(RemovalPolicy.RETAIN);
+        // Need to manually retain the resource policy due to the known issue:
+        // https://github.com/aws/aws-cdk/issues/27125
+        new AwsCustomResource(scope, 'StartStateMachine', {
+          onDelete: {
+            service: 'S3',
+            action: 'PutBucketPolicy',
+            parameters: JSON.stringify(statement),
+            physicalResourceId: PhysicalResourceId.of(`${crypto.randomUUID()}`),
+          },
+          //Will ignore any resource and use the assumedRoleArn as resource and 'sts:AssumeRole' for service:action
+          policy: AwsCustomResourcePolicy.fromSdkCalls({
+            resources: AwsCustomResourcePolicy.ANY_RESOURCE,
+          }),
+        });
       }
 
       this.publishedUrl = `https://${distribution.distributionDomainName}/${this.destination.manifestKey}`;
