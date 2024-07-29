@@ -1,7 +1,7 @@
 import * as crypto from 'crypto';
 import * as fs from 'fs';
 import * as path from 'path';
-import { Duration, RemovalPolicy, aws_logs as logs } from 'aws-cdk-lib';
+import { Duration, RemovalPolicy, Aws, CfnOutput, aws_logs as logs } from 'aws-cdk-lib';
 import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
 import * as cloudfront_origins from 'aws-cdk-lib/aws-cloudfront-origins';
 import * as iam from 'aws-cdk-lib/aws-iam';
@@ -168,13 +168,19 @@ export class HarvestJobLambda extends Construct {
           assignSids: true,
           statements: [statement],
         });
-        new AwsCustomResource(scope, 'PutBucketPolicy', {
+        const jsonStr = JSON.stringify(document);
+        new CfnOutput(this, 'BucketPolicyJson', {
+          value: jsonStr,
+          exportName: `${Aws.STACK_ID}/BucketPolicyJson`,
+          description: 'The bucket policy JSON.',
+        });
+        new AwsCustomResource(this, 'PutBucketPolicy', {
           onDelete: {
             service: 'S3',
             action: 'PutBucketPolicy',
             parameters: {
               Bucket: this.destination.bucketName,
-              PolicyDocument: document.toJSON(),
+              PolicyDocument: jsonStr.trim(),
             },
             physicalResourceId: PhysicalResourceId.of(`${crypto.randomUUID()}`),
           },
