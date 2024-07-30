@@ -164,15 +164,14 @@ export class HarvestJobLambda extends Construct {
         distribution.applyRemovalPolicy(RemovalPolicy.RETAIN);
         // Need to manually retain the resource policy due to the known issue:
         // https://github.com/aws/aws-cdk/issues/27125
-        const document = new iam.PolicyDocument({
+        const documentString = JSON.stringify(new iam.PolicyDocument({
           assignSids: true,
           statements: [statement],
-        });
-        const jsonStr = JSON.stringify(document);
-        new CfnOutput(this, 'BucketPolicyJson', {
-          value: jsonStr,
-          exportName: `${Aws.STACK_NAME}-BucketPolicyJson`,
-          description: 'The bucket policy JSON.',
+        }));
+        new CfnOutput(this, 'PutBucketPolicyCLI', {
+          value: `aws s3api put-bucket-policy --bucket ${this.destination.bucketName} --policy '${documentString}'`,
+          exportName: `${Aws.STACK_NAME}-PutBucketPolicyCLI`,
+          description: 'Run this command when cdk destroy shows error.',
         });
         new AwsCustomResource(this, 'PutBucketPolicy', {
           onDelete: {
@@ -180,7 +179,7 @@ export class HarvestJobLambda extends Construct {
             action: 'PutBucketPolicy',
             parameters: {
               Bucket: this.destination.bucketName,
-              PolicyDocument: jsonStr.trim(),
+              PolicyDocument: documentString,
             },
             physicalResourceId: PhysicalResourceId.of(`${crypto.randomUUID()}`),
           },
