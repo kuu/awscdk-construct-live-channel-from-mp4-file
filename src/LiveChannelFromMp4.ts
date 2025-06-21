@@ -1,8 +1,8 @@
 import { CfnChannel } from 'aws-cdk-lib/aws-medialive';
 import { CfnOriginEndpoint } from 'aws-cdk-lib/aws-mediapackage';
+import { MediaLive, SourceSpec, EncoderSettings, startChannel } from 'awscdk-construct-medialive-channel';
 import { Construct } from 'constructs';
 import { HarvestJobLambda, HarvestJobDestinationProps } from './HarvestJobLambda';
-import { MediaLive, SourceSpec, EncoderSettings, startChannel } from './MediaLive';
 import { MediaPackageV1, MediaPakcageV1Props } from './MediaPackageV1';
 import { MediaPackageV2, MediaPakcageV2Props } from './MediaPackageV2';
 
