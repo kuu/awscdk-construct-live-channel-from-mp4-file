@@ -258,7 +258,7 @@ Any object.
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4.property.eml">eml</a></code> | <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaLive">MediaLive</a></code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4.property.eml">eml</a></code> | <code>awscdk-construct-medialive-channel.MediaLive</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4.property.channelStartTime">channelStartTime</a></code> | <code>Date</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4.property.empv1">empv1</a></code> | <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPackageV1">MediaPackageV1</a></code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4.property.empv2">empv2</a></code> | <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPackageV2">MediaPackageV2</a></code> | *No description.* |
@@ -283,7 +283,7 @@ The tree node.
 public readonly eml: MediaLive;
 ```
 
-- *Type:* <a href="#awscdk-construct-live-channel-from-mp4-file.MediaLive">MediaLive</a>
+- *Type:* awscdk-construct-medialive-channel.MediaLive
 
 ---
 
@@ -314,141 +314,6 @@ public readonly empv2: MediaPackageV2;
 ```
 
 - *Type:* <a href="#awscdk-construct-live-channel-from-mp4-file.MediaPackageV2">MediaPackageV2</a>
-
----
-
-
-### MediaLive <a name="MediaLive" id="awscdk-construct-live-channel-from-mp4-file.MediaLive"></a>
-
-#### Initializers <a name="Initializers" id="awscdk-construct-live-channel-from-mp4-file.MediaLive.Initializer"></a>
-
-```typescript
-import { MediaLive } from 'awscdk-construct-live-channel-from-mp4-file'
-
-new MediaLive(scope: Construct, id: string, props: MediaLiveProps)
-```
-
-| **Name** | **Type** | **Description** |
-| --- | --- | --- |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaLive.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaLive.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaLive.Initializer.parameter.props">props</a></code> | <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaLiveProps">MediaLiveProps</a></code> | *No description.* |
-
----
-
-##### `scope`<sup>Required</sup> <a name="scope" id="awscdk-construct-live-channel-from-mp4-file.MediaLive.Initializer.parameter.scope"></a>
-
-- *Type:* constructs.Construct
-
----
-
-##### `id`<sup>Required</sup> <a name="id" id="awscdk-construct-live-channel-from-mp4-file.MediaLive.Initializer.parameter.id"></a>
-
-- *Type:* string
-
----
-
-##### `props`<sup>Required</sup> <a name="props" id="awscdk-construct-live-channel-from-mp4-file.MediaLive.Initializer.parameter.props"></a>
-
-- *Type:* <a href="#awscdk-construct-live-channel-from-mp4-file.MediaLiveProps">MediaLiveProps</a>
-
----
-
-#### Methods <a name="Methods" id="Methods"></a>
-
-| **Name** | **Description** |
-| --- | --- |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaLive.toString">toString</a></code> | Returns a string representation of this construct. |
-
----
-
-##### `toString` <a name="toString" id="awscdk-construct-live-channel-from-mp4-file.MediaLive.toString"></a>
-
-```typescript
-public toString(): string
-```
-
-Returns a string representation of this construct.
-
-#### Static Functions <a name="Static Functions" id="Static Functions"></a>
-
-| **Name** | **Description** |
-| --- | --- |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaLive.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
-
----
-
-##### `isConstruct` <a name="isConstruct" id="awscdk-construct-live-channel-from-mp4-file.MediaLive.isConstruct"></a>
-
-```typescript
-import { MediaLive } from 'awscdk-construct-live-channel-from-mp4-file'
-
-MediaLive.isConstruct(x: any)
-```
-
-Checks if `x` is a construct.
-
-Use this method instead of `instanceof` to properly detect `Construct`
-instances, even when the construct library is symlinked.
-
-Explanation: in JavaScript, multiple copies of the `constructs` library on
-disk are seen as independent, completely different libraries. As a
-consequence, the class `Construct` in each copy of the `constructs` library
-is seen as a different class, and an instance of one class will not test as
-`instanceof` the other class. `npm install` will not create installations
-like this, but users may manually symlink construct libraries together or
-use a monorepo tool: in those cases, multiple copies of the `constructs`
-library can be accidentally installed, and `instanceof` will behave
-unpredictably. It is safest to avoid using `instanceof`, and using
-this type-testing method instead.
-
-###### `x`<sup>Required</sup> <a name="x" id="awscdk-construct-live-channel-from-mp4-file.MediaLive.isConstruct.parameter.x"></a>
-
-- *Type:* any
-
-Any object.
-
----
-
-#### Properties <a name="Properties" id="Properties"></a>
-
-| **Name** | **Type** | **Description** |
-| --- | --- | --- |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaLive.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaLive.property.channel">channel</a></code> | <code>aws-cdk-lib.aws_medialive.CfnChannel</code> | *No description.* |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaLive.property.inputs">inputs</a></code> | <code>aws-cdk-lib.aws_medialive.CfnInput[]</code> | *No description.* |
-
----
-
-##### `node`<sup>Required</sup> <a name="node" id="awscdk-construct-live-channel-from-mp4-file.MediaLive.property.node"></a>
-
-```typescript
-public readonly node: Node;
-```
-
-- *Type:* constructs.Node
-
-The tree node.
-
----
-
-##### `channel`<sup>Required</sup> <a name="channel" id="awscdk-construct-live-channel-from-mp4-file.MediaLive.property.channel"></a>
-
-```typescript
-public readonly channel: CfnChannel;
-```
-
-- *Type:* aws-cdk-lib.aws_medialive.CfnChannel
-
----
-
-##### `inputs`<sup>Required</sup> <a name="inputs" id="awscdk-construct-live-channel-from-mp4-file.MediaLive.property.inputs"></a>
-
-```typescript
-public readonly inputs: CfnInput[];
-```
-
-- *Type:* aws-cdk-lib.aws_medialive.CfnInput[]
 
 ---
 
@@ -758,67 +623,6 @@ public readonly channelGroup: CfnChannelGroup;
 
 ## Structs <a name="Structs" id="Structs"></a>
 
-### EncoderMidSettings <a name="EncoderMidSettings" id="awscdk-construct-live-channel-from-mp4-file.EncoderMidSettings"></a>
-
-#### Initializer <a name="Initializer" id="awscdk-construct-live-channel-from-mp4-file.EncoderMidSettings.Initializer"></a>
-
-```typescript
-import { EncoderMidSettings } from 'awscdk-construct-live-channel-from-mp4-file'
-
-const encoderMidSettings: EncoderMidSettings = { ... }
-```
-
-#### Properties <a name="Properties" id="Properties"></a>
-
-| **Name** | **Type** | **Description** |
-| --- | --- | --- |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.EncoderMidSettings.property.gopLengthInSeconds">gopLengthInSeconds</a></code> | <code>number</code> | *No description.* |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.EncoderMidSettings.property.outputGroupSettingsList">outputGroupSettingsList</a></code> | <code>aws-cdk-lib.aws_medialive.CfnChannel.OutputGroupSettingsProperty[]</code> | *No description.* |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.EncoderMidSettings.property.outputSettingsList">outputSettingsList</a></code> | <code>aws-cdk-lib.aws_medialive.CfnChannel.OutputSettingsProperty[]</code> | *No description.* |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.EncoderMidSettings.property.timecodeBurninPrefix">timecodeBurninPrefix</a></code> | <code>string</code> | *No description.* |
-
----
-
-##### `gopLengthInSeconds`<sup>Required</sup> <a name="gopLengthInSeconds" id="awscdk-construct-live-channel-from-mp4-file.EncoderMidSettings.property.gopLengthInSeconds"></a>
-
-```typescript
-public readonly gopLengthInSeconds: number;
-```
-
-- *Type:* number
-
----
-
-##### `outputGroupSettingsList`<sup>Required</sup> <a name="outputGroupSettingsList" id="awscdk-construct-live-channel-from-mp4-file.EncoderMidSettings.property.outputGroupSettingsList"></a>
-
-```typescript
-public readonly outputGroupSettingsList: OutputGroupSettingsProperty[];
-```
-
-- *Type:* aws-cdk-lib.aws_medialive.CfnChannel.OutputGroupSettingsProperty[]
-
----
-
-##### `outputSettingsList`<sup>Required</sup> <a name="outputSettingsList" id="awscdk-construct-live-channel-from-mp4-file.EncoderMidSettings.property.outputSettingsList"></a>
-
-```typescript
-public readonly outputSettingsList: OutputSettingsProperty[];
-```
-
-- *Type:* aws-cdk-lib.aws_medialive.CfnChannel.OutputSettingsProperty[]
-
----
-
-##### `timecodeBurninPrefix`<sup>Optional</sup> <a name="timecodeBurninPrefix" id="awscdk-construct-live-channel-from-mp4-file.EncoderMidSettings.property.timecodeBurninPrefix"></a>
-
-```typescript
-public readonly timecodeBurninPrefix: string;
-```
-
-- *Type:* string
-
----
-
 ### EncoderSpec <a name="EncoderSpec" id="awscdk-construct-live-channel-from-mp4-file.EncoderSpec"></a>
 
 #### Initializer <a name="Initializer" id="awscdk-construct-live-channel-from-mp4-file.EncoderSpec.Initializer"></a>
@@ -1088,10 +892,10 @@ const liveChannelFromMp4Props: LiveChannelFromMp4Props = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.source">source</a></code> | <code>string \| string[] \| <a href="#awscdk-construct-live-channel-from-mp4-file.SourceSpec">SourceSpec</a>[]</code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.source">source</a></code> | <code>string \| string[] \| awscdk-construct-medialive-channel.SourceSpec[]</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.autoStart">autoStart</a></code> | <code>boolean</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.channelClass">channelClass</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.encoderSpec">encoderSpec</a></code> | <code>aws-cdk-lib.aws_medialive.CfnChannel.EncoderSettingsProperty \| <a href="#awscdk-construct-live-channel-from-mp4-file.EncoderSpec">EncoderSpec</a></code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.encoderSpec">encoderSpec</a></code> | <code><a href="#awscdk-construct-live-channel-from-mp4-file.EncoderSpec">EncoderSpec</a> \| aws-cdk-lib.aws_medialive.CfnChannel.EncoderSettingsProperty</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.mediaPackageVersionSpec">mediaPackageVersionSpec</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.packagerSpec">packagerSpec</a></code> | <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageV1Props">MediaPakcageV1Props</a> \| <a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageV2Props">MediaPakcageV2Props</a> \| <a href="#awscdk-construct-live-channel-from-mp4-file.PackagerSpec">PackagerSpec</a> \| <a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageV1Props">MediaPakcageV1Props</a> \| <a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageV2Props">MediaPakcageV2Props</a>[]</code> | *No description.* |
 
@@ -1103,7 +907,7 @@ const liveChannelFromMp4Props: LiveChannelFromMp4Props = { ... }
 public readonly source: string | string[] | SourceSpec[];
 ```
 
-- *Type:* string | string[] | <a href="#awscdk-construct-live-channel-from-mp4-file.SourceSpec">SourceSpec</a>[]
+- *Type:* string | string[] | awscdk-construct-medialive-channel.SourceSpec[]
 
 ---
 
@@ -1130,10 +934,10 @@ public readonly channelClass: string;
 ##### `encoderSpec`<sup>Optional</sup> <a name="encoderSpec" id="awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.encoderSpec"></a>
 
 ```typescript
-public readonly encoderSpec: EncoderSettingsProperty | EncoderSpec;
+public readonly encoderSpec: EncoderSpec | EncoderSettingsProperty;
 ```
 
-- *Type:* aws-cdk-lib.aws_medialive.CfnChannel.EncoderSettingsProperty | <a href="#awscdk-construct-live-channel-from-mp4-file.EncoderSpec">EncoderSpec</a>
+- *Type:* <a href="#awscdk-construct-live-channel-from-mp4-file.EncoderSpec">EncoderSpec</a> | aws-cdk-lib.aws_medialive.CfnChannel.EncoderSettingsProperty
 
 ---
 
@@ -1154,67 +958,6 @@ public readonly packagerSpec: MediaPakcageV1Props | MediaPakcageV2Props | Packag
 ```
 
 - *Type:* <a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageV1Props">MediaPakcageV1Props</a> | <a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageV2Props">MediaPakcageV2Props</a> | <a href="#awscdk-construct-live-channel-from-mp4-file.PackagerSpec">PackagerSpec</a> | <a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageV1Props">MediaPakcageV1Props</a> | <a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageV2Props">MediaPakcageV2Props</a>[]
-
----
-
-### MediaLiveProps <a name="MediaLiveProps" id="awscdk-construct-live-channel-from-mp4-file.MediaLiveProps"></a>
-
-#### Initializer <a name="Initializer" id="awscdk-construct-live-channel-from-mp4-file.MediaLiveProps.Initializer"></a>
-
-```typescript
-import { MediaLiveProps } from 'awscdk-construct-live-channel-from-mp4-file'
-
-const mediaLiveProps: MediaLiveProps = { ... }
-```
-
-#### Properties <a name="Properties" id="Properties"></a>
-
-| **Name** | **Type** | **Description** |
-| --- | --- | --- |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaLiveProps.property.destinations">destinations</a></code> | <code>aws-cdk-lib.aws_medialive.CfnChannel.OutputDestinationProperty[]</code> | *No description.* |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaLiveProps.property.encoderSpec">encoderSpec</a></code> | <code><a href="#awscdk-construct-live-channel-from-mp4-file.EncoderMidSettings">EncoderMidSettings</a> \| aws-cdk-lib.aws_medialive.CfnChannel.EncoderSettingsProperty</code> | *No description.* |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaLiveProps.property.sources">sources</a></code> | <code><a href="#awscdk-construct-live-channel-from-mp4-file.SourceSpec">SourceSpec</a>[]</code> | *No description.* |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaLiveProps.property.channelClass">channelClass</a></code> | <code>string</code> | *No description.* |
-
----
-
-##### `destinations`<sup>Required</sup> <a name="destinations" id="awscdk-construct-live-channel-from-mp4-file.MediaLiveProps.property.destinations"></a>
-
-```typescript
-public readonly destinations: OutputDestinationProperty[];
-```
-
-- *Type:* aws-cdk-lib.aws_medialive.CfnChannel.OutputDestinationProperty[]
-
----
-
-##### `encoderSpec`<sup>Required</sup> <a name="encoderSpec" id="awscdk-construct-live-channel-from-mp4-file.MediaLiveProps.property.encoderSpec"></a>
-
-```typescript
-public readonly encoderSpec: EncoderMidSettings | EncoderSettingsProperty;
-```
-
-- *Type:* <a href="#awscdk-construct-live-channel-from-mp4-file.EncoderMidSettings">EncoderMidSettings</a> | aws-cdk-lib.aws_medialive.CfnChannel.EncoderSettingsProperty
-
----
-
-##### `sources`<sup>Required</sup> <a name="sources" id="awscdk-construct-live-channel-from-mp4-file.MediaLiveProps.property.sources"></a>
-
-```typescript
-public readonly sources: SourceSpec[];
-```
-
-- *Type:* <a href="#awscdk-construct-live-channel-from-mp4-file.SourceSpec">SourceSpec</a>[]
-
----
-
-##### `channelClass`<sup>Optional</sup> <a name="channelClass" id="awscdk-construct-live-channel-from-mp4-file.MediaLiveProps.property.channelClass"></a>
-
-```typescript
-public readonly channelClass: string;
-```
-
-- *Type:* string
 
 ---
 
@@ -1770,56 +1513,6 @@ public readonly startoverWindowSeconds: number;
 ```
 
 - *Type:* number
-
----
-
-### SourceSpec <a name="SourceSpec" id="awscdk-construct-live-channel-from-mp4-file.SourceSpec"></a>
-
-#### Initializer <a name="Initializer" id="awscdk-construct-live-channel-from-mp4-file.SourceSpec.Initializer"></a>
-
-```typescript
-import { SourceSpec } from 'awscdk-construct-live-channel-from-mp4-file'
-
-const sourceSpec: SourceSpec = { ... }
-```
-
-#### Properties <a name="Properties" id="Properties"></a>
-
-| **Name** | **Type** | **Description** |
-| --- | --- | --- |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.SourceSpec.property.url">url</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.SourceSpec.property.conversionSpec">conversionSpec</a></code> | <code>aws-cdk-lib.aws_medialive.CfnChannel.EncoderSettingsProperty</code> | *No description.* |
-| <code><a href="#awscdk-construct-live-channel-from-mp4-file.SourceSpec.property.conversionType">conversionType</a></code> | <code>string</code> | *No description.* |
-
----
-
-##### `url`<sup>Required</sup> <a name="url" id="awscdk-construct-live-channel-from-mp4-file.SourceSpec.property.url"></a>
-
-```typescript
-public readonly url: string;
-```
-
-- *Type:* string
-
----
-
-##### `conversionSpec`<sup>Optional</sup> <a name="conversionSpec" id="awscdk-construct-live-channel-from-mp4-file.SourceSpec.property.conversionSpec"></a>
-
-```typescript
-public readonly conversionSpec: EncoderSettingsProperty;
-```
-
-- *Type:* aws-cdk-lib.aws_medialive.CfnChannel.EncoderSettingsProperty
-
----
-
-##### `conversionType`<sup>Optional</sup> <a name="conversionType" id="awscdk-construct-live-channel-from-mp4-file.SourceSpec.property.conversionType"></a>
-
-```typescript
-public readonly conversionType: string;
-```
-
-- *Type:* string
 
 ---
 
