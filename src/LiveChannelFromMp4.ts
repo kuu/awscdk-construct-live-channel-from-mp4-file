@@ -139,13 +139,18 @@ export class LiveChannelFromMp4 extends Construct {
         }];
         break;
       case 'V2_ONLY':
-        destinations = [{
+        destinations = this.empv2?.channel.inputType === 'HLS' ? [{
           id: 'MediaPackageV2',
           settings: ingestEndpoints,
+        }] : [{
+          id: 'MediaPackageV2',
+          mediaPackageSettings: [{
+            channelId: this.empv2?.channel.ref,
+          }],
         }];
         break;
       case 'V1_AND_V2':
-        destinations = [
+        destinations = this.empv2?.channel.inputType === 'HLS' ? [
           {
             id: 'MediaPackageV1',
             mediaPackageSettings: [{
@@ -155,6 +160,19 @@ export class LiveChannelFromMp4 extends Construct {
           {
             id: 'MediaPackageV2',
             settings: ingestEndpoints,
+          },
+        ] : [
+          {
+            id: 'MediaPackageV1',
+            mediaPackageSettings: [{
+              channelId: this.empv1?.channel.ref,
+            }],
+          },
+          {
+            id: 'MediaPackageV2',
+            mediaPackageSettings: [{
+              channelId: this.empv2?.channel.ref,
+            }],
           },
         ];
         break;
