@@ -18,6 +18,7 @@ function isEncoderSpec(spec: EncoderSpec | CfnChannel.EncoderSettingsProperty): 
 
 export interface MediaPackageV2Settings {
   readonly channelGroupName?: string; // The name of the channel group to be used.
+  readonly inputType?: 'HLS' | 'CMAF'; // The input type for the MediaPackageV2 channel.
   readonly omitLlHls?: boolean; // Whether to skip the creation of a Low Latency HLS endpoint.
 }
 
@@ -101,6 +102,7 @@ export class LiveChannelFromMp4 extends Construct {
       if (mediaPackageVersionSpec != 'V1_ONLY') {
         this.empv2 = new MediaPackageV2(this, 'MediaPackageV2', {
           channelGroupName: mediaPackageV2Settings?.channelGroupName,
+          inputType: mediaPackageV2Settings?.inputType,
           startoverWindowSeconds,
           endpointSpec: {
             segmentDurationSeconds,
@@ -212,11 +214,19 @@ export class LiveChannelFromMp4 extends Construct {
           }];
           break;
         case 'V2_ONLY':
-          outputGroupSettingsList = [{
+          outputGroupSettingsList = this.empv2?.channel.inputType === 'HLS' ? [{
             hlsGroupSettings,
+          }] : [{
+            mediaPackageGroupSettings: {
+              destination: {
+                destinationRefId: 'MediaPackageV2',
+              },
+            },
           }];
-          outputSettingsList = [{
+          outputSettingsList = this.empv2?.channel.inputType === 'HLS' ? [{
             hlsOutputSettings,
+          }] : [{
+            mediaPackageOutputSettings: {},
           }];
           break;
         case 'V1_AND_V2':
@@ -228,16 +238,25 @@ export class LiveChannelFromMp4 extends Construct {
                 },
               },
             },
-            {
-              hlsGroupSettings,
-            },
+            this.empv2?.channel.inputType === 'HLS' ?
+              {
+                hlsGroupSettings,
+              } : {
+                mediaPackageGroupSettings: {
+                  destination: {
+                    destinationRefId: 'MediaPackageV2',
+                  },
+                },
+              },
           ];
           outputSettingsList = [
             {
               mediaPackageOutputSettings: {},
             },
-            {
+            this.empv2?.channel.inputType === 'HLS' ? {
               hlsOutputSettings,
+            } : {
+              mediaPackageOutputSettings: {},
             },
           ];
           break;
