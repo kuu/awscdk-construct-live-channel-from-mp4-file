@@ -1187,6 +1187,7 @@ const mediaPackageV2Settings: MediaPackageV2Settings = { ... }
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPackageV2Settings.property.channelGroupName">channelGroupName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPackageV2Settings.property.inputType">inputType</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPackageV2Settings.property.omitLlHls">omitLlHls</a></code> | <code>boolean</code> | *No description.* |
 
 ---
@@ -1195,6 +1196,16 @@ const mediaPackageV2Settings: MediaPackageV2Settings = { ... }
 
 ```typescript
 public readonly channelGroupName: string;
+```
+
+- *Type:* string
+
+---
+
+##### `inputType`<sup>Optional</sup> <a name="inputType" id="awscdk-construct-live-channel-from-mp4-file.MediaPackageV2Settings.property.inputType"></a>
+
+```typescript
+public readonly inputType: string;
 ```
 
 - *Type:* string
@@ -1399,6 +1410,7 @@ const mediaPakcageV2Props: MediaPakcageV2Props = { ... }
 | --- | --- | --- |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageV2Props.property.channelGroupName">channelGroupName</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageV2Props.property.endpointSpec">endpointSpec</a></code> | <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageV2EndpointSpec">MediaPakcageV2EndpointSpec</a> \| <a href="#awscdk-construct-live-channel-from-mp4-file.MediaPackageV2FullSpec">MediaPackageV2FullSpec</a>[]</code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageV2Props.property.inputType">inputType</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageV2Props.property.startoverWindowSeconds">startoverWindowSeconds</a></code> | <code>number</code> | *No description.* |
 
 ---
@@ -1420,6 +1432,16 @@ public readonly endpointSpec: MediaPakcageV2EndpointSpec | MediaPackageV2FullSpe
 ```
 
 - *Type:* <a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageV2EndpointSpec">MediaPakcageV2EndpointSpec</a> | <a href="#awscdk-construct-live-channel-from-mp4-file.MediaPackageV2FullSpec">MediaPackageV2FullSpec</a>[]
+
+---
+
+##### `inputType`<sup>Optional</sup> <a name="inputType" id="awscdk-construct-live-channel-from-mp4-file.MediaPakcageV2Props.property.inputType"></a>
+
+```typescript
+public readonly inputType: string;
+```
+
+- *Type:* string
 
 ---
 

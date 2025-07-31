@@ -33,6 +33,7 @@ export interface MediaPackageV2FullSpec {
 
 export interface MediaPakcageV2Props {
   readonly channelGroupName?: string; // The name of the channel group to be used.
+  readonly inputType?: 'HLS' | 'CMAF'; // The input type for the MediaPackageV2 channel.
   readonly startoverWindowSeconds?: number; // The duration of startover window in seconds.
   readonly endpointSpec?: MediaPakcageV2EndpointSpec | MediaPackageV2FullSpec[];
 }
@@ -71,6 +72,7 @@ export class MediaPackageV2 extends Construct {
 
   constructor(scope: Construct, id: string, {
     channelGroupName,
+    inputType = 'CMAF',
     startoverWindowSeconds = 60,
     endpointSpec = {
       segmentDurationSeconds: 6,
@@ -106,6 +108,7 @@ export class MediaPackageV2 extends Construct {
     this.channel = new CfnChannel(this, 'MediaPackageV2Channel', {
       channelGroupName: CHANNEL_GROUP_NAME,
       channelName: CHANNEL_NAME,
+      inputType,
       description: `EMP channel created by ${Aws.STACK_NAME}`,
     });
     // Create AWS Custom Resource to retrieve ingesstion endpoint URLs (as unable to retrieve from CfnChannel)
