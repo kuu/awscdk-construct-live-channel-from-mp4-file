@@ -145,7 +145,7 @@ export class LiveChannelFromMp4 extends Construct {
         }] : [{
           id: 'MediaPackageV2',
           mediaPackageSettings: [{
-            channelId: this.empv2?.channel.ref,
+            channelId: this.empv2?.channel.logicalId,
           }],
         }];
         break;
@@ -171,7 +171,7 @@ export class LiveChannelFromMp4 extends Construct {
           {
             id: 'MediaPackageV2',
             mediaPackageSettings: [{
-              channelId: this.empv2?.channel.ref,
+              channelId: this.empv2?.channel.logicalId,
             }],
           },
         ];
