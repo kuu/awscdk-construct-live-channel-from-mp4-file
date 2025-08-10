@@ -42,12 +42,14 @@ export interface MediaPackageV2EndpointsTable {
   readonly hls?: CfnOriginEndpoint; // The HLS endpoint.
   readonly llHls?: CfnOriginEndpoint; // The low-latency HLS endpoint.
   readonly dash?: CfnOriginEndpoint; // The DASH endpoint.
+  // readonly mss?: CfnOriginEndpoint; // The MSS endpoint.
 }
 
 export interface MediaPackageV2EndpointUrlsTable {
   readonly hls?: string; // The HLS endpoint.
   readonly llHls?: string; // The low-latency HLS endpoint.
   readonly dash?: string; // The DASH endpoint.
+  // readonly mss?: string; // The MSS endpoint.
 }
 
 export interface IMediaPackageV2IngestEndpoint {
@@ -90,6 +92,7 @@ export class MediaPackageV2 extends Construct {
     const ENDPOINT_NAME_HLS = `${crypto.randomUUID()}`;
     const ENDPOINT_NAME_LLHLS = `${crypto.randomUUID()}`;
     const ENDPOINT_NAME_DASH = `${crypto.randomUUID()}`;
+    // const ENDPOINT_NAME_MSS = `${crypto.randomUUID()}`;
 
     const scteFilter = [
       'SPLICE_INSERT',
@@ -226,6 +229,28 @@ export class MediaPackageV2 extends Construct {
           },
           startoverWindowSeconds,
         }),
+        /* mss: new CfnOriginEndpoint(this, 'MediaPackageV2MssEndpoint', {
+          channelGroupName: CHANNEL_GROUP_NAME,
+          channelName: CHANNEL_NAME,
+          originEndpointName: ENDPOINT_NAME_MSS,
+          description: `MSS endpoint created by ${Aws.STACK_NAME}`,
+
+          // the properties below are optional
+          containerType: 'ISM',
+          mssManifests: [{
+            manifestName: 'index',
+            manifestWindowSeconds,
+            manifestLayout: 'FULL',
+          }],
+          segment: {
+            includeIframeOnlyStreams: false,
+            scte: {
+              scteFilter,
+            },
+            segmentDurationSeconds,
+          },
+          startoverWindowSeconds,
+        }); */
       };
     } else {
       // endpointSpec is MediaPackageV2FullSpec[]
