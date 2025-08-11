@@ -2,9 +2,9 @@ import { awscdk } from 'projen';
 const project = new awscdk.AwsCdkConstructLibrary({
   author: 'Kuu Miyazaki',
   authorAddress: 'miyazaqui@gmail.com',
-  cdkVersion: '2.200.1',
+  cdkVersion: '2.210.0',
   defaultReleaseBranch: 'main',
-  jsiiVersion: '~5.8.9',
+  jsiiVersion: '~5.9.2',
   name: 'awscdk-construct-live-channel-from-mp4-file',
   projenrcTs: true,
   repositoryUrl: 'https://github.com/kuu/awscdk-construct-live-channel-from-mp4-file.git',

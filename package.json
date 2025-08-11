@@ -46,26 +46,26 @@
     "eslint-plugin-import": "^2.32.0",
     "jest": "^30.0.5",
     "jest-junit": "^16",
-    "jsii": "~5.8.9",
+    "jsii": "~5.9.2",
     "jsii-diff": "^1.113.0",
     "jsii-docgen": "^10.5.0",
     "jsii-pacmak": "^1.113.0",
-    "jsii-rosetta": "~5.8.9",
+    "jsii-rosetta": "~5.9.2",
     "projen": "^0.95.2",
     "ts-jest": "^29.4.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.2"
   },
   "peerDependencies": {
-    "aws-cdk-lib": "^2.200.1",
-    "awscdk-construct-medialive-channel": "^0.0.11",
+    "aws-cdk-lib": "^2.210.0",
+    "awscdk-construct-medialive-channel": "^0.0.12",
     "constructs": "^10.0.5"
   },
   "dependencies": {
     "@aws-sdk/client-medialive": "^3.864.0",
     "@aws-sdk/client-mediapackage": "^3.864.0",
     "aws-cdk-lib": "^2.210.0",
-    "awscdk-construct-medialive-channel": "^0.0.11",
+    "awscdk-construct-medialive-channel": "^0.0.12",
     "constructs": "^10.4.2"
   },
   "bundledDependencies": [
