@@ -9,11 +9,21 @@ import { MediaPackageV2, MediaPakcageV2Props } from './MediaPackageV2';
 export interface EncoderSpec {
   readonly gopLengthInSeconds?: number; // The length of the GOP in seconds.
   readonly timecodeBurninPrefix?: string; // The prefix for the timecode burn-in.
+  readonly framerateNumerator?: number; // The numerator for the framerate.
+  readonly framerateDenominator?: number; // The denominator for the framerate.
+  readonly scanType?: 'PROGRESSIVE' | 'INTERLACED'; // The scan type.
+  readonly width?: number; // The width of the video.
+  readonly height?: number; // The height of the video.
 }
 
 function isEncoderSpec(spec: EncoderSpec | CfnChannel.EncoderSettingsProperty): spec is EncoderSpec {
   return (spec as EncoderSpec).gopLengthInSeconds !== undefined
-  || (spec as EncoderSpec).timecodeBurninPrefix !== undefined;
+  || (spec as EncoderSpec).timecodeBurninPrefix !== undefined
+  || (spec as EncoderSpec).framerateNumerator !== undefined
+  || (spec as EncoderSpec).framerateDenominator !== undefined
+  || (spec as EncoderSpec).scanType !== undefined
+  || (spec as EncoderSpec).width !== undefined
+  || (spec as EncoderSpec).height !== undefined;
 }
 
 export interface MediaPackageV2Settings {
@@ -187,6 +197,11 @@ export class LiveChannelFromMp4 extends Construct {
       const {
         gopLengthInSeconds = 3,
         timecodeBurninPrefix,
+        framerateNumerator = 30,
+        framerateDenominator = 1,
+        scanType = 'PROGRESSIVE',
+        width = 1920,
+        height = 1080,
       } = encoderSpec;
 
       const hlsGroupSettings = {
@@ -287,6 +302,11 @@ export class LiveChannelFromMp4 extends Construct {
         outputSettingsList,
         gopLengthInSeconds: this.empv2?.endpoints.llHls ? 1 : gopLengthInSeconds,
         timecodeBurninPrefix,
+        framerateNumerator,
+        framerateDenominator,
+        scanType,
+        width,
+        height,
       };
 
     } else {
