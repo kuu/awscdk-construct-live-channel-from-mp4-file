@@ -159,13 +159,13 @@ export class MediaPackageV2 extends Construct {
             manifestName: 'index',
             manifestWindowSeconds,
             programDateTimeIntervalSeconds: 1,
-            scteHls: {
+            scteHls: hlsAdMarkers === 'NONE' ? undefined : {
               adMarkerHls: hlsAdMarkers,
             },
           }],
           segment: {
             includeIframeOnlyStreams: false,
-            scte: {
+            scte: hlsAdMarkers === 'NONE' ? undefined : {
               scteFilter,
             },
             segmentDurationSeconds,
@@ -185,13 +185,13 @@ export class MediaPackageV2 extends Construct {
             manifestName: 'index-ll',
             manifestWindowSeconds: 30,
             programDateTimeIntervalSeconds: 1,
-            scteHls: {
+            scteHls: hlsAdMarkers === 'NONE' ? undefined : {
               adMarkerHls: hlsAdMarkers,
             },
           }],
           segment: {
             includeIframeOnlyStreams: false,
-            scte: {
+            scte: hlsAdMarkers === 'NONE' ? undefined : {
               scteFilter,
             },
             segmentDurationSeconds: 2,
