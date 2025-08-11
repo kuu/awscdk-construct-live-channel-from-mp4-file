@@ -637,8 +637,33 @@ const encoderSpec: EncoderSpec = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.EncoderSpec.property.framerateDenominator">framerateDenominator</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.EncoderSpec.property.framerateNumerator">framerateNumerator</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.EncoderSpec.property.gopLengthInSeconds">gopLengthInSeconds</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.EncoderSpec.property.height">height</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.EncoderSpec.property.scanType">scanType</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.EncoderSpec.property.timecodeBurninPrefix">timecodeBurninPrefix</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.EncoderSpec.property.width">width</a></code> | <code>number</code> | *No description.* |
+
+---
+
+##### `framerateDenominator`<sup>Optional</sup> <a name="framerateDenominator" id="awscdk-construct-live-channel-from-mp4-file.EncoderSpec.property.framerateDenominator"></a>
+
+```typescript
+public readonly framerateDenominator: number;
+```
+
+- *Type:* number
+
+---
+
+##### `framerateNumerator`<sup>Optional</sup> <a name="framerateNumerator" id="awscdk-construct-live-channel-from-mp4-file.EncoderSpec.property.framerateNumerator"></a>
+
+```typescript
+public readonly framerateNumerator: number;
+```
+
+- *Type:* number
 
 ---
 
@@ -652,6 +677,26 @@ public readonly gopLengthInSeconds: number;
 
 ---
 
+##### `height`<sup>Optional</sup> <a name="height" id="awscdk-construct-live-channel-from-mp4-file.EncoderSpec.property.height"></a>
+
+```typescript
+public readonly height: number;
+```
+
+- *Type:* number
+
+---
+
+##### `scanType`<sup>Optional</sup> <a name="scanType" id="awscdk-construct-live-channel-from-mp4-file.EncoderSpec.property.scanType"></a>
+
+```typescript
+public readonly scanType: string;
+```
+
+- *Type:* string
+
+---
+
 ##### `timecodeBurninPrefix`<sup>Optional</sup> <a name="timecodeBurninPrefix" id="awscdk-construct-live-channel-from-mp4-file.EncoderSpec.property.timecodeBurninPrefix"></a>
 
 ```typescript
@@ -659,6 +704,16 @@ public readonly timecodeBurninPrefix: string;
 ```
 
 - *Type:* string
+
+---
+
+##### `width`<sup>Optional</sup> <a name="width" id="awscdk-construct-live-channel-from-mp4-file.EncoderSpec.property.width"></a>
+
+```typescript
+public readonly width: number;
+```
+
+- *Type:* number
 
 ---
 
