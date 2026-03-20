@@ -43,6 +43,7 @@ new HarvestJobLambda(scope: Construct, id: string, props: HarvestJobLambdaProps)
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.HarvestJobLambda.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.HarvestJobLambda.with">with</a></code> | Applies one or more mixins to this construct. |
 
 ---
 
@@ -53,6 +54,27 @@ public toString(): string
 ```
 
 Returns a string representation of this construct.
+
+##### `with` <a name="with" id="awscdk-construct-live-channel-from-mp4-file.HarvestJobLambda.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="awscdk-construct-live-channel-from-mp4-file.HarvestJobLambda.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
 
 #### Static Functions <a name="Static Functions" id="Static Functions"></a>
 
@@ -189,6 +211,7 @@ new LiveChannelFromMp4(scope: Construct, id: string, __2: LiveChannelFromMp4Prop
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4.createHarvestJob">createHarvestJob</a></code> | *No description.* |
 
 ---
@@ -200,6 +223,27 @@ public toString(): string
 ```
 
 Returns a string representation of this construct.
+
+##### `with` <a name="with" id="awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
 
 ##### `createHarvestJob` <a name="createHarvestJob" id="awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4.createHarvestJob"></a>
 
@@ -359,6 +403,7 @@ new MediaPackageV1(scope: Construct, id: string, __2: MediaPakcageV1Props)
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPackageV1.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPackageV1.with">with</a></code> | Applies one or more mixins to this construct. |
 
 ---
 
@@ -369,6 +414,27 @@ public toString(): string
 ```
 
 Returns a string representation of this construct.
+
+##### `with` <a name="with" id="awscdk-construct-live-channel-from-mp4-file.MediaPackageV1.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="awscdk-construct-live-channel-from-mp4-file.MediaPackageV1.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
 
 #### Static Functions <a name="Static Functions" id="Static Functions"></a>
 
@@ -494,6 +560,7 @@ new MediaPackageV2(scope: Construct, id: string, __2: MediaPakcageV2Props)
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPackageV2.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPackageV2.with">with</a></code> | Applies one or more mixins to this construct. |
 
 ---
 
@@ -504,6 +571,27 @@ public toString(): string
 ```
 
 Returns a string representation of this construct.
+
+##### `with` <a name="with" id="awscdk-construct-live-channel-from-mp4-file.MediaPackageV2.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="awscdk-construct-live-channel-from-mp4-file.MediaPackageV2.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
 
 #### Static Functions <a name="Static Functions" id="Static Functions"></a>
 
@@ -1009,7 +1097,7 @@ public readonly mediaPackageVersionSpec: string;
 ##### `packagerSpec`<sup>Optional</sup> <a name="packagerSpec" id="awscdk-construct-live-channel-from-mp4-file.LiveChannelFromMp4Props.property.packagerSpec"></a>
 
 ```typescript
-public readonly packagerSpec: MediaPakcageV1Props | MediaPakcageV2Props | PackagerSpec | MediaPakcageV1Props | MediaPakcageV2Props[];
+public readonly packagerSpec: MediaPakcageV1Props | MediaPakcageV2Props | PackagerSpec | (MediaPakcageV1Props | MediaPakcageV2Props)[];
 ```
 
 - *Type:* <a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageV1Props">MediaPakcageV1Props</a> | <a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageV2Props">MediaPakcageV2Props</a> | <a href="#awscdk-construct-live-channel-from-mp4-file.PackagerSpec">PackagerSpec</a> | <a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageV1Props">MediaPakcageV1Props</a> | <a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageV2Props">MediaPakcageV2Props</a>[]
@@ -1210,7 +1298,7 @@ public readonly containerType: string;
 ##### `manifests`<sup>Required</sup> <a name="manifests" id="awscdk-construct-live-channel-from-mp4-file.MediaPackageV2FullSpec.property.manifests"></a>
 
 ```typescript
-public readonly manifests: HlsManifestConfigurationProperty | LowLatencyHlsManifestConfigurationProperty | DashManifestConfigurationProperty[];
+public readonly manifests: (HlsManifestConfigurationProperty | LowLatencyHlsManifestConfigurationProperty | DashManifestConfigurationProperty)[];
 ```
 
 - *Type:* aws-cdk-lib.aws_mediapackagev2.CfnOriginEndpoint.HlsManifestConfigurationProperty | aws-cdk-lib.aws_mediapackagev2.CfnOriginEndpoint.LowLatencyHlsManifestConfigurationProperty | aws-cdk-lib.aws_mediapackagev2.CfnOriginEndpoint.DashManifestConfigurationProperty[]
@@ -1360,7 +1448,7 @@ const mediaPakcageV1Props: MediaPakcageV1Props = { ... }
 ##### `endpointSpec`<sup>Optional</sup> <a name="endpointSpec" id="awscdk-construct-live-channel-from-mp4-file.MediaPakcageV1Props.property.endpointSpec"></a>
 
 ```typescript
-public readonly endpointSpec: MediaPakcageV1MidEndpointSpec | HlsPackageProperty | DashPackageProperty | CmafPackageProperty | MssPackageProperty[];
+public readonly endpointSpec: MediaPakcageV1MidEndpointSpec | (HlsPackageProperty | DashPackageProperty | CmafPackageProperty | MssPackageProperty)[];
 ```
 
 - *Type:* <a href="#awscdk-construct-live-channel-from-mp4-file.MediaPakcageV1MidEndpointSpec">MediaPakcageV1MidEndpointSpec</a> | aws-cdk-lib.aws_mediapackage.CfnOriginEndpoint.HlsPackageProperty | aws-cdk-lib.aws_mediapackage.CfnOriginEndpoint.DashPackageProperty | aws-cdk-lib.aws_mediapackage.CfnOriginEndpoint.CmafPackageProperty | aws-cdk-lib.aws_mediapackage.CfnOriginEndpoint.MssPackageProperty[]
