@@ -44,28 +44,28 @@
     "eslint": "^9",
     "eslint-import-resolver-typescript": "^4.4.4",
     "eslint-plugin-import": "^2.32.0",
-    "jest": "^30.0.5",
+    "jest": "^30.3.0",
     "jest-junit": "^16",
     "jsii": "~5.9.2",
-    "jsii-diff": "^1.113.0",
+    "jsii-diff": "^1.127.0",
     "jsii-docgen": "^10.5.0",
-    "jsii-pacmak": "^1.113.0",
+    "jsii-pacmak": "^1.127.0",
     "jsii-rosetta": "~5.9.2",
-    "projen": "^0.95.2",
-    "ts-jest": "^29.4.1",
+    "projen": "^0.99.21",
+    "ts-jest": "^29.4.6",
     "ts-node": "^10.9.2",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.3"
   },
   "peerDependencies": {
     "aws-cdk-lib": "^2.210.0",
-    "awscdk-construct-medialive-channel": "^0.0.12",
-    "constructs": "^10.0.5"
+    "awscdk-construct-medialive-channel": "^0.0.14",
+    "constructs": "^10.5.1"
   },
   "dependencies": {
-    "@aws-sdk/client-medialive": "^3.864.0",
-    "@aws-sdk/client-mediapackage": "^3.864.0",
-    "aws-cdk-lib": "^2.210.0",
-    "awscdk-construct-medialive-channel": "^0.0.12",
+    "@aws-sdk/client-medialive": "^3.1013.0",
+    "@aws-sdk/client-mediapackage": "^3.1013.0",
+    "aws-cdk-lib": "^2.244.0",
+    "awscdk-construct-medialive-channel": "^0.0.14",
     "constructs": "^10.4.2"
   },
   "bundledDependencies": [
