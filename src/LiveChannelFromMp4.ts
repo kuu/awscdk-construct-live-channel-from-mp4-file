@@ -1,5 +1,6 @@
 import { CfnChannel } from 'aws-cdk-lib/aws-medialive';
 import { CfnOriginEndpoint } from 'aws-cdk-lib/aws-mediapackage';
+import { ISecret } from 'aws-cdk-lib/aws-secretsmanager';
 import { MediaLive, SourceSpec, EncoderSettings, startChannel } from 'awscdk-construct-medialive-channel';
 import { Construct } from 'constructs';
 import { HarvestJobLambda, HarvestJobDestinationProps } from './HarvestJobLambda';
@@ -53,12 +54,14 @@ function isPackagerSpec(spec: PackagerSpec | PackagerFullSpec): spec is Packager
 }
 
 export interface LiveChannelFromMp4Props {
-  readonly source: string | string[] | SourceSpec[]; // The url(s) of the MP4 file(s) used by MediaLive as the source.
+  readonly source?: string | string[] | SourceSpec[]; // The url(s) of the MP4 file(s) used by MediaLive as the source.
   readonly channelClass?: 'STANDARD' | 'SINGLE_PIPELINE'; // The class of the channel.
   readonly encoderSpec?: EncoderSpec | CfnChannel.EncoderSettingsProperty; // Encoding settings for the channel.
   readonly mediaPackageVersionSpec?: 'V1_ONLY' | 'V2_ONLY' | 'V1_AND_V2'; // Whether to use MediaPackageV2.
   readonly packagerSpec?: PackagerSpec | PackagerFullSpec; // Packaging settings for the channel.
   readonly autoStart?: boolean; // Whether to start the channel automatically.
+  readonly vpc?: CfnChannel.VpcOutputSettingsProperty; // The VPC settings for the channel, if applicable.
+  readonly secret?: ISecret; // The secret used for the MediaLive channel.
 }
 
 export class LiveChannelFromMp4 extends Construct {
@@ -82,6 +85,8 @@ export class LiveChannelFromMp4 extends Construct {
       separateAudioRendition: false,
     },
     autoStart = true,
+    vpc,
+    secret,
   }: LiveChannelFromMp4Props) {
 
     super(scope, id);
@@ -318,6 +323,8 @@ export class LiveChannelFromMp4 extends Construct {
       sources,
       destinations,
       channelClass,
+      vpc,
+      secret,
       encoderSpec: internalEncoderSpec,
     });
 
@@ -358,7 +365,10 @@ export interface HarvestJobProps {
 
 export { HarvestJobLambda, HarvestJobLambdaProps, HarvestJobDestinationProps } from './HarvestJobLambda';
 
-function createSourceSpecs(source: string | string[] | SourceSpec[]): SourceSpec[] {
+function createSourceSpecs(source?: string | string[] | SourceSpec[]): SourceSpec[] {
+  if (!source) {
+    throw new Error('Source is required for creating a LiveChannelFromMp4');
+  }
   if (typeof source === 'string') {
     return createSourceSpecs([{ url: source }]);
   }

@@ -22,9 +22,12 @@ const project = new awscdk.AwsCdkConstructLibrary({
     'aws-cdk-lib',
     'constructs',
     'awscdk-construct-medialive-channel',
+    'awscdk-construct-mediaconnect-flow',
   ],
   peerDeps: [
     'awscdk-construct-medialive-channel',
+    'awscdk-construct-mediaconnect-flow',
+
   ],
   bundledDeps: [
     '@aws-sdk/client-medialive',

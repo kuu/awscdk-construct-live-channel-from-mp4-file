@@ -103,6 +103,10 @@
       "type": "peer"
     },
     {
+      "name": "awscdk-construct-mediaconnect-flow",
+      "type": "peer"
+    },
+    {
       "name": "awscdk-construct-medialive-channel",
       "type": "peer"
     },
@@ -113,6 +117,10 @@
     },
     {
       "name": "aws-cdk-lib",
+      "type": "runtime"
+    },
+    {
+      "name": "awscdk-construct-mediaconnect-flow",
       "type": "runtime"
     },
     {
