@@ -482,6 +482,7 @@ Any object.
 | --- | --- | --- |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelWithMediaConnect.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelWithMediaConnect.property.eml">eml</a></code> | <code>awscdk-construct-medialive-channel.MediaLive</code> | *No description.* |
+| <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelWithMediaConnect.property.flows">flows</a></code> | <code>awscdk-construct-mediaconnect-flow.LiveFeed[]</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelWithMediaConnect.property.channelStartTime">channelStartTime</a></code> | <code>Date</code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelWithMediaConnect.property.empv1">empv1</a></code> | <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPackageV1">MediaPackageV1</a></code> | *No description.* |
 | <code><a href="#awscdk-construct-live-channel-from-mp4-file.LiveChannelWithMediaConnect.property.empv2">empv2</a></code> | <code><a href="#awscdk-construct-live-channel-from-mp4-file.MediaPackageV2">MediaPackageV2</a></code> | *No description.* |
@@ -507,6 +508,16 @@ public readonly eml: MediaLive;
 ```
 
 - *Type:* awscdk-construct-medialive-channel.MediaLive
+
+---
+
+##### `flows`<sup>Required</sup> <a name="flows" id="awscdk-construct-live-channel-from-mp4-file.LiveChannelWithMediaConnect.property.flows"></a>
+
+```typescript
+public readonly flows: LiveFeed[];
+```
+
+- *Type:* awscdk-construct-mediaconnect-flow.LiveFeed[]
 
 ---
 
