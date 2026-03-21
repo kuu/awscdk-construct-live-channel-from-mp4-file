@@ -1,6 +1,6 @@
 import { App, Stack } from 'aws-cdk-lib';
 import { Template } from 'aws-cdk-lib/assertions';
-import { MediaPackageV1, MediaPackageV2, LiveChannelFromMp4 } from '../src';
+import { MediaPackageV1, MediaPackageV2, LiveChannelFromMp4, LiveChannelWithMediaConnect } from '../src';
 
 test('Create MediaPackageV1', () => {
   const app = new App();
@@ -120,6 +120,29 @@ test('Create LiveChannelFromMp4 MediaPackage inputType = CMAF', () => {
   const template = Template.fromStack(stack);
 
   template.hasResource('AWS::MediaLive::Input', 1);
+  template.hasResource('AWS::MediaLive::Channel', 1);
+  template.hasResource('AWS::MediaPackageV2::Channel', 1);
+  template.hasResource('AWS::MediaPackageV2::OriginEndpoint', 3);
+});
+
+test('Create LiveChannelWithMediaConnect', () => {
+  const app = new App();
+  const stack = new Stack(app, 'SmokeStack');
+
+  new LiveChannelWithMediaConnect(stack, 'LiveChannelWithMediaConnect', {
+    mediaPackageVersionSpec: 'V2_ONLY',
+    packagerSpec: {
+      segmentDurationSeconds: 4,
+      mediaPackageV2Settings: {
+        inputType: 'CMAF', // Specify CMAF Ingest input type
+      },
+    },
+  });
+
+  const template = Template.fromStack(stack);
+
+  template.hasResource('AWS::MediaLive::Input', 1);
+  template.hasResource('AWS::MediaConnect::Flow', 1);
   template.hasResource('AWS::MediaLive::Channel', 1);
   template.hasResource('AWS::MediaPackageV2::Channel', 1);
   template.hasResource('AWS::MediaPackageV2::OriginEndpoint', 3);
