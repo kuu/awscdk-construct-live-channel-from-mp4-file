@@ -11,6 +11,7 @@ export interface LiveChannelWithMediaConnectProps extends LiveChannelFromMp4Prop
 }
 
 export class LiveChannelWithMediaConnect extends Construct {
+  public readonly flows: LiveFeed[]; // The reference to the MediaConnect flow(s).
   public readonly eml: MediaLive; // The reference to the MediaLive input/channel.
   public readonly empv1?: MediaPackageV1; // The reference to the MediaPackageV1 channel/endpoints.
   public readonly empv2?: MediaPackageV2; // The reference to the MediaPackageV2 channelGroup/channel/endpoints.
@@ -31,6 +32,8 @@ export class LiveChannelWithMediaConnect extends Construct {
       source: flows.map(({ flow }) => ({ url: flow.attrFlowArn, type: 'MEDIACONNECT' })) as SourceSpec[],
       secret: props.secretParams?.secret,
     });
+
+    this.flows = flows;
     this.eml = liveChannel.eml;
     this.empv1 = liveChannel.empv1;
     this.empv2 = liveChannel.empv2;
