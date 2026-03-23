@@ -49,5 +49,6 @@ function createMediaConnectFlow(scope: Construct, id: string, sourceIngestPort: 
     },
     sourceIngestPort,
     secretParams,
+    forceDisableEncryption: secretParams ? false : true,
   });
 }
