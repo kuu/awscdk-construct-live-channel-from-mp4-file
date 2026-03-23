@@ -2252,7 +2252,7 @@ available-typed-arrays@^1.0.7:
   dependencies:
     possible-typed-array-names "^1.0.0"
 
-aws-cdk-lib@^2.201.0, aws-cdk-lib@^2.244.0:
+aws-cdk-lib@^2.201.0, aws-cdk-lib@^2.233.0, aws-cdk-lib@^2.244.0:
   version "2.244.0"
   resolved "https://registry.yarnpkg.com/aws-cdk-lib/-/aws-cdk-lib-2.244.0.tgz#db3b253279010676f54e07bb75cb5c644854875d"
   integrity sha512-j5FVeZv5W+v6j6OnW8RjoN04T+8pYvDJJV7yXhhj4IiGDKPgMH3fflQLQXJousd2QQk+nSAjghDVJcrZ4GFyGA==
@@ -2273,19 +2273,19 @@ aws-cdk-lib@^2.201.0, aws-cdk-lib@^2.244.0:
     table "^6.9.0"
     yaml "1.10.2"
 
-awscdk-construct-mediaconnect-flow@^0.0.24:
-  version "0.0.24"
-  resolved "https://registry.yarnpkg.com/awscdk-construct-mediaconnect-flow/-/awscdk-construct-mediaconnect-flow-0.0.24.tgz#61be274ade30b5be7fe39a4c3b65483933608537"
-  integrity sha512-4IseUD+c1Z8u2pQQDGXkI2bImKEF1qdMtn2loP6BvLEtP77YVObQqVDX02QFiyL0maTBRwaeIF+nplLhDLRGRw==
+awscdk-construct-mediaconnect-flow@^0.0.26:
+  version "0.0.26"
+  resolved "https://registry.yarnpkg.com/awscdk-construct-mediaconnect-flow/-/awscdk-construct-mediaconnect-flow-0.0.26.tgz#0d5df502449f8dca866b72acc20a0d392f87de77"
+  integrity sha512-C9fOvkTc2/lYA3xl6f+E6LeukWvb5BweN+xwZUcw9l+sWr7kvuIQF4y2zANjttsnYPpjdkodqJup0Ze1cYZJig==
   dependencies:
-    aws-cdk-lib "^2.244.0"
-    awscdk-construct-medialive-channel "^0.0.18"
+    aws-cdk-lib "^2.233.0"
+    awscdk-construct-medialive-channel "^0.0.20"
     constructs "^10.5.1"
 
-awscdk-construct-medialive-channel@^0.0.18:
-  version "0.0.18"
-  resolved "https://registry.yarnpkg.com/awscdk-construct-medialive-channel/-/awscdk-construct-medialive-channel-0.0.18.tgz#a510d6215917999ae920045c530ff80c279523ea"
-  integrity sha512-zYYieK5NrorsGMQms1nptGYO1WYdOy+9s9a/XdX/YP58b9+HUaEZiytXUrOMlB63F4KIA6N0rIv9VpoXBYlaGw==
+awscdk-construct-medialive-channel@^0.0.20:
+  version "0.0.20"
+  resolved "https://registry.yarnpkg.com/awscdk-construct-medialive-channel/-/awscdk-construct-medialive-channel-0.0.20.tgz#448be16c7213317978de655a58e421ec2d152a3a"
+  integrity sha512-2xp0vOFDeDffEHB6WRg5x0TRu/IggNkk43czVmhk7pPgINvDfPDJbjN0UxvzvRCfBJaVothc3aOeo7gjxV2tiQ==
   dependencies:
     aws-cdk-lib "^2.201.0"
     constructs "^10.5.1"
