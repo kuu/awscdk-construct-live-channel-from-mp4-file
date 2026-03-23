@@ -58,7 +58,7 @@
   },
   "peerDependencies": {
     "aws-cdk-lib": "^2.210.0",
-    "awscdk-construct-mediaconnect-flow": "^0.0.22",
+    "awscdk-construct-mediaconnect-flow": "^0.0.24",
     "awscdk-construct-medialive-channel": "^0.0.18",
     "constructs": "^10.5.1"
   },
@@ -66,7 +66,7 @@
     "@aws-sdk/client-medialive": "^3.1014.0",
     "@aws-sdk/client-mediapackage": "^3.1014.0",
     "aws-cdk-lib": "^2.244.0",
-    "awscdk-construct-mediaconnect-flow": "^0.0.22",
+    "awscdk-construct-mediaconnect-flow": "^0.0.24",
     "awscdk-construct-medialive-channel": "^0.0.18",
     "constructs": "^10.5.1"
   },
