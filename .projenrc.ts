@@ -27,7 +27,6 @@ const project = new awscdk.AwsCdkConstructLibrary({
   peerDeps: [
     'awscdk-construct-medialive-channel',
     'awscdk-construct-mediaconnect-flow',
-
   ],
   bundledDeps: [
     '@aws-sdk/client-medialive',
